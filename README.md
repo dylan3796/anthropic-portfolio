@@ -16,6 +16,17 @@ A live, interactive portfolio showcasing my experience at the intersection of pa
 - **Revenue Analytics** - Interactive visualizations of partner performance
 - **Project Timeline** - Key achievements and impact metrics
 - **Live Data Visualizations** - Plotly-powered charts and dashboards
+- **Claude Code Operating System** - A working reference setup, parsed live by the app
+
+## 🧠 Claude Code Architecture
+
+This repo doubles as a working reference for running Claude Code as an operating
+system rather than a chat tool: project memory (`CLAUDE.md`), a SessionStart hook
+that injects business data into every session, long-horizon plans against big rocks
+(`plans/big-rocks/`), per-rock skills (`.claude/skills/`), and a recursive
+`/improve-setup` loop that reviews session evidence and edits the setup itself.
+Everything is real and invocable — the Streamlit app parses these files at runtime.
+Full walkthrough: [docs/claude-code-architecture.md](docs/claude-code-architecture.md).
 
 ## 🚀 Quick Start
 
@@ -44,12 +55,25 @@ Visit `http://localhost:8501` to view the portfolio.
 
 ```
 anthropic-portfolio/
-├── app.py                 # Main portfolio application
+├── app.py                       # Main portfolio application
+├── CLAUDE.md                    # Claude Code project memory (bootstrap layer)
+├── .claude/
+│   ├── settings.json            # Permissions + hook wiring
+│   ├── hooks/                   # SessionStart context injection, Stop session log
+│   ├── skills/                  # attribution-compare, partner-qbr,
+│   │                            #   scorecard-refresh, improve-setup
+│   └── agents/                  # big-rock-planner subagent
+├── plans/big-rocks/             # Long-horizon plans per strategic initiative
+├── retros/                      # Session log + improvement-loop retros
+├── docs/
+│   └── claude-code-architecture.md  # Architecture walkthrough + diagram
 ├── data/
-│   └── sample_data.py     # Sample metrics and visualizations
+│   ├── sample_data.py           # Sample metrics and visualizations
+│   ├── partner_metrics.csv      # Synthetic partner scorecard data
+│   └── DATA_DICTIONARY.md       # Metric definitions (source of truth)
 ├── .streamlit/
-│   └── config.toml        # Streamlit configuration
-└── requirements.txt       # Python dependencies
+│   └── config.toml              # Streamlit configuration
+└── requirements.txt             # Python dependencies
 ```
 
 ## 🌐 Deployment
