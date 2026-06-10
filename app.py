@@ -3,6 +3,9 @@ Dylan Ram - Interactive Portfolio
 Built with Claude Code for the Anthropic Product Operations Manager application.
 """
 
+import re
+from pathlib import Path
+
 import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
@@ -14,6 +17,55 @@ from data.sample_data import (
     REVENUE_TIMELINE,
     PROJECT_METRICS
 )
+
+REPO_ROOT = Path(__file__).parent
+REPO_URL = "https://github.com/dylan3796/anthropic-portfolio"
+
+
+def _parse_frontmatter(path):
+    """Pull simple `key: value` frontmatter fields from a markdown file."""
+    fields = {}
+    try:
+        text = path.read_text()
+    except OSError:
+        return fields
+    match = re.match(r"^---\n(.*?)\n---", text, re.DOTALL)
+    block = match.group(1) if match else text
+    for key in ("name", "description", "status", "horizon", "owned-skills", "allowed-tools"):
+        found = re.search(rf"^{key}:\s*(.+)$", block, re.MULTILINE)
+        if found:
+            fields[key] = found.group(1).strip()
+    return fields
+
+
+def load_claude_setup():
+    """Parse this repo's actual .claude/ skills and big-rock plans at runtime."""
+    skills, rocks, skill_owner = [], [], {}
+    for rock_path in sorted((REPO_ROOT / "plans" / "big-rocks").glob("*.md")):
+        if rock_path.name == "00-INDEX.md":
+            continue
+        fm = _parse_frontmatter(rock_path)
+        owned = fm.get("owned-skills", "")
+        rocks.append({
+            "Big Rock": rock_path.stem,
+            "Status": fm.get("status", "?"),
+            "Horizon": fm.get("horizon", "?"),
+            "Owned Skills": owned,
+        })
+        for skill_name in owned.split(","):
+            skill_name = skill_name.strip()
+            if skill_name and skill_name != "none yet":
+                skill_owner[skill_name] = rock_path.stem
+    for skill_path in sorted((REPO_ROOT / ".claude" / "skills").glob("*/SKILL.md")):
+        fm = _parse_frontmatter(skill_path)
+        name = fm.get("name", skill_path.parent.name)
+        skills.append({
+            "Skill": f"/{name}",
+            "Owning Big Rock": skill_owner.get(name, "meta — the setup itself"),
+            "Allowed Tools": fm.get("allowed-tools", ""),
+            "Description": fm.get("description", ""),
+        })
+    return skills, rocks
 
 # Page configuration
 st.set_page_config(
@@ -449,6 +501,91 @@ with cc_col2:
     - Not just faster typing—faster *thinking*
     - Explored architectural alternatives in real-time
     """)
+
+st.markdown("---")
+
+
+# =============================================================================
+# CLAUDE CODE OPERATING SYSTEM
+# =============================================================================
+
+st.markdown("## The Claude Code Operating System")
+
+st.markdown("""
+<div class="narrative-quote">
+Most people use Claude Code as a tool. This repo runs it as an operating system —
+with memory, a data layer, long-horizon plans against big rocks, owned skills,
+and the ability to improve itself.
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+This portfolio repo doubles as a working reference setup. Every layer below is a real,
+inspectable file in this repository — and the tables further down are parsed from those
+files **at runtime**, not hardcoded. The full walkthrough lives in
+[docs/claude-code-architecture.md]({repo}/blob/main/docs/claude-code-architecture.md).
+""".format(repo=REPO_URL))
+
+# Five-layer architecture cards
+LAYERS = [
+    ("1 · Bootstrap", "Project memory and least-privilege permissions — setting up the first instance is a design decision, not a default.", "CLAUDE.md · .claude/settings.json"),
+    ("2 · Data", "A SessionStart hook injects big-rock status and scorecard headlines into every session before the first prompt.", ".claude/hooks/ · data/DATA_DICTIONARY.md"),
+    ("3 · Big Rocks", "Strategic initiatives live as long-horizon plan docs with milestones, open questions, and improvement logs.", "plans/big-rocks/"),
+    ("4 · Skills", "Repeated work hardens into skills, each owned by exactly one big rock and scoped to its own tools.", ".claude/skills/ · .claude/agents/"),
+    ("5 · Recursive Improvement", "A Stop hook logs sessions; a meta-skill reviews the evidence and proposes edits to the setup itself.", "retros/ · /improve-setup"),
+]
+
+layer_cols = st.columns(5)
+for col, (layer_title, layer_desc, layer_files) in zip(layer_cols, LAYERS):
+    with col:
+        st.markdown(f"""
+        <div class="experience-card" style="min-height: 240px;">
+            <strong style="color: #D97757;">{layer_title}</strong>
+            <p style="font-size: 0.85rem; color: #4a4a4a; margin: 0.5rem 0;">{layer_desc}</p>
+            <p style="font-size: 0.75rem; color: #999; font-family: monospace;">{layer_files}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+# Live registry, parsed from the actual repo files
+st.markdown("### Live Registry")
+st.caption("Parsed live from this repo's actual .claude/ and plans/ directories — not hardcoded.")
+
+setup_skills, setup_rocks = load_claude_setup()
+
+if setup_skills or setup_rocks:
+    reg_col1, reg_col2 = st.columns([1, 1])
+    with reg_col1:
+        st.markdown("**Big rocks** (`plans/big-rocks/`)")
+        st.dataframe(pd.DataFrame(setup_rocks), hide_index=True, use_container_width=True)
+    with reg_col2:
+        st.markdown("**Skills** (`.claude/skills/`)")
+        st.dataframe(pd.DataFrame(setup_skills), hide_index=True, use_container_width=True)
+else:
+    st.info(f"Setup files not present in this deployment — browse them on [GitHub]({REPO_URL}).")
+
+with st.expander("**How it improves itself** — the recursive loop"):
+    st.markdown(f"""
+    1. **Evidence** — a Stop hook appends one line per session to `retros/session-log.md`.
+    2. **Review** — the `/improve-setup` meta-skill reads that log, recent git history,
+       and every big-rock plan, hunting for friction: instructions the user keeps repeating,
+       skills that needed manual correction, stale milestones, recurring tasks with no owning skill.
+    3. **Proposals** — it writes a dated retro with concrete, diff-style edits against
+       `CLAUDE.md`, the skills, and the plans. Nothing is applied without approval.
+    4. **Compounding** — approved edits flow back into the setup, and each one is logged
+       in the owning big rock's Improvement Log.
+
+    See a completed iteration:
+    [retros/2026-06-05-retro.md]({REPO_URL}/blob/main/retros/2026-06-05-retro.md) —
+    three observations, two edits applied, one deferred into a new big rock.
+    """)
+
+link_col1, link_col2, link_col3 = st.columns(3)
+with link_col1:
+    st.markdown(f"[CLAUDE.md →]({REPO_URL}/blob/main/CLAUDE.md)")
+with link_col2:
+    st.markdown(f"[settings.json →]({REPO_URL}/blob/main/.claude/settings.json)")
+with link_col3:
+    st.markdown(f"[Architecture deep-dive →]({REPO_URL}/blob/main/docs/claude-code-architecture.md)")
 
 st.markdown("---")
 
