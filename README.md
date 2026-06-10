@@ -78,7 +78,9 @@ anthropic-portfolio/
 
 ## 🌐 Deployment
 
-Configured for deployment on Render (see `render.yaml`).
+Deployed on [Streamlit Community Cloud](https://share.streamlit.io) (free):
+sign in with GitHub → New app → repo `dylan3796/anthropic-portfolio`, branch
+`main`, entrypoint `app.py`.
 
 ## 📫 Contact
 
