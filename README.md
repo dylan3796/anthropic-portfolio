@@ -1,61 +1,48 @@
-# Dylan Ram - Interactive Portfolio
+# AI as an Operating System
 
-Interactive portfolio built with Claude Code for the Anthropic Product Operations Manager application.
+A live walkthrough — built with Claude Code — of how to embed agentic AI
+(Claude Code, Codex, or any harness) into how a team actually runs: from
+folder structure to team adoption.
 
-![Portfolio Preview](https://img.shields.io/badge/Built%20with-Claude%20Code-8A2BE2)
+![Built with Claude Code](https://img.shields.io/badge/Built%20with-Claude%20Code-8A2BE2)
 ![Python](https://img.shields.io/badge/Python-3.11+-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red)
 
-## 🎯 Overview
+## 🎯 The idea
 
-A live, interactive portfolio showcasing my experience at the intersection of partner strategy, data operations, and product thinking. Built to demonstrate both technical capability and strategic insight through real project examples.
+Most teams use AI as a tool: open a chat, get an answer, lose the context.
+This repo demonstrates the alternative — an operating system in five layers:
 
-## ✨ Features
+1. **Data** — medallion architecture down to one governed metric dictionary
+2. **Memory** — project context + hooks that inject business state into every session
+3. **Plans** — long-horizon plan docs per big rock, mapped to Jira epics
+4. **Skills** — common tasks hardened into versioned, invocable skills
+5. **Recursion** — retros where the AI proposes edits to its own setup
 
-- **Partner Attribution Modeling** - Showcase of multi-touch attribution logic
-- **Revenue Analytics** - Interactive visualizations of partner performance
-- **Project Timeline** - Key achievements and impact metrics
-- **Live Data Visualizations** - Plotly-powered charts and dashboards
-- **Claude Code Operating System** - A working reference setup, parsed live by the app
-
-## 🧠 Claude Code Architecture
-
-This repo doubles as a working reference for running Claude Code as an operating
-system rather than a chat tool: project memory (`CLAUDE.md`), a SessionStart hook
-that injects business data into every session, long-horizon plans against big rocks
-(`plans/big-rocks/`), per-rock skills (`.claude/skills/`), and a recursive
-`/improve-setup` loop that reviews session evidence and edits the setup itself.
-Everything is real and invocable — the Streamlit app parses these files at runtime.
-Full walkthrough: [docs/claude-code-architecture.md](docs/claude-code-architecture.md).
+The Streamlit app (`app.py`) is the walkthrough; the repo behind it is the
+working implementation. The app parses the actual `.claude/` and `plans/`
+files at runtime. Full deep-dive:
+[docs/claude-code-architecture.md](docs/claude-code-architecture.md).
 
 ## 🚀 Quick Start
 
 ```bash
-# Clone the repository
 git clone https://github.com/dylan3796/anthropic-portfolio.git
 cd anthropic-portfolio
 
-# Install dependencies
 pip install -r requirements.txt
-
-# Run the portfolio
 streamlit run app.py
 ```
 
-Visit `http://localhost:8501` to view the portfolio.
-
-## 🛠️ Built With
-
-- **Streamlit** - Interactive web framework
-- **Plotly** - Data visualization
-- **Python** - Core logic and data processing
-- **Claude Code** - Development assistant
+Visit `http://localhost:8501`. Or open the repo in Claude Code: the
+SessionStart hook injects the business context, and `/attribution-compare`,
+`/partner-qbr`, `/scorecard-refresh`, and `/improve-setup` are live.
 
 ## 📁 Project Structure
 
 ```
 anthropic-portfolio/
-├── app.py                       # Main portfolio application
+├── app.py                       # The walkthrough (Streamlit)
 ├── CLAUDE.md                    # Claude Code project memory (bootstrap layer)
 ├── .claude/
 │   ├── settings.json            # Permissions + hook wiring
@@ -68,7 +55,7 @@ anthropic-portfolio/
 ├── docs/
 │   └── claude-code-architecture.md  # Architecture walkthrough + diagram
 ├── data/
-│   ├── sample_data.py           # Sample metrics and visualizations
+│   ├── sample_data.py           # Attribution demo data
 │   ├── partner_metrics.csv      # Synthetic partner scorecard data
 │   └── DATA_DICTIONARY.md       # Metric definitions (source of truth)
 ├── .streamlit/
@@ -84,9 +71,6 @@ sign in with GitHub → New app → repo `dylan3796/anthropic-portfolio`, branch
 
 ## 📫 Contact
 
-Built by Dylan Ram  
-Partner Strategy & Operations @ Databricks
-
----
-
-*This portfolio was built with Claude Code to showcase the intersection of technical execution and strategic thinking.*
+Dylan Ram · GTM Strategy & Ops
+[dylanmr96@gmail.com](mailto:dylanmr96@gmail.com) ·
+[linkedin.com/in/dylanram](https://linkedin.com/in/dylanram)

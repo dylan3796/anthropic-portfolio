@@ -8,8 +8,9 @@ the rules for how work gets done here.
 
 Two things at once:
 
-1. **A portfolio site** — a Streamlit app (`app.py`) presenting Dylan Ram's
-   GTM / Partner Strategy & Ops background.
+1. **A walkthrough site** — a Streamlit app (`app.py`) presenting how to run
+   agentic AI as an operating system at an org: tenets, architecture,
+   self-serve analytics, AI-embedded GTM, and team adoption.
 2. **A reference Claude Code setup** — a working demonstration of running
    Claude Code as an operating system: persistent memory (this file), a data
    layer, long-horizon plans against big rocks, per-rock skills, and a
