@@ -24,10 +24,12 @@ if [ -f "$CSV" ]; then
     echo ""
     awk -F',' 'NR > 1 {
         n++
-        rev += $4
-        if ($9 == "red") red++
+        sourced += $6
+        attr += $8
+        regs += $11
+        if ($15 == "red") red++
     } END {
-        printf "Scorecard headlines (data/partner_metrics.csv): %d partners | $%.1fM FY26 attributed revenue | %d red health flag(s)\n", n, rev / 1000000, red + 0
+        printf "Scorecard headlines (data/partner_metrics.csv): %d partners | $%.1fM sourced / $%.1fM attributed FY26 revenue | %d approved deal regs | %d red health flag(s)\n", n, sourced / 1000000, attr / 1000000, regs + 0, red + 0
     }' "$CSV"
 fi
 

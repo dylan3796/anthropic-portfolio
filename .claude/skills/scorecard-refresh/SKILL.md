@@ -18,7 +18,11 @@ is exactly one file: `data/partner_metrics.csv`. Touch nothing else.
    the dictionary ever disagree, the dictionary wins and this file needs a fix
    (flag it for `/improve-setup`).
 2. Run the recompute with `python3` over `data/partner_metrics.csv`:
-   - `tier` from revenue / certified-engineer / pipeline thresholds.
+   - `partner_value_score` from the component formula (revenue, deal regs,
+     certifications, NPS — each capped per the dictionary).
+   - `tier` from the Partner Value Score thresholds. Partners within ±3
+     points of a threshold get flagged for tier review, not auto-moved —
+     note them in the delta report.
    - `health_flag` from NPS and QBR-recency rules, using today's date.
 3. Report a **delta table** before changing anything: only partners whose
    `tier` or `health_flag` would change, with old → new values and the rule

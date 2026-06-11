@@ -1,13 +1,13 @@
-partner_name,segment,tier,attributed_revenue_fy26,sourced_pipeline,certified_engineers,nps,last_qbr_date,health_flag
-Acme Consulting,Enterprise,Strategic,2450000,3800000,42,68,2026-04-18,green
-DataTech SI,Enterprise,Strategic,1890000,2950000,38,71,2026-05-02,green
-Cloud Partners,Mid-Market,Premier,1560000,2100000,24,59,2026-03-27,green
-Integration Pro,Mid-Market,Premier,980000,1640000,19,62,2026-05-15,green
-Analytics Corp,Mid-Market,Premier,720000,1180000,15,54,2026-02-09,yellow
-Northwind Systems,Enterprise,Premier,690000,1450000,21,66,2026-04-30,green
-Summit Advisory,SMB,Select,410000,720000,8,48,2025-11-21,red
-Beacon Data Group,SMB,Select,385000,610000,11,57,2026-03-12,green
-Forge Analytics,Mid-Market,Select,340000,890000,9,61,2026-05-28,green
-Lakeshore Consulting,SMB,Select,295000,440000,6,44,2025-12-04,red
-Vector Integrations,Enterprise,Premier,265000,1320000,17,53,2026-04-07,yellow
-Harbor Technologies,SMB,Select,180000,350000,5,52,2026-01-23,yellow
+partner_name,segment,active_motion,tier,partner_value_score,sourced_revenue_fy26,influenced_revenue_fy26,attributed_revenue_fy26,sourced_pipeline,deal_regs_submitted_fy26,deal_regs_approved_fy26,certified_engineers,nps,last_qbr_date,health_flag
+Acme Consulting,Enterprise,Migrations,Strategic,93,1560000,2540000,2450000,3800000,52,45,42,68,2026-04-18,green
+DataTech SI,Enterprise,Solution Development,Strategic,82,1210000,1940000,1890000,2950000,46,38,38,71,2026-05-02,green
+Cloud Partners,Mid-Market,Migrations,Premier,60,1010000,1570000,1560000,2100000,29,22,24,59,2026-03-27,green
+Integration Pro,Mid-Market,Solution Development,Premier,47,640000,970000,980000,1640000,24,18,19,62,2026-05-15,green
+Analytics Corp,Mid-Market,Core Co-Sell,Premier,40,470000,715000,720000,1180000,27,21,15,54,2026-02-09,yellow
+Northwind Systems,Enterprise,Migrations,Premier,42,430000,740000,690000,1450000,19,14,21,66,2026-04-30,green
+Summit Advisory,SMB,Core Co-Sell,Select,23,280000,370000,410000,720000,11,6,8,48,2025-11-21,red
+Beacon Data Group,SMB,Solution Development,Select,28,250000,385000,385000,610000,13,9,11,57,2026-03-12,green
+Forge Analytics,Mid-Market,Solution Development,Select,28,215000,355000,340000,890000,17,12,9,61,2026-05-28,green
+Lakeshore Consulting,SMB,Core Co-Sell,Select,19,205000,255000,295000,440000,8,4,6,44,2025-12-04,red
+Vector Integrations,Enterprise,Migrations,Premier,40,120000,415000,265000,1320000,41,34,17,53,2026-04-07,yellow
+Harbor Technologies,SMB,Core Co-Sell,Select,18,115000,185000,180000,350000,9,5,5,52,2026-01-23,yellow
