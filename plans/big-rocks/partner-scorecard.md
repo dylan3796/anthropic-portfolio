@@ -22,15 +22,16 @@ start from data instead of anecdotes.
 - [x] Ship `/scorecard-refresh` to recompute tiers and health flags from thresholds (2026-05-21)
 - [x] Ship `/partner-qbr` to draft QBR briefs from scorecard data (2026-05-27)
 - [ ] Add quarter-over-quarter deltas (requires snapshotting the CSV per quarter)
-- [ ] QBR coverage push: Summit Advisory and Lakeshore Consulting are >120 days since last QBR and flagged red
+- [ ] Health push: Summit Advisory and Lakeshore Consulting are flagged red — review with their PSMs and offer a partner-scoped QBR brief if either requests one
 
 ## Owned Skills
 
 - [`/scorecard-refresh`](../../.claude/skills/scorecard-refresh/SKILL.md) —
   recomputes `tier` and `health_flag` from dictionary thresholds, reports
   deltas, writes only with confirmation.
-- [`/partner-qbr`](../../.claude/skills/partner-qbr/SKILL.md) — drafts a QBR
-  brief for a named partner against tier benchmarks.
+- [`/partner-qbr`](../../.claude/skills/partner-qbr/SKILL.md) — pulls the QBR
+  data cut for a scope: the whole org (default), a region/segment, or a single
+  partner on request, benchmarked against book or tier medians.
 
 ## Open Questions
 
