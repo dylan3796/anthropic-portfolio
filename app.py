@@ -66,6 +66,34 @@ st.markdown("""
     .domain-kpi { font-size: 0.86rem; color: #4a4a4a; margin: 0.25rem 0; }
     .domain-kpi b { color: #1a1a1a; }
 
+    .tree-card {
+        background: #1f1e1d;
+        border-radius: 8px;
+        padding: 1.2rem 1.4rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.82rem;
+        line-height: 1.75;
+        overflow-x: auto;
+    }
+    .tree-row { display: flex; align-items: baseline; white-space: nowrap; }
+    .tree-path { color: #d9d4cf; white-space: pre; }
+    .tree-path.dir { color: #D97757; font-weight: 600; }
+    .tree-note { color: #8a8580; font-size: 0.76rem; margin-left: 1.2rem; font-family: inherit; }
+    .layer-pill {
+        display: inline-block;
+        background: rgba(217,119,87,0.18);
+        color: #e89b7b;
+        border: 1px solid rgba(217,119,87,0.45);
+        border-radius: 4px;
+        font-size: 0.66rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        padding: 0 0.4rem;
+        margin-left: 0.7rem;
+        vertical-align: middle;
+    }
+
     .metric-highlight { text-align: center; padding: 0.8rem; }
     .metric-number { font-size: 2.4rem; font-weight: 600; color: #D97757; line-height: 1.1; }
     .metric-label { color: #666; font-size: 0.88rem; margin-top: 0.3rem; }
@@ -408,6 +436,54 @@ with tab_setup:
     fig_arch.update_yaxes(visible=False, range=[-0.1, 2.05])
     st.plotly_chart(_chart_layout(fig_arch, height=290), use_container_width=True,
                     config={"displayModeBar": False, "staticPlot": True})
+
+    # --- The repo on disk: the five layers as an annotated folder tree ---
+    st.markdown("#### The same five layers, on disk")
+    st.markdown(
+        "This is the actual folder structure of the instance — not a mockup of one. "
+        "Every layer in the diagram above is a path you can open."
+    )
+
+    FOLDER_TREE = [
+        ("anthropic-portfolio/", None, None),
+        ("├── CLAUDE.md", "the operating model: conventions, big-rock rules, fiscal calendar", "MEMORY"),
+        ("├── app.py", "this walkthrough — parses the files below at runtime", None),
+        ("├── data/", None, "DATA"),
+        ("│   ├── partner_metrics.csv", "the gold table: revenue splits, deal regs, PVS, health", None),
+        ("│   ├── DATA_DICTIONARY.md", "one definition per metric — tiers, benefits, thresholds", None),
+        ("│   └── sample_data.py", "the attribution demo scenario", None),
+        ("├── plans/", None, None),
+        ("│   └── big-rocks/", "one living plan per strategic initiative ↔ Jira epic", "PLANS"),
+        ("│       ├── 00-INDEX.md", "lifecycle rules + the plan template", None),
+        ("│       ├── partner-attribution.md", "owns /attribution-compare + canonical model weights", None),
+        ("│       ├── partner-scorecard.md", "owns /scorecard-refresh and /partner-qbr", None),
+        ("│       ├── partner-program.md", "owns tiers, benefits, priority motions", None),
+        ("│       └── partner-planning.md", "planned — /quota-scenario proposed", None),
+        ("├── .claude/", None, None),
+        ("│   ├── settings.json", "scoped permissions — skills write only what their rock allows", None),
+        ("│   ├── hooks/", None, None),
+        ("│   │   ├── session_context.sh", "SessionStart: every session boots knowing the book", None),
+        ("│   │   └── log_session.sh", "Stop: one line of evidence per session", None),
+        ("│   ├── agents/", None, None),
+        ("│   │   └── big-rock-planner.md", "subagent that drafts new rock plans", None),
+        ("│   └── skills/", "one folder per skill, each owned by exactly one rock", "SKILLS"),
+        ("│       ├── attribution-compare/", None, None),
+        ("│       ├── scorecard-refresh/", None, None),
+        ("│       ├── partner-qbr/", None, None),
+        ("│       └── improve-setup/", "the meta-skill — the loop that edits everything above", None),
+        ("├── retros/", "the evidence stream the improvement loop reads", "RETROS"),
+        ("│   ├── session-log.md", None, None),
+        ("│   └── 2026-06-05-retro.md", "a completed improvement iteration", None),
+        ("└── docs/claude-code-architecture.md", "the deep-dive on this whole setup", None),
+    ]
+    tree_rows = []
+    for tree_path, tree_note, tree_layer in FOLDER_TREE:
+        path_class = "tree-path dir" if tree_path.rstrip().endswith("/") else "tree-path"
+        pill = f'<span class="layer-pill">{tree_layer}</span>' if tree_layer else ""
+        note = f'<span class="tree-note">{tree_note}</span>' if tree_note else ""
+        tree_rows.append(f'<div class="tree-row"><span class="{path_class}">{tree_path}</span>{pill}{note}</div>')
+    st.markdown(f'<div class="tree-card">{"".join(tree_rows)}</div>', unsafe_allow_html=True)
+    st.caption("Identical shape at org scale: swap the CSV for Unity Catalog gold tables and point the team's shared instance at the same repo — the memory, plans, skills, and retro loop don't change.")
 
     # --- Data layer: medallion + live gold scatter ---
     med_col, gold_col = st.columns([2, 3])
