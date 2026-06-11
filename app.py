@@ -227,7 +227,8 @@ FOLDER_TREE = [
     ("│       ├── partner-attribution.md", "owns /attribution-compare + canonical model weights", None),
     ("│       ├── partner-scorecard.md", "owns /scorecard-refresh and /partner-qbr", None),
     ("│       ├── partner-program.md", "owns tiers, benefits, priority motions", None),
-    ("│       └── partner-planning.md", "planned — /quota-scenario proposed", None),
+    ("│       ├── partner-planning.md", "planned — /quota-scenario proposed", None),
+    ("│       └── ai-solutions-strategy.md", "owns the strategic POV sections below", None),
     ("├── .claude/", None, None),
     ("│   ├── settings.json", "scoped permissions — skills write only what their rock allows", None),
     ("│   ├── hooks/", None, None),
@@ -346,6 +347,111 @@ for col, (enable_title, enable_desc) in zip(enable_cols, ENABLEMENT):
         <div class="experience-card" style="min-height: 170px;">
             <strong style="color: #D97757;">{enable_title}</strong>
             <p style="font-size: 0.9rem; color: #4a4a4a; margin: 0.5rem 0 0 0;">{enable_desc}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+
+# =============================================================================
+# SERVICE OR OPERATING MODEL — THE STRATEGIC POV
+# =============================================================================
+
+st.markdown("### The same stack, sold two ways")
+st.markdown(
+    "A new class of AI services firm has formed around one finding: agents replace real "
+    "work only after a company is made agent-friendly — complete data, captured context, "
+    "feedback loops, and the judgment to know which workflow is worth a shovel. Their answer "
+    "is forward-deployed engineers who embed, wire the data, write down the tribal knowledge, "
+    "and run the loop as a service. This page has been describing the other answer. The "
+    "canonical thesis lives in plans/big-rocks/ai-solutions-strategy.md; the mapping below "
+    "is the short version."
+)
+
+st.markdown("""
+<div class="narrative-quote">
+What an FDE firm installs as an embedded service, this repo runs as a self-serve
+operating model — and the org that adopts the model internally is the org that
+never needs to rent it.
+</div>
+""", unsafe_allow_html=True)
+
+FDE_MAPPING = [
+    ("Data connectivity",
+     "An embedded engineer pipes scattered systems into a lake the agents can trust.",
+     "The DATA layer: one gold table and a metric dictionary, so skills read definitions "
+     "instead of guessing them."),
+    ("Context capture",
+     "Policy documents and shared agent memories, written down by someone billing for it — "
+     "because what operators have done for years was never written anywhere.",
+     "The MEMORY layer: CLAUDE.md plus a SessionStart hook, maintained by the team as part "
+     "of how work gets done."),
+    ("Discovery and scoping",
+     "Founder-grade judgment about which workflow is worth automating — the part the firms "
+     "themselves call the scarce asset.",
+     "The PLANS layer: big rocks force the scoping argument before anything gets built, and "
+     "skills are proposed in a plan or they don't exist."),
+    ("Deployed workflows",
+     "Bespoke agents and software for humans to collaborate with.",
+     "The SKILLS layer: recurring work hardened into versioned, invocable commands, each "
+     "owned by exactly one plan."),
+    ("Evals and feedback loops",
+     "How you know an agent is doing a good job, and how it improves over time.",
+     "The RETROS layer plus /improve-setup: the system reads its own session log and "
+     "proposes edits to itself."),
+    ("Production infrastructure",
+     "Single-tenant hosting, CI/CD, observability, incident management — billed by the "
+     "engagement.",
+     "Deliberately not the bet. Plumbing depreciates as the harnesses absorb it; captured "
+     "context and judgment compound. Put the differentiation where it compounds."),
+]
+
+for fde_name, fde_service, fde_here in FDE_MAPPING:
+    st.markdown(f"""
+    <div class="skill-card">
+        <div class="skill-cmd-col">
+            <div class="skill-cmd">{fde_name}</div>
+        </div>
+        <div>
+            <div class="skill-when">As a service: {fde_service}</div>
+            <div class="skill-how"><strong>Here:</strong> {fde_here}</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# =============================================================================
+# ONE THESIS, THREE REPOS
+# =============================================================================
+
+st.markdown("### One thesis, three repos")
+st.markdown(
+    "This repo is one of three running the same argument from different sides: readiness "
+    "is the bottleneck, context is the compounding asset, and feedback loops are how agents "
+    "earn trust."
+)
+
+repo_cols = st.columns(3)
+THREE_REPOS = [
+    ("Covant", "https://covant.ai", "the readiness layer, productized",
+     "Captures the context of a company's partner business — attribution logic, commission "
+     "policy, tier rules — and generalizes it into a structure agentic workflows can run "
+     "on, so partner teams deliver best-in-class partner experience instead of arguing "
+     "about credit."),
+    ("Compass", "https://github.com/dylan3796/compass", "the feedback-loop layer",
+     "Scans a Claude Code fleet and attributes outcomes to spend — commits, PRs, tests per "
+     "dollar — then recommends where to point the shovel: trim this context, guard that "
+     "agent, clone the best performer."),
+    ("This repo", REPO_URL, "the operating model",
+     "The context layer the other two assume: memory, plans, skills, and a loop that "
+     "rewrites its own setup. What the services firms install with headcount, demonstrated "
+     "as something a team simply runs."),
+]
+for col, (repo_name, repo_url, repo_role, repo_desc) in zip(repo_cols, THREE_REPOS):
+    with col:
+        st.markdown(f"""
+        <div class="experience-card" style="min-height: 235px;">
+            <strong style="color: #D97757;"><a href="{repo_url}">{repo_name}</a></strong>
+            <span style="color: #999; font-size: 0.82rem;"> — {repo_role}</span>
+            <p style="font-size: 0.9rem; color: #4a4a4a; margin: 0.5rem 0 0 0;">{repo_desc}</p>
         </div>
         """, unsafe_allow_html=True)
 
