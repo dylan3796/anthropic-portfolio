@@ -41,6 +41,10 @@ start from data instead of anecdotes.
 
 ## Improvement Log
 
+- **2026-06-10** — Tiering moved from ad-hoc revenue/certification thresholds
+  to the Partner Value Score. The formula, thresholds, and benefits table are
+  owned by the partner-program rock via the data dictionary; this rock's
+  `/scorecard-refresh` computes, it doesn't decide.
 - **2026-06-05** — Retro found three sessions where the fiscal calendar had to
   be re-explained while discussing scorecard figures; the FY convention was
   promoted into `CLAUDE.md` so every session starts with it
