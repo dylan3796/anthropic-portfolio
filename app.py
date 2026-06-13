@@ -172,6 +172,44 @@ st.markdown("""
     .metric-table tr:last-child td { border-bottom: none; }
     .metric-table td.metric-name { color: #c4624a; font-weight: 600; white-space: nowrap; }
 
+    /* --- "Start by saying what you want" --- */
+    .ask-prompt {
+        background: #1f1e1d;
+        border-radius: 8px;
+        padding: 1rem 1.3rem;
+        margin: 1rem 0 1.2rem 0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.95rem;
+        color: #f0ece8;
+        line-height: 1.5;
+    }
+    .ask-prompt .ask-label { color: #8a8580; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 0.4rem; }
+    .ask-prompt .ask-caret { color: #D97757; font-weight: 700; margin-right: 0.5rem; }
+    .ask-step {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        padding: 1.05rem 1.3rem;
+        margin-bottom: 0.7rem;
+        display: flex;
+        gap: 1.1rem;
+        align-items: flex-start;
+    }
+    .ask-num {
+        flex: 0 0 auto;
+        width: 1.7rem; height: 1.7rem;
+        border-radius: 50%;
+        background: rgba(217,119,87,0.12);
+        color: #c4624a;
+        border: 1px solid rgba(217,119,87,0.4);
+        font-weight: 700;
+        font-size: 0.9rem;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .ask-step-title { font-weight: 600; color: #1a1a1a; font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .ask-step-body { font-size: 0.9rem; color: #4a4a4a; line-height: 1.55; }
+
     /* --- Responsive: stack the wide rows so it reads top-to-bottom on phones --- */
     @media (max-width: 820px) {
         .layer-row { flex-direction: column; gap: 0.6rem; }
@@ -222,6 +260,48 @@ partner org produces, it's the engineering that lets a GTM ops team produce them
 with AI doing the recurring work.
 </div>
 """, unsafe_allow_html=True)
+
+
+# =============================================================================
+# START BY SAYING WHAT YOU WANT
+# =============================================================================
+
+st.markdown("### Start by saying what you want")
+st.markdown(
+    "No one needs to know the architecture below to use it. You describe a goal in plain "
+    "English; the setup figures out where it fits and what it has to decide."
+)
+
+st.markdown("""
+<div class="ask-prompt">
+    <span class="ask-label">An exec opens a session and types</span>
+    <span class="ask-caret">&gt;</span>I want to create a program that rewards partners who submit leads.
+</div>
+""", unsafe_allow_html=True)
+
+ASK_STEPS = [
+    ("It places the ask",
+     "Submitting leads is already tracked — <code>deal_regs_approved</code>. Rewards live in "
+     "two rocks you already run: the <strong>Partner Program</strong> (tiers, benefits) and "
+     "<strong>Compensation</strong> (the money path). This extends what exists; it isn't net-new."),
+    ("It surfaces the real decision",
+     "One question shapes the whole design: should approved regs earn a <strong>score "
+     "multiplier</strong>, a <strong>new benefit</strong>, or a <strong>cash incentive</strong> "
+     "through the crediting engine? That exact open question is already sitting in the Partner "
+     "Program plan."),
+    ("It proposes structure, not a guess",
+     "Drafts a plan — objective, milestones, open questions — for you to react to. Defines the "
+     "new reward metric in the dictionary first, and any payout math goes in tested code, never "
+     "in a prompt."),
+]
+ask_cards = "".join(
+    f'<div class="ask-step"><div class="ask-num">{i}</div>'
+    f'<div><div class="ask-step-title">{title}</div>'
+    f'<div class="ask-step-body">{body}</div></div></div>'
+    for i, (title, body) in enumerate(ASK_STEPS, 1)
+)
+st.markdown(ask_cards, unsafe_allow_html=True)
+st.caption("That's the whole interface for a non-technical user. The context layers below are what make the answer specific to your business instead of generic.")
 
 
 # =============================================================================
