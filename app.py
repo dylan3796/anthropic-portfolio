@@ -196,18 +196,16 @@ st.markdown("""
         gap: 1.1rem;
         align-items: flex-start;
     }
-    .ask-num {
+    .ask-tag {
         flex: 0 0 auto;
-        width: 1.7rem; height: 1.7rem;
-        border-radius: 50%;
-        background: rgba(217,119,87,0.12);
-        color: #c4624a;
-        border: 1px solid rgba(217,119,87,0.4);
+        min-width: 7.5rem;
+        font-size: 0.7rem;
         font-weight: 700;
-        font-size: 0.9rem;
-        display: flex; align-items: center; justify-content: center;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: #c4624a;
+        padding-top: 0.15rem;
     }
-    .ask-step-title { font-weight: 600; color: #1a1a1a; font-size: 0.95rem; margin-bottom: 0.25rem; }
     .ask-step-body { font-size: 0.9rem; color: #4a4a4a; line-height: 1.55; }
 
     /* --- Responsive: stack the wide rows so it reads top-to-bottom on phones --- */
@@ -254,10 +252,11 @@ st.markdown("""
 
 st.markdown("""
 <div class="narrative-quote">
-This page is its own reference implementation. Every layer, file, and skill described
-below exists in the repo this page is served from — the point isn't the numbers a
-partner org produces, it's the engineering that lets a GTM ops team produce them
-with AI doing the recurring work.
+If you're hiring your first AI lead, the real question isn't whether someone can prompt a
+model — it's whether they can make AI part of how a team operates. This page is that, built
+end to end: the context the model boots with, the judgment of what to automate versus what
+to encode and test, and how a non-technical team actually adopts it. The repo serving this
+page is the system it describes.
 </div>
 """, unsafe_allow_html=True)
 
@@ -266,42 +265,44 @@ with AI doing the recurring work.
 # START BY SAYING WHAT YOU WANT
 # =============================================================================
 
-st.markdown("### Start by saying what you want")
+st.markdown("### You know what you want — ask for it")
 st.markdown(
-    "No one needs to know the architecture below to use it. You describe a goal in plain "
-    "English; the setup figures out where it fits and what it has to decide."
+    "The people running this don't need a tour of the architecture. They ask a precise "
+    "question and get a precise answer. The leverage is that a single specific ask reaches "
+    "into whatever parts of the business it needs at once — no one decides where to look."
 )
 
 st.markdown("""
 <div class="ask-prompt">
-    <span class="ask-label">An exec opens a session and types</span>
-    <span class="ask-caret">&gt;</span>I want to create a program that rewards partners who submit leads.
+    <span class="ask-label">Someone asks</span>
+    <span class="ask-caret">&gt;</span>Should Vector Integrations move up a tier this half — and what would it cost us?
 </div>
 """, unsafe_allow_html=True)
 
-ASK_STEPS = [
-    ("It places the ask",
-     "Submitting leads is already tracked — <code>deal_regs_approved</code>. Rewards live in "
-     "two rocks you already run: the <strong>Partner Program</strong> (tiers, benefits) and "
-     "<strong>Compensation</strong> (the money path). This extends what exists; it isn't net-new."),
-    ("It surfaces the real decision",
-     "One question shapes the whole design: should approved regs earn a <strong>score "
-     "multiplier</strong>, a <strong>new benefit</strong>, or a <strong>cash incentive</strong> "
-     "through the crediting engine? That exact open question is already sitting in the Partner "
-     "Program plan."),
-    ("It proposes structure, not a guess",
-     "Drafts a plan — objective, milestones, open questions — for you to react to. Defines the "
-     "new reward metric in the dictionary first, and any payout math goes in tested code, never "
-     "in a prompt."),
-]
-ask_cards = "".join(
-    f'<div class="ask-step"><div class="ask-num">{i}</div>'
-    f'<div><div class="ask-step-title">{title}</div>'
-    f'<div class="ask-step-body">{body}</div></div></div>'
-    for i, (title, body) in enumerate(ASK_STEPS, 1)
+st.markdown(
+    '<div style="font-size:0.9rem; color:#4a4a4a; margin:0 0 0.5rem 0;">'
+    'That one question lands in three different places at once:</div>',
+    unsafe_allow_html=True,
 )
-st.markdown(ask_cards, unsafe_allow_html=True)
-st.caption("That's the whole interface for a non-technical user. The context layers below are what make the answer specific to your business instead of generic.")
+
+ASK_ROUTES = [
+    ("Metrics",
+     "Pulls the partner's Partner Value Score and the four components behind it — straight "
+     "from the one dictionary, so there's no guessing what the number means."),
+    ("Program",
+     "Checks that score against the tier threshold and the benefits a move unlocks: a higher "
+     "deal-reg margin, market development funds, named coverage."),
+    ("Compensation",
+     "Sees which reps cover the partner and how the move reshapes their crediting — who gets "
+     "credited, on which line, for which months."),
+]
+route_cards = "".join(
+    f'<div class="ask-step"><div class="ask-tag">{tag}</div>'
+    f'<div class="ask-step-body">{body}</div></div>'
+    for tag, body in ASK_ROUTES
+)
+st.markdown(route_cards, unsafe_allow_html=True)
+st.caption("No one routed it to three systems. The question was specific, so it reached the parts that answer it — the more precise the ask, the further it reaches.")
 
 
 # =============================================================================
@@ -344,10 +345,10 @@ log and proposes edits back into every layer above. The system rewrites itself.<
 # THE STRUCTURE ON DISK
 # =============================================================================
 
-st.markdown("### The same five layers, on disk")
+st.markdown("### Those same five layers, as real files")
 st.markdown(
-    "This is the actual folder structure of the instance — not a mockup of one. "
-    "Every layer above is a path you can open."
+    "Nothing above is abstract. This is the actual folder — not a diagram of one — and "
+    "every layer is a file you can open. The colored tags mark which layer each part belongs to."
 )
 
 FOLDER_TREE = [
@@ -398,7 +399,6 @@ for tree_path, tree_note, tree_layer in FOLDER_TREE:
     note = f'<span class="tree-note">{tree_note}</span>' if tree_note else ""
     tree_rows.append(f'<div class="tree-row"><span class="{path_class}">{tree_path}</span>{pill}{note}</div>')
 st.markdown(f'<div class="tree-card">{"".join(tree_rows)}</div>', unsafe_allow_html=True)
-st.caption("Identical shape at org scale: swap the CSV for Unity Catalog gold tables and point the team's shared instance at the same repo — the memory, plans, skills, and retro loop don't change.")
 
 
 # =============================================================================
@@ -445,7 +445,6 @@ METRICS = [
     ("Deal regs (approved)", "Registrations that passed conflict review: a 90-day protection window plus the tier's deal-reg margin."),
     ("Partner Value Score", "0–100 composite of revenue, deal-reg discipline, technical capacity, and satisfaction. No single dimension can buy a tier."),
     ("Tier", "Strategic / Premier / Select, derived from the Partner Value Score — sets benefits and coverage."),
-    ("Health flag", "green / yellow / red from NPS and QBR recency — the early-warning signal."),
 ]
 metric_rows = "".join(
     f'<tr><td class="metric-name">{name}</td><td>{desc}</td></tr>' for name, desc in METRICS
@@ -475,9 +474,10 @@ WHY = [
      "them — so the math is consistent and auditable, and a change lands in one place "
      "and updates every output."),
     ("Keep the model out of the money",
-     "The AI authors rules in plain English; deterministic, tested code applies them. "
-     "You get the speed of natural language with the trust of a spreadsheet that can't "
-     "silently miscount."),
+     "The model authors rules in plain English; deterministic, tested code applies them. "
+     "The judgment that matters is knowing which work is a call for the model and which is "
+     "math to encode once and test — so you get the speed of language with the trust of a "
+     "spreadsheet that can't silently miscount."),
     ("A system that improves itself",
      "Every session leaves evidence, and a retro loop turns that evidence into edits to "
      "the setup. The instance gets sharper with use instead of drifting out of date."),
