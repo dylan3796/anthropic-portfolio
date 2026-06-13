@@ -1,0 +1,4 @@
+# Dev/test only — kept out of the app's runtime requirements.
+# The crediting tests also run dependency-free: python3 tests/test_crediting.py
+-r requirements.txt
+pytest

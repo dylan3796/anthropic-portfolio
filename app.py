@@ -6,7 +6,7 @@ the repo it lives in IS that system.
 
 import streamlit as st
 
-REPO_URL = "https://github.com/dylan3796/anthropic-portfolio"
+REPO_URL = "https://github.com/dylan3796/partner-ops"
 
 st.set_page_config(
     page_title="Dylan Ram | AI Engineering for Partner Ops",
@@ -214,18 +214,26 @@ st.markdown(
 )
 
 FOLDER_TREE = [
-    ("anthropic-portfolio/", None, None),
-    ("├── CLAUDE.md", "the operating model: conventions, big-rock rules, fiscal calendar", "MEMORY"),
+    ("partner-ops/", None, None),
+    ("├── CLAUDE.md", "operating model + domain glossary (who a PSM/PAM is)", "MEMORY"),
     ("├── app.py", "this walkthrough page", None),
     ("├── data/", None, "DATA"),
     ("│   ├── partner_metrics.csv", "the gold table: revenue splits, deal regs, PVS, health", None),
-    ("│   ├── DATA_DICTIONARY.md", "one definition per metric — tiers, benefits, thresholds", None),
-    ("│   └── sample_data.py", "the attribution demo scenario", None),
+    ("│   ├── coverage_assignments.csv", "the plain-English coverage sheet (the “Google Sheet”)", None),
+    ("│   ├── crediting_rules.json", "codified crediting rules — output of /commissions-credit", None),
+    ("│   ├── commission_deals.csv", "closed deals actuals run against", None),
+    ("│   ├── DATA_DICTIONARY.md", "one definition per metric + every schema above", None),
+    ("│   └── sample_data.py", "the attribution deal fixture", None),
+    ("├── crediting/", "deterministic, tested money path — no LLM credits a deal", "DATA"),
+    ("│   └── engine.py", "applies rules → who is credited, which line, which month", None),
+    ("├── tests/", "golden tests / evals that pin the crediting math", None),
+    ("│   └── test_crediting.py", "handoffs, mid-quarter hires, splits, coverage gaps", None),
     ("├── plans/", None, None),
     ("│   └── big-rocks/", "one living plan per strategic initiative ↔ Jira epic", "PLANS"),
     ("│       ├── 00-INDEX.md", "lifecycle rules + the plan template", None),
+    ("│       ├── partner-compensation.md", "owns /commissions-credit + the crediting engine", None),
     ("│       ├── partner-attribution.md", "owns /attribution-compare + canonical model weights", None),
-    ("│       ├── partner-scorecard.md", "owns /scorecard-refresh and /partner-qbr", None),
+    ("│       ├── partner-scorecard.md", "owns /partner-qbr", None),
     ("│       ├── partner-program.md", "owns tiers, benefits, priority motions", None),
     ("│       └── partner-planning.md", "planned — /quota-scenario proposed", None),
     ("├── .claude/", None, None),
@@ -236,10 +244,11 @@ FOLDER_TREE = [
     ("│   ├── agents/", None, None),
     ("│   │   └── big-rock-planner.md", "subagent that drafts new rock plans", None),
     ("│   └── skills/", "one folder per skill, each owned by exactly one rock", "SKILLS"),
+    ("│       ├── commissions-credit/", "headline: plain-English coverage → crediting rules", None),
     ("│       ├── attribution-compare/", None, None),
-    ("│       ├── scorecard-refresh/", None, None),
     ("│       ├── partner-qbr/", None, None),
     ("│       └── improve-setup/", "the meta-skill — the loop that edits everything above", None),
+    ("├── notebooks/scorecard_refresh.ipynb", "analysis artifact: tier/health recompute", None),
     ("├── retros/", "the evidence stream the improvement loop reads", "RETROS"),
     ("│   ├── session-log.md", None, None),
     ("│   └── 2026-06-05-retro.md", "a completed improvement iteration", None),
@@ -266,13 +275,20 @@ st.markdown(
 )
 
 SKILL_MOMENTS = [
+    ("/commissions-credit", "live in this repo",
+     "A rep joins mid-quarter, or a territory changes hands",
+     "The headline system. A manager edits the coverage sheet in plain English — "
+     "“Maria takes over the SMB book from Sam on March 15.” The skill codifies that into "
+     "effective-dated crediting rules, resolving the handoff so there's no gap and no "
+     "double-coverage. The money math itself is deterministic, tested code — no model "
+     "credits a deal — so when finance runs actuals the right person lands on the right "
+     "line for the right months, and any uncredited deal is surfaced, never zeroed."),
     ("/next-best-action", "org scale",
      "A PSM or PAM starts the week asking “where do I spend my time?”",
-     "The one we indexed on hardest. It reads the seller's book and ranks the next moves: "
-     "deals blocked on a missing certification or a stalled registration, existing partner "
-     "relationships that map into open pipeline, accounts where a partner already has a "
-     "foothold. PSMs and PAMs don't want another dashboard — they want the next action "
-     "with a reason attached."),
+     "Reads the seller's book and ranks the next moves: deals blocked on a missing "
+     "certification or a stalled registration, partner relationships that map into open "
+     "pipeline, accounts where a partner already has a foothold. PSMs and PAMs don't want "
+     "another dashboard — they want the next action with a reason attached."),
     ("/partner-qbr", "live in this repo",
      "QBR season — the org-wide review, a regional cut, or a partner asking for one",
      "QBRs here aren't a per-partner cadence with an “overdue” clock. They run for the "
@@ -284,11 +300,6 @@ SKILL_MOMENTS = [
      "Runs the deal through the credit models defined in the attribution plan and shows "
      "how the split swings by model. The weights live in the plan, not the prompt — so "
      "the argument is about which model, never about the math."),
-    ("/scorecard-refresh", "live in this repo",
-     "The quarter closes and tiers need recomputing",
-     "Recomputes Partner Value Scores, tiers, and health flags from the thresholds in the "
-     "data dictionary, reports the deltas, and writes the gold table only after a human "
-     "approves."),
     ("/improve-setup", "live in this repo",
      "The same ask shows up three sessions in a row",
      "The meta-skill. It reads the session log and git history, spots recurring work with "
@@ -311,7 +322,7 @@ for skill_cmd, skill_tag, skill_when, skill_how in SKILL_MOMENTS:
     </div>
     """, unsafe_allow_html=True)
 
-st.caption("Four of the five ship in this repo's .claude/skills/ — open any SKILL.md to see the inputs, steps, and guardrails. /next-best-action follows the identical pattern at org scale: proposed in a plan, scoped to the data layer, shipped as one command.")
+st.caption("Four of the five ship in this repo's .claude/skills/ — open any SKILL.md to see the inputs, steps, and guardrails. /commissions-credit is the one to read first: the AI authors the rules, crediting/engine.py does the money math, and tests/ pins it. /next-best-action follows the identical pattern at org scale.")
 
 
 # =============================================================================

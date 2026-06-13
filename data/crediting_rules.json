@@ -1,0 +1,51 @@
+{
+  "generated_by": "/commissions-credit from data/coverage_assignments.csv",
+  "fiscal_year": "FY27",
+  "rules": [
+    {
+      "rep": "Priya Nair",
+      "role": "PSM",
+      "effective_start": "2025-02-01",
+      "effective_end": null,
+      "match": { "segment": ["Enterprise"] },
+      "credit_share": 1.0,
+      "source": "Priya Nair: 'All Enterprise-segment partners across every motion and region'"
+    },
+    {
+      "rep": "Danielle Wu",
+      "role": "PSM",
+      "effective_start": "2025-02-01",
+      "effective_end": null,
+      "match": { "segment": ["Mid-Market"] },
+      "credit_share": 1.0,
+      "source": "Danielle Wu: 'The Mid-Market book in all regions'"
+    },
+    {
+      "rep": "Sam Park",
+      "role": "PSM",
+      "effective_start": "2025-02-01",
+      "effective_end": "2026-03-14",
+      "match": { "segment": ["SMB"] },
+      "credit_share": 1.0,
+      "source": "Sam Park: 'SMB co-sell partners in all regions' — end-dated 2026-03-14, day before Maria's start, to close the handoff with no gap"
+    },
+    {
+      "rep": "Maria Lopez",
+      "role": "PSM",
+      "effective_start": "2026-03-15",
+      "effective_end": null,
+      "match": { "segment": ["SMB"] },
+      "credit_share": 1.0,
+      "source": "Maria Lopez: 'Taking over the SMB book from Sam' — resolved to the SMB segment from 2026-03-15"
+    },
+    {
+      "rep": "Alex Kim",
+      "role": "PAM",
+      "effective_start": "2025-02-01",
+      "effective_end": null,
+      "match": { "segment": ["SMB"] },
+      "credit_share": 1.0,
+      "source": "Alex Kim: 'Relationship owner for all SMB partners' — PAM coverage line, runs alongside the PSM credit"
+    }
+  ]
+}
