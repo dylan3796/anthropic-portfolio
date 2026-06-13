@@ -171,6 +171,17 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("""
+<div style="background:#fdf6f2; border:1px solid rgba(217,119,87,0.35); border-radius:8px;
+            padding:0.85rem 1.1rem; margin:0.5rem 0 1.2rem 0; color:#7a5c4f;
+            font-size:0.86rem; line-height:1.5; text-align:center;">
+    <strong style="color:#c4624a;">Concept mockup.</strong> This is a personal portfolio
+    concept by Dylan Ram, built to illustrate an idea. It is not an Anthropic product and is
+    not affiliated with, endorsed by, or representative of Anthropic. All data is synthetic,
+    and "Claude" / "Claude Code" are referenced illustratively.
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
 <div class="narrative-quote">
 This page is its own reference implementation. Every layer, file, and skill described
 below exists in the repo this page is served from — the point isn't the numbers a
@@ -381,6 +392,10 @@ for col, (enable_title, enable_desc) in zip(enable_cols, ENABLEMENT):
 st.markdown("---")
 st.markdown("""
 <div style="text-align: center; padding: 0.8rem 0; color: #999; font-size: 0.85rem;">
-    Dylan Ram · Built with Claude Code · 2026
+    Dylan Ram · Built with Claude Code · 2026<br>
+    <span style="font-size: 0.78rem;">
+        Personal concept mockup — not an Anthropic product, and not affiliated with or
+        endorsed by Anthropic. Synthetic data throughout.
+    </span>
 </div>
 """, unsafe_allow_html=True)

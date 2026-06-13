@@ -8,6 +8,11 @@ folder structure to team adoption.
 ![Python](https://img.shields.io/badge/Python-3.11+-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red)
 
+> **Concept mockup.** This is a personal portfolio concept by Dylan Ram, built to
+> illustrate an idea. It is not an Anthropic product and is not affiliated with,
+> endorsed by, or representative of Anthropic. All data is synthetic, and "Claude" /
+> "Claude Code" are referenced illustratively.
+
 ## 🎯 The idea
 
 Most teams use AI as a tool: open a chat, get an answer, lose the context.
