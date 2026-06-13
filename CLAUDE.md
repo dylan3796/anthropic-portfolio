@@ -25,7 +25,6 @@ data/partner_metrics.csv     Synthetic partner scorecard data (the gold table)
 data/coverage_assignments.csv  Plain-English coverage sheet (the "Google Sheet")
 data/crediting_rules.json    Codified crediting rules — output of /commissions-credit
 data/commission_deals.csv    Closed deals the crediting engine runs actuals against
-data/sample_data.py          Attribution deal fixture used by /attribution-compare
 data/DATA_DICTIONARY.md      Metric & schema definitions — source of truth for all metrics
 crediting/engine.py          Deterministic crediting engine (the money path; no LLM)
 tests/                       Golden tests / evals — pin the crediting math

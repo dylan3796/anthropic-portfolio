@@ -29,7 +29,7 @@ flowchart TB
     end
 
     subgraph L4["4 · Skills"]
-        SKILLS["/commissions-credit · /attribution-compare · /partner-qbr"]
+        SKILLS["/commissions-credit · /partner-qbr · /call-notes-to-jira"]
         AGENT["big-rock-planner subagent"]
     end
 
@@ -93,8 +93,8 @@ scope:
 | Skill | Owning rock | Notable constraint |
 |---|---|---|
 | [`/commissions-credit`](../.claude/skills/commissions-credit/SKILL.md) | partner-compensation | authors rules only; the money math is tested code, never a prompt |
-| [`/attribution-compare`](../.claude/skills/attribution-compare/SKILL.md) | partner-attribution | read-only; weights live in the plan, not the skill |
 | [`/partner-qbr`](../.claude/skills/partner-qbr/SKILL.md) | partner-scorecard | read-only; benchmarks against tier medians |
+| [`/call-notes-to-jira`](../.claude/skills/call-notes-to-jira/SKILL.md) | partner-engagement | drafts tickets from notes; tags to the partner book; files only via a Jira integration |
 
 The [`big-rock-planner`](../.claude/agents/big-rock-planner.md) subagent
 drafts new rock plans to template — read-only, returns text for review.
@@ -163,8 +163,8 @@ print(len(lines), 'credited lines;', len(gaps), 'uncredited')"
 
 # then open Claude Code in this repo:
 #   - the SessionStart context appears automatically
-#   - type / and you'll see: commissions-credit, attribution-compare,
-#     partner-qbr, improve-setup
+#   - type / and you'll see: commissions-credit, partner-qbr,
+#     call-notes-to-jira, improve-setup
 #   - /commissions-credit codifies the coverage sheet, then verifies it
 #   - /improve-setup runs a live retro against this very setup
 ```

@@ -31,7 +31,7 @@ skill checks for drift).
 
 | Column | Type | Definition | Owner | Computed by |
 |---|---|---|---|---|
-| `partner_name` | string | Canonical partner name. Must match names used in `sample_data.py` where overlapping. | Partner Ops | manual |
+| `partner_name` | string | Canonical partner name; the join key for a partner across every data file. | Partner Ops | manual |
 | `segment` | enum | Primary customer segment the partner serves: `Enterprise`, `Mid-Market`, `SMB`. | Partner Ops | manual |
 | `active_motion` | enum | The priority GTM motion the partner is currently enrolled in: `Migrations`, `Solution Development`, `Core Co-Sell`. Set each half per business priorities. | Partner Strategy | manual |
 | `tier` | enum | Program tier derived from `partner_value_score` per the thresholds below: `Strategic`, `Premier`, `Select`. | Partner Program | scorecard notebook |

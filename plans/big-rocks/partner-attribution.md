@@ -2,7 +2,7 @@
 status: active
 owner: Dylan Ram
 horizon: FY27 H1
-owned-skills: attribution-compare
+owned-skills: none yet
 ---
 
 # Big Rock: Partner Attribution
@@ -41,8 +41,10 @@ reference them rather than restating them.
 
 ## Owned Skills
 
-- [`/attribution-compare`](../../.claude/skills/attribution-compare/SKILL.md) —
-  runs a deal scenario through all six models and recommends one.
+None. `/attribution-compare` was retired (2026-06-13) — model selection is
+settled on Role-Weighted for production, so a standing side-by-side comparison
+skill stopped earning its keep. The **canonical weights above** remain the
+source of truth that the data dictionary and crediting reference.
 
 ## Open Questions
 
@@ -53,6 +55,11 @@ reference them rather than restating them.
 
 ## Improvement Log
 
+- **2026-06-13** — Retired `/attribution-compare` and its fixture
+  (`data/sample_data.py`). The comparison did its job — Role-Weighted is the
+  adopted production model — and a standing side-by-side skill was friction
+  without a recurring use. Attribution *logic* still lives here; only the
+  comparison skill was removed.
 - **2026-05-19** — `/attribution-compare` initially hardcoded the sample deal;
   retro feedback ("had to re-explain how to pass a custom deal twice") led to
   the skill accepting deal value + touchpoints as arguments with the sample

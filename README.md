@@ -36,7 +36,7 @@ streamlit run app.py
 
 Visit `http://localhost:8501`. Or open the repo in Claude Code: the
 SessionStart hook injects the business context, and `/commissions-credit`,
-`/attribution-compare`, `/partner-qbr`, and `/improve-setup` are live. The
+`/partner-qbr`, `/call-notes-to-jira`, and `/improve-setup` are live. The
 crediting math has golden tests: `python3 tests/test_crediting.py`.
 
 ## 📁 Project Structure
@@ -48,8 +48,8 @@ partner-ops/
 ├── .claude/
 │   ├── settings.json            # Permissions + hook wiring
 │   ├── hooks/                   # SessionStart context injection, Stop session log
-│   ├── skills/                  # commissions-credit (headline), attribution-compare,
-│   │                            #   partner-qbr, improve-setup
+│   ├── skills/                  # commissions-credit (headline), partner-qbr,
+│   │                            #   call-notes-to-jira, improve-setup
 │   └── agents/                  # big-rock-planner subagent
 ├── crediting/
 │   └── engine.py                # Deterministic crediting engine (the money path)
@@ -66,7 +66,6 @@ partner-ops/
 │   ├── coverage_assignments.csv # Plain-English coverage sheet (the "Google Sheet")
 │   ├── crediting_rules.json     # Codified crediting rules (generated)
 │   ├── commission_deals.csv     # Closed deals actuals run against
-│   ├── sample_data.py           # Attribution deal fixture
 │   └── DATA_DICTIONARY.md       # Metric & schema definitions (source of truth)
 ├── .streamlit/
 │   └── config.toml              # Streamlit configuration
