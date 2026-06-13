@@ -6,8 +6,9 @@ loop. The SessionStart hook surfaces this table's status into every session.
 
 | Big Rock | Status | Horizon | Owned Skills | Last Touched |
 |---|---|---|---|---|
+| [Partner Compensation](partner-compensation.md) | active | FY27 H1 | `/commissions-credit` | 2026-06-13 |
 | [Partner Attribution](partner-attribution.md) | active | FY27 H1 | `/attribution-compare` | 2026-06-10 |
-| [Partner Scorecard](partner-scorecard.md) | active | FY27 H1 | `/scorecard-refresh`, `/partner-qbr` | 2026-06-10 |
+| [Partner Scorecard](partner-scorecard.md) | active | FY27 H1 | `/partner-qbr` | 2026-06-13 |
 | [Partner Program](partner-program.md) | active | FY27 H2 | none yet (`/tier-review`, `/benefits-audit` proposed) | 2026-06-10 |
 | [Partner Planning](partner-planning.md) | planned | FY27 H2 | none yet (`/quota-scenario` proposed) | 2026-06-05 |
 

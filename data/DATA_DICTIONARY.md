@@ -20,6 +20,12 @@ skill checks for drift).
   and benefits eligibility live in this file and are owned by
   [`plans/big-rocks/partner-program.md`](../plans/big-rocks/partner-program.md).
 - **Tier order:** Strategic > Premier > Select.
+- **Segments:** Enterprise, Mid-Market, SMB. **Regions:** East, Central, West.
+  **Motions:** Migrations, Solution Development, Core Co-Sell. Roles (PSM, PAM)
+  are defined in the CLAUDE.md domain glossary.
+- **Crediting source of truth:** coverage intent is authored in
+  `coverage_assignments.csv`; the codified rules in `crediting_rules.json` are
+  generated from it by `/commissions-credit` and applied by `crediting/engine.py`.
 
 ## `partner_metrics.csv`
 
@@ -28,8 +34,8 @@ skill checks for drift).
 | `partner_name` | string | Canonical partner name. Must match names used in `sample_data.py` where overlapping. | Partner Ops | manual |
 | `segment` | enum | Primary customer segment the partner serves: `Enterprise`, `Mid-Market`, `SMB`. | Partner Ops | manual |
 | `active_motion` | enum | The priority GTM motion the partner is currently enrolled in: `Migrations`, `Solution Development`, `Core Co-Sell`. Set each half per business priorities. | Partner Strategy | manual |
-| `tier` | enum | Program tier derived from `partner_value_score` per the thresholds below: `Strategic`, `Premier`, `Select`. | Partner Program | `/scorecard-refresh` |
-| `partner_value_score` | int (0–100) | Composite Partner Value Score. See formula below. | Partner Program | `/scorecard-refresh` |
+| `tier` | enum | Program tier derived from `partner_value_score` per the thresholds below: `Strategic`, `Premier`, `Select`. | Partner Program | scorecard notebook |
+| `partner_value_score` | int (0–100) | Composite Partner Value Score. See formula below. | Partner Program | scorecard notebook |
 | `sourced_revenue_fy26` | int (USD) | FY26 closed-won revenue on opportunities the partner originated (approved deal registration or sourced lead = first touch). Credited at 100%. | Partner Sales | attribution engine |
 | `influenced_revenue_fy26` | int (USD) | FY26 closed-won revenue on opportunities the partner touched but did not source. Total deal value of influenced opps — partial credit flows into attributed revenue per the production model. | Partner Sales | attribution engine |
 | `attributed_revenue_fy26` | int (USD) | Sourced revenue at 100% plus the partner's Role-Weighted share of influenced revenue, under the production attribution model. The headline revenue number for tiers and comp. | Partner Ops | attribution engine |
@@ -39,9 +45,9 @@ skill checks for drift).
 | `certified_engineers` | int | Count of partner engineers holding a current certification. | Partner Enablement | manual |
 | `nps` | int | Most recent partner-satisfaction NPS (-100 to 100). | Partner Program | survey pipeline |
 | `last_qbr_date` | date (ISO) | Date of the most recent quarterly business review. | Partner Managers | `/partner-qbr` |
-| `health_flag` | enum | `green` / `yellow` / `red` composite health signal. See thresholds below. | Partner Management | `/scorecard-refresh` |
+| `health_flag` | enum | `green` / `yellow` / `red` composite health signal. See thresholds below. | Partner Management | scorecard notebook |
 
-## Partner Value Score (used by `/scorecard-refresh`)
+## Partner Value Score (used by the scorecard notebook)
 
 A 0–100 composite of what the program actually values: revenue performance,
 sourcing discipline, technical investment, and relationship health. Components
@@ -56,7 +62,7 @@ are capped so no single dimension can buy a tier.
 
 `partner_value_score` = sum of components, rounded to the nearest integer.
 
-## Tiering thresholds (used by `/scorecard-refresh`)
+## Tiering thresholds (used by the scorecard notebook)
 
 | Tier | Rule |
 |---|---|
@@ -81,10 +87,49 @@ questions ("what is this partner eligible for?") resolve against this table.
 | Certification vouchers (annual) | 40 | 15 | 5 |
 | Product roadmap briefings | quarterly | semi-annual | — |
 
-## Health flag rules (used by `/scorecard-refresh`)
+## Health flag rules (used by the scorecard notebook)
 
 | Flag | Rule |
 |---|---|
 | `red` | `nps < 50` AND `last_qbr_date` older than 120 days |
 | `yellow` | `nps < 55` OR `last_qbr_date` older than 120 days |
 | `green` | otherwise |
+
+## Compensation & crediting (partner-compensation rock)
+
+The crediting system has three artifacts: the plain-English coverage sheet
+(input), the codified rules (generated), and the deal book (what actuals run
+against). Owned by [`plans/big-rocks/partner-compensation.md`](../plans/big-rocks/partner-compensation.md).
+
+### `coverage_assignments.csv` — the coverage sheet (the "Google Sheet")
+
+| Column | Type | Definition |
+|---|---|---|
+| `rep_name` | string | The PSM or PAM the row assigns coverage to. |
+| `role` | enum | `PSM` or `PAM` (see CLAUDE.md glossary). |
+| `start_date` | date (ISO) | When this rep's coverage begins. |
+| `end_date` | date (ISO) or blank | When it ends; blank = open-ended. |
+| `coverage` | free text | **Plain-English** description of the territory. `/commissions-credit` codifies this into a `match` predicate. |
+| `notes` | free text | Context for the codifier (handoffs, ramp, splits). Not a rule. |
+
+### `crediting_rules.json` — codified rules (generated by `/commissions-credit`)
+
+Top level: `generated_by`, `fiscal_year`, and `rules[]`. Each rule:
+
+| Field | Type | Definition |
+|---|---|---|
+| `rep` / `role` | string | Who is credited and on which line. |
+| `effective_start` / `effective_end` | date (ISO) or null | Window the rule is in effect; deals are matched by `close_date`. |
+| `match` | object | Any of `segment`, `region`, `motion`, `partner_name` → list of allowed values. An omitted dimension is a wildcard. |
+| `credit_share` | float | Fraction of deal value credited (1.0 full, 0.5 split, …). |
+| `source` | string | The coverage-sheet text this rule was codified from — the audit trail. |
+
+### `commission_deals.csv` — the deal book actuals run against
+
+| Column | Type | Definition |
+|---|---|---|
+| `deal_id` | string | Unique closed-deal id. |
+| `partner_name` | string | Partner on the deal (matches `partner_metrics.csv`). |
+| `segment` / `region` / `motion` | enum | The deal's territory dimensions. |
+| `close_date` | date (ISO) | Determines the credit `month` and which effective-dated rules apply. |
+| `amount` | int (USD) | Deal value to credit. |

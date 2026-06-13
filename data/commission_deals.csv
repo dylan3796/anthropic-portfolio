@@ -1,0 +1,9 @@
+deal_id,partner_name,segment,region,motion,close_date,amount
+D-1001,Acme Consulting,Enterprise,East,Migrations,2026-02-20,480000
+D-1002,DataTech SI,Enterprise,West,Solution Development,2026-03-05,320000
+D-1003,Cloud Partners,Mid-Market,Central,Migrations,2026-02-28,210000
+D-1004,Analytics Corp,Mid-Market,East,Core Co-Sell,2026-04-10,150000
+D-1005,Summit Advisory,SMB,West,Core Co-Sell,2026-03-02,90000
+D-1006,Lakeshore Consulting,SMB,West,Core Co-Sell,2026-03-25,75000
+D-1007,Harbor Technologies,SMB,East,Core Co-Sell,2026-05-12,60000
+D-1008,Beacon Data Group,SMB,Central,Solution Development,2026-04-18,85000

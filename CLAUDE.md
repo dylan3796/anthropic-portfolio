@@ -21,9 +21,15 @@ Two things at once:
 
 ```
 app.py                       Streamlit portfolio app (single page)
-data/sample_data.py          Attribution demo data used by app.py
-data/partner_metrics.csv     Synthetic partner scorecard data (skills consume this)
-data/DATA_DICTIONARY.md      Metric definitions — the source of truth for all metrics
+data/partner_metrics.csv     Synthetic partner scorecard data (the gold table)
+data/coverage_assignments.csv  Plain-English coverage sheet (the "Google Sheet")
+data/crediting_rules.json    Codified crediting rules — output of /commissions-credit
+data/commission_deals.csv    Closed deals the crediting engine runs actuals against
+data/sample_data.py          Attribution deal fixture used by /attribution-compare
+data/DATA_DICTIONARY.md      Metric & schema definitions — source of truth for all metrics
+crediting/engine.py          Deterministic crediting engine (the money path; no LLM)
+tests/                       Golden tests / evals — pin the crediting math
+notebooks/                   Analysis artifacts (e.g. scorecard tier/health refresh)
 plans/big-rocks/             One long-lived plan per strategic initiative
 .claude/skills/              Skills, each owned by a big rock (plus one meta-skill)
 .claude/agents/              Subagents (big-rock-planner)
@@ -31,6 +37,27 @@ plans/big-rocks/             One long-lived plan per strategic initiative
 retros/                      Session log + dated retros from the improvement loop
 docs/                        Architecture documentation
 ```
+
+## Domain glossary
+
+The roles, segments, and motions every session should assume. Metric
+*definitions* live in `data/DATA_DICTIONARY.md`; this is the vocabulary, kept in
+memory so Claude never has to ask who a PSM is.
+
+- **PSM — Partner Sales Manager.** Quota-carrying co-sell seller. Owns
+  partner-sourced pipeline and attributed revenue for the partners/territory
+  they cover; credited on the revenue line.
+- **PAM — Partner Account Manager.** Owns the partner *relationship* —
+  enablement, certifications, QBRs, health. Credited on the coverage line, not
+  on sourced revenue.
+- **Territory** = segment × region × motion. Coverage is **effective-dated**:
+  reps join, leave, and hand off mid-period (owned by the partner-compensation
+  rock).
+- **Segments:** Enterprise > Mid-Market > SMB (the customer segment a partner serves).
+- **Regions:** East, Central, West.
+- **Motions:** Migrations, Solution Development, Core Co-Sell — the priority GTM
+  motion a partner is enrolled in (owned by the partner-program rock).
+- **Tiers:** Strategic > Premier > Select (derived from the Partner Value Score).
 
 ## Conventions
 
@@ -42,6 +69,10 @@ docs/                        Architecture documentation
 - **Attribution logic:** the source of truth is
   `plans/big-rocks/partner-attribution.md`. Don't invent attribution weights
   inline.
+- **Crediting math stays in code.** `/commissions-credit` (an LLM) only authors
+  rules in `data/crediting_rules.json`. Applying rules to deals — the money — is
+  `crediting/engine.py`, and it is unit-tested. Never compute credited amounts
+  in a prompt.
 - **App style:** match existing patterns in `app.py` — `narrative-quote` and
   `experience-card` CSS classes, Anthropic-inspired palette (`#D97757` accent,
   `#FAFAF9` background), no emoji in section headings, no new dependencies
@@ -67,6 +98,8 @@ docs/                        Architecture documentation
 ## Verification
 
 - App: `streamlit run app.py` (port 8501)
+- Crediting math: `python3 tests/test_crediting.py` (golden tests, no deps) —
+  must stay green after any change to `crediting/` or `crediting_rules.json`.
 - Data sanity: `python3 -c "import pandas as pd; print(pd.read_csv('data/partner_metrics.csv'))"`
 - Hooks: `bash .claude/hooks/session_context.sh` should print current big-rock
   status and scorecard headlines with exit code 0.

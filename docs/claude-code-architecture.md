@@ -29,7 +29,7 @@ flowchart TB
     end
 
     subgraph L4["4 · Skills"]
-        SKILLS["/attribution-compare · /partner-qbr · /scorecard-refresh"]
+        SKILLS["/commissions-credit · /attribution-compare · /partner-qbr"]
         AGENT["big-rock-planner subagent"]
     end
 
@@ -92,12 +92,44 @@ scope:
 
 | Skill | Owning rock | Notable constraint |
 |---|---|---|
+| [`/commissions-credit`](../.claude/skills/commissions-credit/SKILL.md) | partner-compensation | authors rules only; the money math is tested code, never a prompt |
 | [`/attribution-compare`](../.claude/skills/attribution-compare/SKILL.md) | partner-attribution | read-only; weights live in the plan, not the skill |
 | [`/partner-qbr`](../.claude/skills/partner-qbr/SKILL.md) | partner-scorecard | read-only; benchmarks against tier medians |
-| [`/scorecard-refresh`](../.claude/skills/scorecard-refresh/SKILL.md) | partner-scorecard | the only writing skill; delta table + confirmation before any write |
 
 The [`big-rock-planner`](../.claude/agents/big-rock-planner.md) subagent
 drafts new rock plans to template — read-only, returns text for review.
+Recomputing tiers and health flags is deliberately *not* a skill — it lives as
+an analysis notebook (`notebooks/scorecard_refresh.ipynb`), because a periodic
+close-time recompute a human eyeballs isn't a recurring agent action.
+
+## The headline system: commissions crediting
+
+Crediting is the strongest thing in this repo to study, because it's a real
+**multi-stakeholder** workflow and it draws the line between what an LLM should
+and shouldn't do.
+
+**The problem.** Partner crediting is genuinely hard: reps join mid-quarter,
+hand off territories, and cover overlapping slices of segment × region × motion.
+That intent is maintained by managers in a Google Sheet, in plain English —
+"Maria takes over the SMB book from Sam on March 15" — not in rules. Get it
+wrong and the wrong person is paid for the wrong months.
+
+**The stakeholders, and where each one touches the system:**
+
+- **Managers** author coverage in [`data/coverage_assignments.csv`](../data/coverage_assignments.csv) — plain English, no schema to learn.
+- **The agent** ([`/commissions-credit`](../.claude/skills/commissions-credit/SKILL.md)) reads that intent and codifies it into effective-dated rules in [`data/crediting_rules.json`](../data/crediting_rules.json), resolving the handoff so there's no gap and no double-coverage.
+- **Finance** runs actuals: the deterministic engine applies the rules to [`data/commission_deals.csv`](../data/commission_deals.csv).
+- **Reps** land on the right comp line — a PSM on the revenue line, a PAM on the coverage line, for the months they actually owned the territory.
+
+**The design boundary — the part worth interviewing on.** The LLM does only the
+ambiguous half: turning prose into structured rules. The money — applying rules
+to deals — is [`crediting/engine.py`](../crediting/engine.py), plain Python with
+golden tests in [`tests/`](../tests/test_crediting.py) covering mid-quarter
+hires, territory handoffs at the boundary, split credit, and coverage gaps. No
+model ever computes a credited dollar. And an uncredited deal is surfaced, never
+silently zeroed — a gap at actuals time is a crediting hole to fix, not a zero
+to pay. That separation — AI for judgment, tested code for money — is the whole
+point.
 
 ### 5 · Recursive improvement — the setup edits itself
 
@@ -121,14 +153,19 @@ rock — the loop, visibly run once.
 # the data layer, standalone — what every session sees at boot
 bash .claude/hooks/session_context.sh
 
-# the config is real
-python3 -m json.tool .claude/settings.json
+# the money path is real and tested — no LLM in this loop
+python3 tests/test_crediting.py
+
+# run actuals against the sample deal book
+python3 -c "from crediting.engine import apply_rules, load_rules, load_deals; \
+lines, gaps = apply_rules(load_rules(), load_deals()); \
+print(len(lines), 'credited lines;', len(gaps), 'uncredited')"
 
 # then open Claude Code in this repo:
 #   - the SessionStart context appears automatically
-#   - type / and you'll see: attribution-compare, partner-qbr,
-#     scorecard-refresh, improve-setup
-#   - /attribution-compare with no args runs the sample deal
+#   - type / and you'll see: commissions-credit, attribution-compare,
+#     partner-qbr, improve-setup
+#   - /commissions-credit codifies the coverage sheet, then verifies it
 #   - /improve-setup runs a live retro against this very setup
 ```
 

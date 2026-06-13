@@ -2,7 +2,7 @@
 status: active
 owner: Dylan Ram
 horizon: FY27 H1
-owned-skills: scorecard-refresh, partner-qbr
+owned-skills: partner-qbr
 ---
 
 # Big Rock: Partner Scorecard
@@ -19,19 +19,22 @@ start from data instead of anecdotes.
 
 - [x] Define scorecard columns and thresholds in the data dictionary (2026-04-29)
 - [x] Seed `partner_metrics.csv` with the full partner book (2026-05-06)
-- [x] Ship `/scorecard-refresh` to recompute tiers and health flags from thresholds (2026-05-21)
+- [x] Recompute tiers and health flags from thresholds — `notebooks/scorecard_refresh.ipynb` (2026-05-21)
 - [x] Ship `/partner-qbr` to draft QBR briefs from scorecard data (2026-05-27)
 - [ ] Add quarter-over-quarter deltas (requires snapshotting the CSV per quarter)
 - [ ] Health push: Summit Advisory and Lakeshore Consulting are flagged red — review with their PSMs and offer a partner-scoped QBR brief if either requests one
 
 ## Owned Skills
 
-- [`/scorecard-refresh`](../../.claude/skills/scorecard-refresh/SKILL.md) —
-  recomputes `tier` and `health_flag` from dictionary thresholds, reports
-  deltas, writes only with confirmation.
 - [`/partner-qbr`](../../.claude/skills/partner-qbr/SKILL.md) — pulls the QBR
   data cut for a scope: the whole org (default), a region/segment, or a single
   partner on request, benchmarked against book or tier medians.
+
+Recomputing tiers and health flags lives as an **analysis notebook**
+([`notebooks/scorecard_refresh.ipynb`](../../notebooks/scorecard_refresh.ipynb)),
+not a skill — it's a periodic close-time analysis a human runs and eyeballs, not
+a recurring agent action. It reads the same dictionary thresholds and reports a
+deltas-only table before anything is changed.
 
 ## Open Questions
 
@@ -42,6 +45,10 @@ start from data instead of anecdotes.
 
 ## Improvement Log
 
+- **2026-06-13** — Demoted `/scorecard-refresh` from a skill to an analysis
+  notebook. Recomputing tiers is an analysis artifact, not a recurring agent
+  workflow; the flagship writing skill is now `/commissions-credit` under the
+  partner-compensation rock.
 - **2026-06-10** — Tiering moved from ad-hoc revenue/certification thresholds
   to the Partner Value Score. The formula, thresholds, and benefits table are
   owned by the partner-program rock via the data dictionary; this rock's

@@ -27,46 +27,57 @@ files at runtime. Full deep-dive:
 ## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/dylan3796/anthropic-portfolio.git
-cd anthropic-portfolio
+git clone https://github.com/dylan3796/partner-ops.git
+cd partner-ops
 
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
 Visit `http://localhost:8501`. Or open the repo in Claude Code: the
-SessionStart hook injects the business context, and `/attribution-compare`,
-`/partner-qbr`, `/scorecard-refresh`, and `/improve-setup` are live.
+SessionStart hook injects the business context, and `/commissions-credit`,
+`/attribution-compare`, `/partner-qbr`, and `/improve-setup` are live. The
+crediting math has golden tests: `python3 tests/test_crediting.py`.
 
 ## 📁 Project Structure
 
 ```
-anthropic-portfolio/
+partner-ops/
 ├── app.py                       # The walkthrough (Streamlit)
-├── CLAUDE.md                    # Claude Code project memory (bootstrap layer)
+├── CLAUDE.md                    # Project memory + domain glossary (PSM/PAM, segments)
 ├── .claude/
 │   ├── settings.json            # Permissions + hook wiring
 │   ├── hooks/                   # SessionStart context injection, Stop session log
-│   ├── skills/                  # attribution-compare, partner-qbr,
-│   │                            #   scorecard-refresh, improve-setup
+│   ├── skills/                  # commissions-credit (headline), attribution-compare,
+│   │                            #   partner-qbr, improve-setup
 │   └── agents/                  # big-rock-planner subagent
+├── crediting/
+│   └── engine.py                # Deterministic crediting engine (the money path)
+├── tests/
+│   └── test_crediting.py        # Golden tests / evals for the crediting math
+├── notebooks/
+│   └── scorecard_refresh.ipynb  # Analysis artifact: tier/health recompute
 ├── plans/big-rocks/             # Long-horizon plans per strategic initiative
 ├── retros/                      # Session log + improvement-loop retros
 ├── docs/
 │   └── claude-code-architecture.md  # Architecture walkthrough + diagram
 ├── data/
-│   ├── sample_data.py           # Attribution demo data
-│   ├── partner_metrics.csv      # Synthetic partner scorecard data
-│   └── DATA_DICTIONARY.md       # Metric definitions (source of truth)
+│   ├── partner_metrics.csv      # The gold table (synthetic partner book)
+│   ├── coverage_assignments.csv # Plain-English coverage sheet (the "Google Sheet")
+│   ├── crediting_rules.json     # Codified crediting rules (generated)
+│   ├── commission_deals.csv     # Closed deals actuals run against
+│   ├── sample_data.py           # Attribution deal fixture
+│   └── DATA_DICTIONARY.md       # Metric & schema definitions (source of truth)
 ├── .streamlit/
 │   └── config.toml              # Streamlit configuration
-└── requirements.txt             # Python dependencies
+├── requirements.txt             # App dependencies
+└── requirements-dev.txt         # + pytest, for the tests
 ```
 
 ## 🌐 Deployment
 
 Deployed on [Streamlit Community Cloud](https://share.streamlit.io) (free):
-sign in with GitHub → New app → repo `dylan3796/anthropic-portfolio`, branch
+sign in with GitHub → New app → repo `dylan3796/partner-ops`, branch
 `main`, entrypoint `app.py`.
 
 ## 📫 Contact
