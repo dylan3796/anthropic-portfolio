@@ -500,11 +500,11 @@ SKILL_MOMENTS = [
      "whole org, sometimes cut by region, occasionally for a single partner who requests "
      "one. The skill pulls the data cut for whatever slice the review covers, using the "
      "dictionary's definitions so every brief reads the same."),
-    ("/attribution-compare", "live in this repo",
-     "Two partners claim credit on the same deal",
-     "Runs the deal through the credit models defined in the attribution plan and shows "
-     "how the split swings by model. The weights live in the plan, not the prompt — so "
-     "the argument is about which model, never about the math."),
+    ("/call-notes-to-jira", "org scale",
+     "A partner call wraps and the follow-ups are buried in someone's notes",
+     "Turns raw call notes into tracked Jira tickets — a stalled deal-reg to chase, a "
+     "missing certification to schedule, an exec intro to tee up — each tagged to the "
+     "partner and the owning rep, so nothing from the conversation dies in a doc."),
     ("/improve-setup", "live in this repo",
      "The same ask shows up three sessions in a row",
      "The meta-skill. It reads the session log and git history, spots recurring work with "
@@ -527,7 +527,7 @@ for skill_cmd, skill_tag, skill_when, skill_how in SKILL_MOMENTS:
     </div>
     """, unsafe_allow_html=True)
 
-st.caption("Four of the five ship in this repo's .claude/skills/ — open any SKILL.md to see the inputs, steps, and guardrails. /commissions-credit is the one to read first: the AI authors the rules, crediting/engine.py does the money math, and tests/ pins it. /next-best-action follows the identical pattern at org scale.")
+st.caption("Three of the five ship in this repo's .claude/skills/ — open any SKILL.md to see the inputs, steps, and guardrails. /commissions-credit is the one to read first: the AI authors the rules, crediting/engine.py does the money math, and tests/ pins it. /next-best-action and /call-notes-to-jira sketch the same pattern at org scale.")
 
 
 # =============================================================================
