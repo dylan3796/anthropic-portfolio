@@ -276,26 +276,26 @@ st.markdown(
 st.markdown("""
 <div class="ask-prompt">
     <span class="ask-label">Someone asks</span>
-    <span class="ask-caret">&gt;</span>Should Vector Integrations move up a tier this half — and what would it cost us?
+    <span class="ask-caret">&gt;</span>Should we add a PSM in the West this half?
 </div>
 """, unsafe_allow_html=True)
 
 st.markdown(
     '<div style="font-size:0.9rem; color:#4a4a4a; margin:0 0 0.5rem 0;">'
-    'That one question lands in three different places at once:</div>',
+    'It qualifies the answer against three parts of the business at once:</div>',
     unsafe_allow_html=True,
 )
 
 ASK_ROUTES = [
     ("Metrics",
-     "Pulls the partner's Partner Value Score and the four components behind it — straight "
-     "from the one dictionary, so there's no guessing what the number means."),
+     "West sourced and attributed pipeline, and how much sits uncovered — is there enough "
+     "partner revenue in motion to carry another head?"),
     ("Program",
-     "Checks that score against the tier threshold and the benefits a move unlocks: a higher "
-     "deal-reg margin, market development funds, named coverage."),
+     "Which partners and priority motions concentrate in the West, and where today's "
+     "coverage is thinnest."),
     ("Compensation",
-     "Sees which reps cover the partner and how the move reshapes their crediting — who gets "
-     "credited, on which line, for which months."),
+     "How the region's reps are credited now, and how a new territory split would redraw "
+     "who owns what."),
 ]
 route_cards = "".join(
     f'<div class="ask-step"><div class="ask-tag">{tag}</div>'
