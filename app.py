@@ -239,8 +239,9 @@ st.markdown("""
 <div style="text-align: center; padding: 1.5rem 0 0.5rem 0;">
     <h1 style="font-size: 2.7rem; margin-bottom: 0.5rem; border: none;">AI Engineering for a Partner Ops Team</h1>
     <p style="font-size: 1.15rem; color: #666; margin-bottom: 0.4rem;">
-        Not dashboards — an operating system: the context Claude boots with,
-        the structure it lives in, and the moments a skill does the work.
+        A working example of running Claude Code as an operating system for a partner
+        ops team — the context it boots with, the structure it lives in, and the
+        moments a skill does the work.
     </p>
     <p style="font-size: 0.95rem; color: #999;">
         Dylan Ram &nbsp;·&nbsp; Partnerships GTM &nbsp;·&nbsp;
@@ -252,11 +253,11 @@ st.markdown("""
 
 st.markdown("""
 <div class="narrative-quote">
-If you're hiring your first AI lead, the real question isn't whether someone can prompt a
-model — it's whether they can make AI part of how a team operates. This page is that, built
-end to end: the context the model boots with, the judgment of what to automate versus what
-to encode and test, and how a non-technical team actually adopts it. The repo serving this
-page is the system it describes.
+I work in partnerships GTM, and I build. This is a small but complete system I put together
+to show how I'd make AI part of how a partner ops team actually runs — the context the model
+boots with, the calls I made about what to automate versus what to encode and test, and how
+a non-technical team adopts it. It isn't a mockup: the repo serving this page is the system
+it describes.
 </div>
 """, unsafe_allow_html=True)
 
@@ -265,11 +266,11 @@ page is the system it describes.
 # START BY SAYING WHAT YOU WANT
 # =============================================================================
 
-st.markdown("### You know what you want — ask for it")
+st.markdown("### One question, three parts of the business")
 st.markdown(
-    "The people running this don't need a tour of the architecture. They ask a precise "
-    "question and get a precise answer. The leverage is that a single specific ask reaches "
-    "into whatever parts of the business it needs at once — no one decides where to look."
+    "A concrete example of what the system is for. Someone on the team asks one specific "
+    "question, and it reaches into whichever parts of the business hold the answer — without "
+    "anyone deciding in advance where to look."
 )
 
 st.markdown("""
@@ -302,7 +303,7 @@ route_cards = "".join(
     for tag, body in ASK_ROUTES
 )
 st.markdown(route_cards, unsafe_allow_html=True)
-st.caption("No one routed it to three systems. The question was specific, so it reached the parts that answer it — the more precise the ask, the further it reaches.")
+st.caption("No one routed it to those three systems by hand — the question was specific enough to reach them on its own.")
 
 
 # =============================================================================
@@ -476,7 +477,7 @@ WHY = [
     ("Keep the model out of the money",
      "The model authors rules in plain English; deterministic, tested code applies them. "
      "The judgment that matters is knowing which work is a call for the model and which is "
-     "math to encode once and test — so you get the speed of language with the trust of a "
+     "math to encode once and test — the speed of language with the trust of a "
      "spreadsheet that can't silently miscount."),
     ("A system that improves itself",
      "Every session leaves evidence, and a retro loop turns that evidence into edits to "
@@ -497,10 +498,10 @@ for col, (why_title, why_desc) in zip(why_cols, WHY):
 # WHEN A SKILL DOES THE WORK
 # =============================================================================
 
-st.markdown("### When you reach for a skill")
+st.markdown("### When a skill does the work")
 st.markdown(
-    "Skills aren't features — each one exists because a recurring ask kept eating "
-    "someone's week. These are the moments you actually use one."
+    "Each skill exists because a recurring ask kept eating someone's week. Here's the "
+    "moment each one is for."
 )
 
 SKILL_MOMENTS = [
