@@ -413,16 +413,6 @@ role_cards = "".join(
 )
 st.markdown(f'<div class="gloss-grid">{role_cards}</div>', unsafe_allow_html=True)
 
-st.markdown(
-    '<div style="font-size:0.88rem; color:#4a4a4a; line-height:1.6; margin:0.2rem 0 0.4rem 0;">'
-    'Every partner sits in a <strong>territory</strong> — '
-    '<strong>Segment</strong> (Enterprise · Mid-Market · SMB) × '
-    '<strong>Region</strong> (East · Central · West) × '
-    '<strong>Motion</strong> (Migrations · Solution Development · Core Co-Sell) — '
-    'and earns a <strong>Tier</strong> (Strategic · Premier · Select).</div>',
-    unsafe_allow_html=True,
-)
-
 METRICS = [
     ("Sourced revenue", "FY26 closed-won on deals the partner originated (first touch). Credited at 100%."),
     ("Influenced revenue", "FY26 closed-won the partner touched but didn't source. Earns partial, role-weighted credit."),
