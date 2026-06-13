@@ -129,11 +129,55 @@ st.markdown("""
         vertical-align: middle;
     }
 
+    /* --- Glossary --- */
+    .gloss-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 1rem 0 0.5rem 0; }
+    .gloss-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        padding: 0.95rem 1.15rem;
+    }
+    .gloss-term { color: #1a1a1a; font-weight: 600; font-size: 0.98rem; }
+    .gloss-term .abbr { color: #D97757; }
+    .gloss-def { color: #4a4a4a; font-size: 0.88rem; line-height: 1.5; margin-top: 0.35rem; }
+
+    .metric-wrap { overflow-x: auto; }
+    .metric-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        margin: 0.6rem 0;
+    }
+    .metric-table th {
+        text-align: left;
+        font-size: 0.7rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #999;
+        font-weight: 600;
+        padding: 0.7rem 1.1rem;
+        border-bottom: 1px solid #eee;
+    }
+    .metric-table td {
+        padding: 0.7rem 1.1rem;
+        border-bottom: 1px solid #f2f1ef;
+        vertical-align: top;
+        font-size: 0.88rem;
+        color: #4a4a4a;
+        line-height: 1.5;
+    }
+    .metric-table tr:last-child td { border-bottom: none; }
+    .metric-table td.metric-name { color: #c4624a; font-weight: 600; white-space: nowrap; }
+
     /* --- Responsive: stack the wide rows so it reads top-to-bottom on phones --- */
     @media (max-width: 820px) {
         .layer-row { flex-direction: column; gap: 0.6rem; }
         .layer-arrow { transform: rotate(90deg); padding: 0.1rem 0; align-self: center; }
         .layer-desc { flex: none; }
+        .gloss-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
         h1 { font-size: 2rem !important; }
@@ -275,6 +319,98 @@ for tree_path, tree_note, tree_layer in FOLDER_TREE:
     tree_rows.append(f'<div class="tree-row"><span class="{path_class}">{tree_path}</span>{pill}{note}</div>')
 st.markdown(f'<div class="tree-card">{"".join(tree_rows)}</div>', unsafe_allow_html=True)
 st.caption("Identical shape at org scale: swap the CSV for Unity Catalog gold tables and point the team's shared instance at the same repo — the memory, plans, skills, and retro loop don't change.")
+
+
+# =============================================================================
+# THE SHARED VOCABULARY (GLOSSARY)
+# =============================================================================
+
+st.markdown("### One dictionary the whole instance reads from")
+st.markdown(
+    "The DATA layer isn't just numbers — it's the shared language. The roles, the way "
+    "the book is sliced, and every metric are each defined exactly once, so a skill never "
+    "guesses what “attributed revenue” means and no two briefs disagree."
+)
+
+ROLES = [
+    ("PSM", "Partner Sales Manager",
+     "Quota-carrying co-sell seller. Owns partner-sourced pipeline and revenue for their "
+     "territory — credited on the <em>revenue</em> line."),
+    ("PAM", "Partner Account Manager",
+     "Owns the partner <em>relationship</em>: enablement, certifications, QBRs, health — "
+     "credited on the <em>coverage</em> line, not on sourced revenue."),
+]
+role_cards = "".join(
+    f'<div class="gloss-card"><div class="gloss-term"><span class="abbr">{abbr}</span> — {full}</div>'
+    f'<div class="gloss-def">{desc}</div></div>'
+    for abbr, full, desc in ROLES
+)
+st.markdown(f'<div class="gloss-grid">{role_cards}</div>', unsafe_allow_html=True)
+
+st.markdown(
+    '<div style="font-size:0.88rem; color:#4a4a4a; line-height:1.6; margin:0.2rem 0 0.4rem 0;">'
+    'Every partner sits in a <strong>territory</strong> — '
+    '<strong>Segment</strong> (Enterprise · Mid-Market · SMB) × '
+    '<strong>Region</strong> (East · Central · West) × '
+    '<strong>Motion</strong> (Migrations · Solution Development · Core Co-Sell) — '
+    'and earns a <strong>Tier</strong> (Strategic · Premier · Select).</div>',
+    unsafe_allow_html=True,
+)
+
+METRICS = [
+    ("Sourced revenue", "FY26 closed-won on deals the partner originated (first touch). Credited at 100%."),
+    ("Influenced revenue", "FY26 closed-won the partner touched but didn't source. Earns partial, role-weighted credit."),
+    ("Attributed revenue", "Sourced at 100% plus the partner's role-weighted share of influenced — the headline number tiers and comp run on."),
+    ("Sourced pipeline", "Open pipeline where the partner is the originating source."),
+    ("Deal regs (approved)", "Registrations that passed conflict review: a 90-day protection window plus the tier's deal-reg margin."),
+    ("Partner Value Score", "0–100 composite of revenue, deal-reg discipline, technical capacity, and satisfaction. No single dimension can buy a tier."),
+    ("Tier", "Strategic / Premier / Select, derived from the Partner Value Score — sets benefits and coverage."),
+    ("Health flag", "green / yellow / red from NPS and QBR recency — the early-warning signal."),
+]
+metric_rows = "".join(
+    f'<tr><td class="metric-name">{name}</td><td>{desc}</td></tr>' for name, desc in METRICS
+)
+st.markdown(
+    f'<div class="metric-wrap"><table class="metric-table">'
+    f'<thead><tr><th>Metric</th><th>What it means</th></tr></thead>'
+    f'<tbody>{metric_rows}</tbody></table></div>',
+    unsafe_allow_html=True,
+)
+st.caption("Full schema, formulas, and ownership live in data/DATA_DICTIONARY.md — a definition changes there first, then propagates everywhere.")
+
+
+# =============================================================================
+# WHY IT'S BUILT THIS WAY
+# =============================================================================
+
+st.markdown("### Why it's built this way")
+st.markdown(
+    "Three decisions do the heavy lifting — each trades a little up-front structure for "
+    "compounding leverage."
+)
+
+WHY = [
+    ("Define once, reuse everywhere",
+     "One dictionary, one set of rules. Skills read definitions instead of re-deriving "
+     "them — so the math is consistent and auditable, and a change lands in one place "
+     "and updates every output."),
+    ("Keep the model out of the money",
+     "The AI authors rules in plain English; deterministic, tested code applies them. "
+     "You get the speed of natural language with the trust of a spreadsheet that can't "
+     "silently miscount."),
+    ("A system that improves itself",
+     "Every session leaves evidence, and a retro loop turns that evidence into edits to "
+     "the setup. The instance gets sharper with use instead of drifting out of date."),
+]
+why_cols = st.columns(3)
+for col, (why_title, why_desc) in zip(why_cols, WHY):
+    with col:
+        st.markdown(f"""
+        <div class="experience-card" style="min-height: 190px;">
+            <strong style="color: #D97757;">{why_title}</strong>
+            <p style="font-size: 0.88rem; color: #4a4a4a; margin: 0.5rem 0 0 0; line-height: 1.55;">{why_desc}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 # =============================================================================
