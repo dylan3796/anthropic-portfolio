@@ -6,8 +6,6 @@ the repo it lives in IS that system.
 
 import streamlit as st
 
-REPO_URL = "https://github.com/dylan3796/partner-ops"
-
 st.set_page_config(
     page_title="Dylan Ram | AI Engineering for Partner Ops",
     page_icon="",
@@ -129,6 +127,21 @@ st.markdown("""
         padding: 0 0.4rem;
         margin-left: 0.7rem;
         vertical-align: middle;
+    }
+
+    /* --- Responsive: stack the wide rows so it reads top-to-bottom on phones --- */
+    @media (max-width: 820px) {
+        .layer-row { flex-direction: column; gap: 0.6rem; }
+        .layer-arrow { transform: rotate(90deg); padding: 0.1rem 0; align-self: center; }
+        .layer-desc { flex: none; }
+    }
+    @media (max-width: 640px) {
+        h1 { font-size: 2rem !important; }
+        .main .block-container { padding-top: 1rem; padding-left: 1rem; padding-right: 1rem; }
+        .narrative-quote { padding: 1rem 1.1rem; }
+        .skill-card { flex-direction: column; gap: 0.5rem; padding: 1rem 1.1rem; }
+        .skill-cmd-col { min-width: 0; }
+        .tree-card { font-size: 0.72rem; padding: 1rem 1.1rem; }
     }
 
     #MainMenu {visibility: hidden;}
@@ -366,13 +379,7 @@ for col, (enable_title, enable_desc) in zip(enable_cols, ENABLEMENT):
 # =============================================================================
 
 st.markdown("---")
-st.markdown(f"""
-<div style="text-align: center; padding: 0.5rem 0; color: #666;">
-    Every file this page describes is real — browse
-    <a href="{REPO_URL}">the repo</a>, starting with
-    <a href="{REPO_URL}/blob/main/CLAUDE.md">CLAUDE.md</a> and
-    <a href="{REPO_URL}/blob/main/docs/claude-code-architecture.md">the architecture deep-dive</a>.
-</div>
+st.markdown("""
 <div style="text-align: center; padding: 0.8rem 0; color: #999; font-size: 0.85rem;">
     Dylan Ram · Built with Claude Code · 2026
 </div>
