@@ -251,17 +251,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<div class="narrative-quote">
-I work in partnerships GTM, and I build. This is a small but complete system I put together
-to show how I'd make AI part of how a partner ops team actually runs — the context the model
-boots with, the calls I made about what to automate versus what to encode and test, and how
-a non-technical team adopts it. It isn't a mockup: the repo serving this page is the system
-it describes.
-</div>
-""", unsafe_allow_html=True)
-
-
 # =============================================================================
 # START BY SAYING WHAT YOU WANT
 # =============================================================================
