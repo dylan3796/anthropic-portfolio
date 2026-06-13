@@ -252,7 +252,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =============================================================================
-# START BY SAYING WHAT YOU WANT
+# ONE QUESTION, THREE PARTS OF THE BUSINESS
 # =============================================================================
 
 st.markdown("### One question, three parts of the business")
@@ -301,8 +301,8 @@ st.caption("No one routed it to those three systems by hand — the question was
 
 st.markdown("### The five layers of context")
 st.markdown(
-    "Everything a session knows comes from one of these layers. Read left to right: "
-    "governed data at the bottom of the stack, a self-editing loop at the top."
+    "Everything a session knows comes from one of these five layers — from the governed "
+    "data at the foundation to the self-editing loop that keeps the rest current."
 )
 
 LAYERS = [
@@ -336,10 +336,6 @@ log and proposes edits back into every layer above. The system rewrites itself.<
 # =============================================================================
 
 st.markdown("### Those same five layers, as real files")
-st.markdown(
-    "Nothing above is abstract. This is the actual folder — not a diagram of one — and "
-    "every layer is a file you can open. The colored tags mark which layer each part belongs to."
-)
 
 FOLDER_TREE = [
     ("partner-ops/", None, None),
@@ -573,9 +569,9 @@ ENABLEMENT = [
 for col, (enable_title, enable_desc) in zip(enable_cols, ENABLEMENT):
     with col:
         st.markdown(f"""
-        <div class="experience-card" style="min-height: 170px;">
+        <div class="experience-card" style="min-height: 190px;">
             <strong style="color: #D97757;">{enable_title}</strong>
-            <p style="font-size: 0.9rem; color: #4a4a4a; margin: 0.5rem 0 0 0;">{enable_desc}</p>
+            <p style="font-size: 0.88rem; color: #4a4a4a; margin: 0.5rem 0 0 0; line-height: 1.55;">{enable_desc}</p>
         </div>
         """, unsafe_allow_html=True)
 
