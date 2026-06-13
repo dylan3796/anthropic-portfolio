@@ -346,8 +346,7 @@ FOLDER_TREE = [
     ("│   ├── coverage_assignments.csv", "the plain-English coverage sheet (the “Google Sheet”)", None),
     ("│   ├── crediting_rules.json", "codified crediting rules — output of /commissions-credit", None),
     ("│   ├── commission_deals.csv", "closed deals actuals run against", None),
-    ("│   ├── DATA_DICTIONARY.md", "one definition per metric + every schema above", None),
-    ("│   └── sample_data.py", "the attribution deal fixture", None),
+    ("│   └── DATA_DICTIONARY.md", "one definition per metric + every schema above", None),
     ("├── crediting/", "deterministic, tested money path — no LLM credits a deal", "DATA"),
     ("│   └── engine.py", "applies rules → who is credited, which line, which month", None),
     ("├── tests/", "golden tests / evals that pin the crediting math", None),
@@ -356,9 +355,10 @@ FOLDER_TREE = [
     ("│   └── big-rocks/", "one living plan per strategic initiative ↔ Jira epic", "PLANS"),
     ("│       ├── 00-INDEX.md", "lifecycle rules + the plan template", None),
     ("│       ├── partner-compensation.md", "owns /commissions-credit + the crediting engine", None),
-    ("│       ├── partner-attribution.md", "owns /attribution-compare + canonical model weights", None),
+    ("│       ├── partner-attribution.md", "canonical attribution model weights", None),
     ("│       ├── partner-scorecard.md", "owns /partner-qbr", None),
     ("│       ├── partner-program.md", "owns tiers, benefits, priority motions", None),
+    ("│       ├── partner-engagement.md", "owns /call-notes-to-jira", None),
     ("│       └── partner-planning.md", "planned — /quota-scenario proposed", None),
     ("├── .claude/", None, None),
     ("│   ├── settings.json", "scoped permissions — skills write only what their rock allows", None),
@@ -369,7 +369,7 @@ FOLDER_TREE = [
     ("│   │   └── big-rock-planner.md", "subagent that drafts new rock plans", None),
     ("│   └── skills/", "one folder per skill, each owned by exactly one rock", "SKILLS"),
     ("│       ├── commissions-credit/", "headline: plain-English coverage → crediting rules", None),
-    ("│       ├── attribution-compare/", None, None),
+    ("│       ├── call-notes-to-jira/", "call notes → tracked Jira tickets", None),
     ("│       ├── partner-qbr/", None, None),
     ("│       └── improve-setup/", "the meta-skill — the loop that edits everything above", None),
     ("├── notebooks/scorecard_refresh.ipynb", "analysis artifact: tier/health recompute", None),
@@ -500,7 +500,7 @@ SKILL_MOMENTS = [
      "whole org, sometimes cut by region, occasionally for a single partner who requests "
      "one. The skill pulls the data cut for whatever slice the review covers, using the "
      "dictionary's definitions so every brief reads the same."),
-    ("/call-notes-to-jira", "org scale",
+    ("/call-notes-to-jira", "live in this repo",
      "A partner call wraps and the follow-ups are buried in someone's notes",
      "Turns raw call notes into tracked Jira tickets — a stalled deal-reg to chase, a "
      "missing certification to schedule, an exec intro to tee up — each tagged to the "
@@ -527,7 +527,7 @@ for skill_cmd, skill_tag, skill_when, skill_how in SKILL_MOMENTS:
     </div>
     """, unsafe_allow_html=True)
 
-st.caption("Three of the five ship in this repo's .claude/skills/ — open any SKILL.md to see the inputs, steps, and guardrails. /commissions-credit is the one to read first: the AI authors the rules, crediting/engine.py does the money math, and tests/ pins it. /next-best-action and /call-notes-to-jira sketch the same pattern at org scale.")
+st.caption("Four of the five ship in this repo's .claude/skills/ — open any SKILL.md to see the inputs, steps, and guardrails. /commissions-credit is the one to read first: the AI authors the rules, crediting/engine.py does the money math, and tests/ pins it. /next-best-action sketches the same pattern at org scale.")
 
 
 # =============================================================================
