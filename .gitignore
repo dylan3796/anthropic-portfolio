@@ -3,3 +3,7 @@ __pycache__/
 .venv/
 .env
 *.log
+
+# Runtime session trail written by the Stop hook every session. Read locally
+# by /improve-setup; not tracked, to avoid per-session git churn.
+retros/session-log.md
