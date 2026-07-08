@@ -1,86 +1,83 @@
 #!/usr/bin/env python3
-"""Render Dylan Ram's targeted resume variants to print-ready HTML.
+"""Render Dylan Ram's targeted resumes to print-ready HTML in two designs.
 
-One fact base, three lenses. All content lives in VARIANTS below —
-edit the dicts, rerun, reprint. Every claim traces to the source
-resume or to work that exists in this repo; see resume/STRATEGY.md
-for the honesty guardrails, the variant-to-archetype mapping, and the
-quantification punch-list.
+One fact base, three lenses, two layouts. Content lives in VARIANTS; the
+look lives in the two CSS blocks + render fns. Every claim traces to the
+source resume or to work in this repo — see resume/STRATEGY.md.
 
-    python3 resume/build_resumes.py            # writes resume/output/*.html
-    # then print to PDF (chromium shown; any browser's Print works):
+    python3 resume/assets/fetch_fonts.py     # once — bundles the fonts
+    python3 resume/build_resumes.py          # writes resume/output/*.html
+
+    # print to PDF (chromium shown; any browser's Print works):
     #   chromium --headless --no-sandbox --print-to-pdf-no-header \
     #     --print-to-pdf=out.pdf file:///.../resume/output/<file>.html
 
-Tokens wrapped in <span class="todo">⟪ … ⟫</span> are review placeholders —
-Dylan's real numbers go there. They render in accent italic so they're
-impossible to miss, and MUST be filled or deleted before a resume is sent.
+Design notes
+------------
+- Typography: Lora (editorial serif) for display, Inter for everything else,
+  bundled as base64 in assets/fonts.css so PDFs are fully self-contained.
+- Palette: warm near-black ink, terracotta accent (#B4552F text / #D97757
+  rules) — the same Anthropic-inspired family as the portfolio, so the
+  resume and the site read as one system.
+- Two layouts:
+    editorial : single column, ATS-safe. The default for portals/parsers.
+    modern    : two-column with a skills rail. More designed; better for
+                sending straight to a hiring manager. (ATS parsers handle it
+                less reliably — see STRATEGY.md.)
+- No fabricated metrics anywhere. Bullets lead with what the work was and
+  its quality, not what it touched; scale is an interview conversation.
 """
 
 from pathlib import Path
 
-OUT_DIR = Path(__file__).parent / "output"
+HERE = Path(__file__).parent
+OUT_DIR = HERE / "output"
+FONTS = (HERE / "assets" / "fonts.css").read_text()
 
-NAME = "DYLAN RAM"
+NAME = "Dylan Ram"
+# order: primary reach, then links
 CONTACT = [
-    "916-690-5681",
     "dylanmr96@gmail.com",
+    "916-690-5681",
     "linkedin.com/in/dylanram",
     "github.com/dylan3796/anthropic-portfolio",
 ]
-
-EDUCATION = (
-    "<strong>University of California, Santa Barbara</strong> — "
-    "B.A. Economics &amp; Accounting · Dean's Honors"
-)
-
-
-def todo(hint: str) -> str:
-    """A visible fill-me placeholder for a metric Dylan will supply."""
-    return f'<span class="todo">⟪{hint}⟫</span>'
-
+EDUCATION_SCHOOL = "University of California, Santa Barbara"
+EDUCATION_DEGREE = "B.A. Economics &amp; Accounting · Dean's Honors"
 
 # ---------------------------------------------------------------------------
 # The three variants. Same jobs, same facts — different lead, order, and
-# vocabulary, calibrated to the keyword banks in STRATEGY.md. Bullets are
-# reworded per lens but never inflated.
+# vocabulary. Substance over scale; no invented numbers.
 # ---------------------------------------------------------------------------
 
 VARIANTS = {
-    # =====================================================================
-    # 1 · FORWARD DEPLOYED / APPLIED AI  — the builder pole
-    #     Targets: Applied AI, AI Solutions Engineer, AI Operations,
-    #     adjacent-FDE. Project is the centerpiece; evals are the hook.
-    # =====================================================================
+    # 1 · FORWARD DEPLOYED / APPLIED AI — the builder pole
     "dylan-ram-ai-forward-deployed": {
-        "tagline": "Forward Deployed &amp; Applied AI · Agent Systems · Evals &amp; Deployment",
+        "tagline": "Forward Deployed & Applied AI · Agent Systems · Evals & Deployment",
         "summary": (
             "Operator-engineer who deploys LLM and agent systems into real business "
             "workflows — and draws the hard line on where deterministic, tested code must "
             "own the outcome. At Databricks, shipped the partner team's first LLM agents to "
-            "production. Independently designed a full agent operating system in Claude Code — "
+            "production; independently designed a full agent operating system in Claude Code — "
             "skills, hooks, subagents, MCP, and a golden-tested engine that keeps the model "
-            "out of the money path. Fluent in Python and SQL, comfortable owning a deployment "
-            "end to end and answering the question that matters: how do you know it's working."
+            "out of the money path. Fluent in Python and SQL, and ready to answer the "
+            "question that matters: how do you know it's working."
         ),
         "skills": [
-            ("Agents &amp; LLMs", "Claude Code (skills, hooks, subagents, MCP, scoped "
-             "permissions), agent &amp; LLM workflow design, prompt engineering, evals &amp; "
+            ("Agents & LLMs", "Claude Code (skills, hooks, subagents, MCP, scoped "
+             "permissions), agent & LLM workflow design, prompt engineering, evals & "
              "golden-test patterns"),
-            ("Languages &amp; data", "Python (pandas, NumPy), SQL, PySpark, Salesforce "
-             "APIs, Tableau, Git/GitHub"),
+            ("Languages & data", "Python (pandas, NumPy), SQL, PySpark, Salesforce APIs, "
+             "Tableau, Git/GitHub"),
         ],
         "jobs": [
             {
-                "company": "Databricks",
-                "role": "Partner Strategy & Ops Manager",
-                "note": "promoted Feb 2023 · first Partner S&O hire",
-                "dates": "Aug 2021 – Present",
+                "company": "Databricks", "role": "Partner Strategy & Ops Manager",
+                "note": "promoted Feb 2023 · first Partner S&O hire", "dates": "Aug 2021 – Present",
                 "bullets": [
                     "Deployed the partner team's first LLM reporting agents (Newsletter Agent, "
-                    "FAQ Agent) into production — automated Q&amp;A, insights, and "
-                    "notifications, embedding agentic workflows into how partner metrics reach "
-                    f"the org, now serving {todo('N stakeholders / queries per week')}.",
+                    "FAQ Agent) into production — automated Q&A, insights, and notifications, "
+                    "embedding agentic workflows into how partner metrics reach the org.",
                     "Building the team's foundational data-and-AI layer: a medallion "
                     "(bronze/silver/gold) architecture in Spark/SQL and self-serve interfaces "
                     "so stakeholders query answers directly instead of filing requests.",
@@ -89,15 +86,13 @@ VARIANTS = {
                     "Designed the partner attribution model and built the attribution systems "
                     "in Salesforce, SQL, and Spark — sourced, influenced, and attributed "
                     "revenue across a two-sided marketplace; the governed data the agents run on.",
-                    "Stood up the team's first revenue forecasting process where none existed — "
-                    f"{todo('what it forecasts + scale')}.",
+                    "Built the team's first partner-revenue forecasting process where none "
+                    "existed — methodology and cadence designed from scratch.",
                 ],
             },
             {
-                "company": "Salesforce",
-                "role": "SMB Sales Strategy & Operations Analyst",
-                "note": "",
-                "dates": "Jul 2019 – Aug 2021",
+                "company": "Salesforce", "role": "SMB Sales Strategy & Operations Analyst",
+                "note": "", "dates": "Jul 2019 – Aug 2021",
                 "bullets": [
                     "Built the territory-carving Python script that encoded the org's guiding "
                     "principles, personnel, and accounts — the engine behind the annual GTM plan.",
@@ -108,10 +103,8 @@ VARIANTS = {
                 ],
             },
             {
-                "company": "CBRE",
-                "role": "Business Data Analyst",
-                "note": "",
-                "dates": "Sep 2018 – Jul 2019",
+                "company": "CBRE", "role": "Business Data Analyst",
+                "note": "", "dates": "Sep 2018 – Jul 2019",
                 "bullets": [
                     "Built Python web-scraping tools and managed the product data warehouse; "
                     "shipped client-facing Tableau dashboards and streamlined the analytics "
@@ -127,8 +120,7 @@ VARIANTS = {
             "a retro loop that proposes edits to its own setup.",
             "Drew the AI/deterministic boundary for commissions crediting: an agent turns "
             "managers' plain-English coverage into effective-dated rules; a golden-tested "
-            "Python engine (crediting/engine.py) applies them to deals — no LLM ever computes "
-            "a credited dollar.",
+            "Python engine applies them to deals — no LLM ever computes a credited dollar.",
             "Wrote the eval suite that proves it: golden tests over mid-quarter hires, "
             "territory handoffs at the boundary, split credit, and coverage gaps — an "
             "uncredited deal is surfaced, never silently zeroed.",
@@ -137,13 +129,9 @@ VARIANTS = {
         ],
     },
 
-    # =====================================================================
-    # 2 · AI STRATEGY & DEPLOYMENT  — the AI-native operator pole
-    #     Targets: AI Strategy, AI Enablement, AI Operations (non-eng),
-    #     Head of Automation, BizOps-2.0 at AI companies.
-    # =====================================================================
+    # 2 · AI STRATEGY & DEPLOYMENT — the AI-native operator pole
     "dylan-ram-ai-strategy": {
-        "tagline": "AI Strategy &amp; Deployment · Enablement · Agentic Operating Systems",
+        "tagline": "AI Strategy & Deployment · Enablement · Agentic Operating Systems",
         "summary": (
             "Sets up how an organization actually deploys AI — from the foundational data "
             "layer to KPI alignment to the self-serve enablement that gets non-technical "
@@ -154,18 +142,16 @@ VARIANTS = {
             "deterministic execution: built-and-deployed AI work, not slideware."
         ),
         "skills": [
-            ("AI deployment &amp; enablement", "Agent operating systems (Claude Code, "
-             "CLAUDE.md, MCP), LLM workflow design, prompt engineering, evals, self-serve "
-             "enablement, playbooks &amp; standards"),
-            ("Data &amp; ops", "SQL, Python (pandas), PySpark, Tableau, Salesforce, medallion "
+            ("AI deployment & enablement", "Agent operating systems (Claude Code, CLAUDE.md, "
+             "MCP), LLM workflow design, prompt engineering, evals, self-serve enablement, "
+             "playbooks & standards"),
+            ("Data & ops", "SQL, Python (pandas), PySpark, Tableau, Salesforce, medallion "
              "architecture, KPI definition, executive reporting"),
         ],
         "jobs": [
             {
-                "company": "Databricks",
-                "role": "Partner Strategy & Ops Manager",
-                "note": "promoted Feb 2023 · first Partner S&O hire",
-                "dates": "Aug 2021 – Present",
+                "company": "Databricks", "role": "Partner Strategy & Ops Manager",
+                "note": "promoted Feb 2023 · first Partner S&O hire", "dates": "Aug 2021 – Present",
                 "bullets": [
                     "Spearheading the partner team's AI strategy — building the foundational "
                     "data-and-AI layer (a medallion architecture) and aligning KPIs across "
@@ -175,17 +161,15 @@ VARIANTS = {
                     "answer their own questions — turning a standing request queue into direct "
                     "access.",
                     "Deployed the team's first LLM agents (Newsletter, FAQ) into production for "
-                    f"automated Q&amp;A, insights, and notifications, reaching {todo('N stakeholders')}.",
+                    "automated Q&A, insights, and notifications.",
                     "Designed the partner attribution model and the first revenue forecasting "
                     "process — the governed data the AI layer depends on.",
                     "Shaped the Partner Value Score and tiering framework adopted globally.",
                 ],
             },
             {
-                "company": "Salesforce",
-                "role": "SMB Sales Strategy & Operations Analyst",
-                "note": "",
-                "dates": "Jul 2019 – Aug 2021",
+                "company": "Salesforce", "role": "SMB Sales Strategy & Operations Analyst",
+                "note": "", "dates": "Jul 2019 – Aug 2021",
                 "bullets": [
                     "Automated reporting and forecasting tooling with Python, APIs, and G Suite "
                     "— QBR decks, forecast accuracy, and territory data.",
@@ -195,13 +179,11 @@ VARIANTS = {
                 ],
             },
             {
-                "company": "CBRE",
-                "role": "Business Data Analyst",
-                "note": "",
-                "dates": "Sep 2018 – Jul 2019",
+                "company": "CBRE", "role": "Business Data Analyst",
+                "note": "", "dates": "Sep 2018 – Jul 2019",
                 "bullets": [
-                    "Managed the product data warehouse and built Python data-collection tools.",
-                    "Built client-facing Tableau dashboards; streamlined the product-analytics "
+                    "Managed the product data warehouse and built Python data-collection tools; "
+                    "shipped client-facing Tableau dashboards and streamlined the analytics "
                     "process end to end.",
                 ],
             },
@@ -221,57 +203,52 @@ VARIANTS = {
         ],
     },
 
-    # =====================================================================
-    # 3 · BUSINESS OPERATIONS / STRATEGY  — the operating-leader pole
-    #     Primary: Business Operations Lead. Also serves Chief of Staff
-    #     and Partner S&O. Signature programs lead; AI is the modern edge.
-    # =====================================================================
+    # 3 · BUSINESS OPERATIONS / STRATEGY — the operating-leader pole
     "dylan-ram-business-operations": {
-        "tagline": "Business Operations · Strategy &amp; Planning · GTM Systems",
+        "tagline": "Business Operations · Strategy & Planning · GTM Systems",
         "summary": (
-            "The operating spine of a GTM org. As Databricks' first Partner Strategy &amp; Ops "
-            "hire, built the forecast, attribution, and first new-logo incentive programs from "
-            "scratch, ran annual quota-setting across Sales, Finance, and Partner leadership, "
-            "and now sets the AI strategy that makes the team faster. Architects the high-level "
-            "plan, operationalizes it, and dives into the detail — seven years partnering "
-            "directly with GTM executives at Databricks, Salesforce, and CBRE."
+            "The operating spine of a GTM org — a zero-to-one builder and one-to-100 scaler. "
+            "As Databricks' first Partner Strategy & Ops hire, stood up the forecast, "
+            "attribution, and first new-logo incentive programs from scratch, ran annual "
+            "quota-setting across Sales, Finance, and Partner leadership, and now brings AI "
+            "into the operating cadence. Works across a two-sided marketplace — aligning the "
+            "partner team, the sales org that co-sells through partners, and external partners "
+            "at once. Architects the plan, operationalizes it, and dives into the detail; "
+            "seven years partnering directly with GTM executives at Databricks, Salesforce, "
+            "and CBRE."
         ),
         "skills": [
-            ("Operations &amp; strategy", "Operating cadence, annual &amp; quota planning, "
-             "OKRs, territory design, incentive/comp program design, revenue forecasting, "
-             "executive &amp; board reporting"),
-            ("Data &amp; AI", "SQL, Python (pandas), PySpark, Tableau, Salesforce, revenue "
+            ("Operations & strategy", "Operating cadence, annual & quota planning, OKRs, "
+             "territory design, incentive/comp program design, revenue forecasting, "
+             "executive & board reporting"),
+            ("Data & AI", "SQL, Python (pandas), PySpark, Tableau, Salesforce, revenue "
              "attribution, deployed AI agents, AI enablement (Claude Code)"),
         ],
         "jobs": [
             {
-                "company": "Databricks",
-                "role": "Partner Strategy & Ops Manager",
-                "note": "promoted Feb 2023 · first Partner S&O hire",
-                "dates": "Aug 2021 – Present",
+                "company": "Databricks", "role": "Partner Strategy & Ops Manager",
+                "note": "promoted Feb 2023 · first Partner S&O hire", "dates": "Aug 2021 – Present",
                 "bullets": [
                     "Built the partner team's first revenue forecasting process where none "
-                    f"existed — {todo('what it forecasts + scale, e.g. $XXXM quarterly partner-sourced')}.",
-                    "Designed the canonical partner attribution model — "
-                    f"{todo('adoption, e.g. company-wide source of truth across N teams')} — "
-                    "defining sourced, influenced, and attributed revenue across a two-sided "
-                    "marketplace.",
-                    "Launched the first partner incentive program tied to new-logo acquisition — "
-                    f"{todo('what it rewards + impact, e.g. drove N net-new logos')}.",
+                    "existed — designing the methodology and cadence from the ground up.",
+                    "Designed the canonical partner attribution model — the single source of "
+                    "truth for how sourced, influenced, and attributed revenue is credited "
+                    "across a two-sided marketplace.",
+                    "Launched the partner org's first incentive program tied to new-logo "
+                    "acquisition — designing the crediting and payout logic from scratch.",
                     "Led annual quota-setting across Sales, Finance, and Partner leadership "
                     "through top-down and bottoms-up planning.",
-                    "Shaped the Partner Value Score and tiering framework, earning global "
-                    "alignment and executive adoption.",
+                    "Helped craft the partner program strategy from the ground up — the "
+                    "Partner Value Score and tiering system — earning global alignment and "
+                    "executive adoption.",
                     "Now spearheading KPI alignment across internal, external, and partner "
                     "stakeholders and building self-serve, AI-driven analytics — the operating "
                     "cadence's modern layer.",
                 ],
             },
             {
-                "company": "Salesforce",
-                "role": "SMB Sales Strategy & Operations Analyst",
-                "note": "",
-                "dates": "Jul 2019 – Aug 2021",
+                "company": "Salesforce", "role": "SMB Sales Strategy & Operations Analyst",
+                "note": "", "dates": "Jul 2019 – Aug 2021",
                 "bullets": [
                     "Direct business partner to the $250M AMER SMB Central business, advising "
                     "AVPs, VPs, and RMs across the org.",
@@ -282,10 +259,8 @@ VARIANTS = {
                 ],
             },
             {
-                "company": "CBRE",
-                "role": "Business Data Analyst",
-                "note": "",
-                "dates": "Sep 2018 – Jul 2019",
+                "company": "CBRE", "role": "Business Data Analyst",
+                "note": "", "dates": "Sep 2018 – Jul 2019",
                 "bullets": [
                     "Owned the product-analytics stack end to end — data warehouse, Python "
                     "data collection, and client-facing Tableau dashboards.",
@@ -298,8 +273,8 @@ VARIANTS = {
                          "cadence (public repo, 2026)",
         "project_bullets": [
             "Built a working operating system for a function: big rocks as the planning "
-            "pillars, skills as the repeatable plays, a metric dictionary as governance, and a "
-            "retro loop that runs the QBR on the tooling itself.",
+            "pillars, skills as the repeatable plays, a metric dictionary as governance, and "
+            "a retro loop that runs the QBR on the tooling itself.",
             "Headline workflow — commissions crediting: an agent codifies managers' "
             "plain-English coverage changes into effective-dated rules, and tested code, never "
             "a model, computes the money.",
@@ -308,95 +283,191 @@ VARIANTS = {
 }
 
 # ---------------------------------------------------------------------------
-# Template — single column, standard headings, letter-size, one page.
-# Deliberately ATS-safe: no sidebars, no tables for layout, no graphics.
+# Shared bits
 # ---------------------------------------------------------------------------
 
-CSS = """
+RESET = """
     @page { size: letter; margin: 0; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { background: white; }
-    body {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        color: #1a1a1a; font-size: 9.3pt; line-height: 1.33;
-        -webkit-print-color-adjust: exact; print-color-adjust: exact;
-    }
-    .page { width: 8.5in; padding: 0.4in 0.62in; margin: 0 auto; }
-    .name { font-size: 21pt; font-weight: 700; letter-spacing: 0.14em; }
-    .tagline { font-size: 10pt; color: #b5543b; font-weight: 600; margin-top: 2pt; }
-    .contact { font-size: 8.6pt; color: #555; margin-top: 4pt; }
-    .contact span + span::before { content: "  ·  "; color: #bbb; }
-    h2 {
-        font-size: 8.6pt; font-weight: 700; letter-spacing: 0.13em;
-        text-transform: uppercase; color: #b5543b;
-        border-bottom: 1px solid #e3ddd8; padding-bottom: 2pt;
-        margin: 9pt 0 4.5pt 0;
-    }
-    .summary { color: #333; }
-    .skill-line { margin-bottom: 2.5pt; }
-    .skill-line strong { color: #1a1a1a; }
-    .job { margin-bottom: 7pt; }
-    .job-head { display: flex; justify-content: space-between; align-items: baseline; }
-    .job-role { font-weight: 700; font-size: 9.8pt; }
-    .job-co { color: #b5543b; font-weight: 600; }
-    .job-note { color: #777; font-style: italic; font-weight: 400; font-size: 8.8pt; }
-    .job-dates { color: #555; font-size: 8.8pt; white-space: nowrap; }
-    ul { margin: 2.5pt 0 0 0; padding-left: 13pt; }
-    li { margin-bottom: 1.5pt; color: #333; }
-    .proj-title { font-weight: 700; font-size: 9.6pt; }
-    .proj-title .proj-link { color: #777; font-weight: 400; font-size: 8.6pt; }
-    .edu { color: #333; }
-    .todo {
-        color: #b5543b; font-style: italic; font-weight: 600;
-        border-bottom: 1px dotted #d9a08c;
-    }
+    html, body { background: #ffffff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 """
 
 
-def render(variant: dict) -> str:
-    contact = "".join(f"<span>{c}</span>" for c in CONTACT)
-    skills = "".join(
-        f'<div class="skill-line"><strong>{label}:</strong> {body}</div>'
+def _skill_lines(variant, label_cls, body_cls):
+    return "".join(
+        f'<div class="skill-line"><span class="{label_cls}">{label}</span>'
+        f'<span class="{body_cls}">{body}</span></div>'
         for label, body in variant["skills"]
     )
-    jobs = []
+
+
+def _jobs(variant):
+    out = []
     for job in variant["jobs"]:
-        note = f' <span class="job-note">({job["note"]})</span>' if job["note"] else ""
+        note = f' <span class="job-note">{job["note"]}</span>' if job["note"] else ""
         bullets = "".join(f"<li>{b}</li>" for b in job["bullets"])
-        jobs.append(
+        out.append(
             f'<div class="job"><div class="job-head">'
-            f'<div class="job-role">{job["role"]} — '
+            f'<div class="job-role">{job["role"]} &nbsp;·&nbsp; '
             f'<span class="job-co">{job["company"]}</span>{note}</div>'
             f'<div class="job-dates">{job["dates"]}</div></div>'
-            f"<ul>{bullets}</ul></div>"
+            f'<ul>{bullets}</ul></div>'
         )
-    proj_bullets = "".join(f"<li>{b}</li>" for b in variant["project_bullets"])
-    return f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>{NAME} — Resume</title>
-<style>{CSS}</style></head><body><div class="page">
-<div class="name">{NAME}</div>
-<div class="tagline">{variant["tagline"]}</div>
-<div class="contact">{contact}</div>
-<h2>Summary</h2>
-<div class="summary">{variant["summary"]}</div>
-<h2>Skills</h2>
-{skills}
-<h2>Experience</h2>
-{"".join(jobs)}
-<h2>Selected Project</h2>
-<div class="job">
-<div class="proj-title">{variant["project_title"]}
- <span class="proj-link">— github.com/dylan3796/anthropic-portfolio</span></div>
-<ul>{proj_bullets}</ul>
-</div>
-<h2>Education</h2>
-<div class="edu">{EDUCATION}</div>
-</div></body></html>"""
+    return "".join(out)
+
+
+def _project(variant):
+    pb = "".join(f"<li>{b}</li>" for b in variant["project_bullets"])
+    return (
+        f'<div class="job"><div class="proj-title">{variant["project_title"]}'
+        f' <span class="proj-link">— github.com/dylan3796/anthropic-portfolio</span></div>'
+        f'<ul>{pb}</ul></div>'
+    )
+
+
+def _doc(css, body):
+    return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
+            f'<title>{NAME} — Resume</title><style>{FONTS}{RESET}{css}</style></head>'
+            f'<body>{body}</body></html>')
+
+
+# ---------------------------------------------------------------------------
+# Layout A — EDITORIAL (single column, ATS-safe)
+# ---------------------------------------------------------------------------
+
+EDITORIAL_CSS = """
+    body { font-family: 'Inter', system-ui, sans-serif; font-size: 9.2pt;
+           line-height: 1.33; color: #33302e; }
+    .page { width: 8.5in; padding: 0.4in 0.6in; }
+    .name { font-family: 'Lora', Georgia, serif; font-size: 22pt; font-weight: 600;
+            color: #1c1a19; line-height: 1; letter-spacing: 0.005em; }
+    .tagline { font-size: 9.8pt; font-weight: 600; color: #B4552F; margin-top: 4pt;
+               letter-spacing: 0.01em; }
+    .contact { font-size: 8.5pt; color: #6b6560; margin-top: 4pt; }
+    .contact span + span::before { content: "   ·   "; color: #cbc4bd; }
+    h2 { font-size: 7.9pt; font-weight: 700; letter-spacing: 0.17em; text-transform: uppercase;
+         color: #B4552F; border-bottom: 1px solid #e6e1dc; padding-bottom: 2pt;
+         margin: 8.5pt 0 4pt; }
+    .summary { color: #33302e; }
+    .skill-line { margin-bottom: 2.5pt; }
+    .skill-line .sk-label { font-weight: 700; color: #1c1a19; }
+    .skill-line .sk-label::after { content: "  —  "; color: #b8b1aa; font-weight: 400; }
+    .job { margin-bottom: 5pt; }
+    .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12pt; }
+    .job-role { font-size: 9.9pt; font-weight: 600; color: #1c1a19; }
+    .job-co { color: #B4552F; font-weight: 600; }
+    .job-note { font-size: 8.3pt; font-style: italic; font-weight: 400; color: #8a8580; }
+    .job-dates { font-size: 8.7pt; color: #6b6560; white-space: nowrap; }
+    ul { margin: 2.5pt 0 0; padding-left: 14pt; }
+    li { margin-bottom: 1.7pt; color: #33302e; }
+    li::marker { color: #D97757; }
+    .proj-title { font-size: 9.8pt; font-weight: 600; color: #1c1a19; }
+    .proj-title .proj-link { font-weight: 400; font-size: 8.3pt; color: #8a8580; }
+    .edu { color: #33302e; }
+    .edu strong { color: #1c1a19; }
+"""
+
+
+def render_editorial(variant):
+    contact = "".join(f"<span>{c}</span>" for c in CONTACT)
+    skills = _skill_lines(variant, "sk-label", "sk-body")
+    body = f"""<div class="page">
+      <div class="name">{NAME}</div>
+      <div class="tagline">{variant["tagline"]}</div>
+      <div class="contact">{contact}</div>
+      <h2>Summary</h2><div class="summary">{variant["summary"]}</div>
+      <h2>Skills</h2>{skills}
+      <h2>Experience</h2>{_jobs(variant)}
+      <h2>Selected Project</h2>{_project(variant)}
+      <h2>Education</h2>
+      <div class="edu"><strong>{EDUCATION_SCHOOL}</strong> — {EDUCATION_DEGREE}</div>
+    </div>"""
+    return _doc(EDITORIAL_CSS, body)
+
+
+# ---------------------------------------------------------------------------
+# Layout B — MODERN (two-column, skills rail)
+# ---------------------------------------------------------------------------
+
+MODERN_CSS = """
+    body { font-family: 'Inter', system-ui, sans-serif; font-size: 8.9pt;
+           line-height: 1.31; color: #33302e; }
+    .page { width: 8.5in; }
+    .header { padding: 0.38in 0.55in 0.18in; display: flex; justify-content: space-between;
+              align-items: flex-end; border-bottom: 2.2px solid #1c1a19; gap: 18pt; }
+    .name { font-size: 21pt; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+            color: #1c1a19; line-height: 1; }
+    .tagline { font-size: 8.7pt; font-weight: 600; color: #B4552F; text-transform: uppercase;
+               letter-spacing: 0.11em; margin-top: 5pt; }
+    .header-contact { text-align: right; font-size: 8.3pt; color: #6b6560; line-height: 1.65;
+                      white-space: nowrap; }
+    .cols { display: flex; align-items: stretch; }
+    .rail { width: 31%; background: #F6F3F1; padding: 0.24in 0.28in; }
+    .main { width: 69%; padding: 0.24in 0.36in 0.3in 0.34in; }
+    h2 { font-size: 7.5pt; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+         color: #B4552F; margin: 0 0 5pt; }
+    .main h2 { border-bottom: 1px solid #e6e1dc; padding-bottom: 2.5pt; }
+    .block + .block { margin-top: 9pt; }
+    .summary { color: #33302e; }
+    .rail .skill-line { margin-bottom: 6pt; }
+    .rail .sk-label { display: block; font-weight: 700; color: #1c1a19; margin-bottom: 1pt; }
+    .rail .sk-body { color: #4f4a46; font-size: 8.6pt; }
+    .rail .rail-links { font-size: 8.5pt; color: #4f4a46; line-height: 1.7; }
+    .rail .edu-school { font-weight: 700; color: #1c1a19; }
+    .rail .edu-degree { color: #4f4a46; font-size: 8.6pt; margin-top: 1pt; }
+    .job { margin-bottom: 5.5pt; }
+    .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10pt; }
+    .job-role { font-size: 9.4pt; font-weight: 600; color: #1c1a19; }
+    .job-co { color: #B4552F; font-weight: 600; }
+    .job-note { display: block; font-size: 8.1pt; font-style: italic; font-weight: 400;
+                color: #8a8580; margin-top: 1pt; }
+    .job-dates { font-size: 8.3pt; color: #6b6560; white-space: nowrap; }
+    ul { margin: 3pt 0 0; padding-left: 13pt; }
+    li { margin-bottom: 1.7pt; color: #33302e; }
+    li::marker { color: #D97757; }
+    .proj-title { font-size: 9.4pt; font-weight: 600; color: #1c1a19; }
+    .proj-title .proj-link { display: block; font-weight: 400; font-size: 8.1pt;
+                             color: #8a8580; margin-top: 1pt; }
+"""
+
+
+def render_modern(variant):
+    header_contact = "<br>".join(CONTACT[:2])
+    links = "<br>".join(CONTACT[2:])
+    skills = _skill_lines(variant, "sk-label", "sk-body")
+    body = f"""<div class="page">
+      <div class="header">
+        <div><div class="name">{NAME}</div>
+             <div class="tagline">{variant["tagline"]}</div></div>
+        <div class="header-contact">{header_contact}</div>
+      </div>
+      <div class="cols">
+        <div class="rail">
+          <div class="block"><h2>Skills</h2>{skills}</div>
+          <div class="block"><h2>Links</h2>
+            <div class="rail-links">{links}</div></div>
+          <div class="block"><h2>Education</h2>
+            <div class="edu-school">{EDUCATION_SCHOOL}</div>
+            <div class="edu-degree">{EDUCATION_DEGREE}</div></div>
+        </div>
+        <div class="main">
+          <div class="block"><h2>Summary</h2>
+            <div class="summary">{variant["summary"]}</div></div>
+          <div class="block"><h2>Experience</h2>{_jobs(variant)}</div>
+          <div class="block"><h2>Selected Project</h2>{_project(variant)}</div>
+        </div>
+      </div>
+    </div>"""
+    return _doc(MODERN_CSS, body)
+
+
+LAYOUTS = {"editorial": render_editorial, "modern": render_modern}
 
 
 if __name__ == "__main__":
     OUT_DIR.mkdir(exist_ok=True)
     for stem, variant in VARIANTS.items():
-        path = OUT_DIR / f"{stem}.html"
-        path.write_text(render(variant))
-        print(f"wrote {path}")
+        for layout, fn in LAYOUTS.items():
+            path = OUT_DIR / f"{stem}--{layout}.html"
+            path.write_text(fn(variant))
+            print(f"wrote {path.name}")
