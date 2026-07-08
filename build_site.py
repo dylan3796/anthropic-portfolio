@@ -42,9 +42,11 @@ LENS = {
         "label": "Business Operations résumé",
     },
     "ai": {
-        "copy": ("The AI-native operator. I deploy LLM agents into real workflows and set up "
-                 "how an org adopts them — foundational data, KPI alignment, self-serve "
-                 "enablement — with tested code owning anything that touches money."),
+        "copy": ("The AI-native operator. I deploy LLM agents into the workflows a GTM org "
+                 "runs on — reporting, forecasting, crediting — and set up how it adopts them: "
+                 "foundational data, KPI alignment, self-serve enablement, with tested code "
+                 "owning anything that touches money. All of it is public, down to the eval "
+                 "suite."),
         "targets": "Applied AI · AI Operations · AI Strategy &amp; Enablement",
         "href": RESUMES["ai_mo"],
         "label": "AI Deployment résumé",
@@ -231,10 +233,11 @@ a:hover{text-decoration:underline}
 .dl-card h3{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:18px}
 .dl-card .dl-for{font-family:var(--mono);font-size:11.5px;color:var(--muted);
   letter-spacing:.04em;margin:5px 0 14px}
-.dl-links{display:flex;gap:10px}
-.dl-links a{flex:1;text-align:center;font-size:13.5px;font-weight:600;
-  border:1px solid var(--hairline);border-radius:8px;padding:9px 6px;color:var(--ink)}
-.dl-links a:hover{border-color:var(--accent);text-decoration:none}
+.dl-primary{display:inline-block;margin-top:14px;font-weight:600;font-size:14px;
+  background:var(--ink);color:var(--ground);padding:10px 18px;border-radius:8px}
+.dl-primary:hover{text-decoration:none;opacity:.9}
+.dl-primary .arr{font-family:var(--mono)}
+.dl-sec{display:block;margin-top:10px;font-size:13px;color:var(--muted)}
 .contact{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 .contact a{display:flex;flex-direction:column;gap:2px;background:var(--surface);
   border:1px solid var(--hairline);border-radius:10px;padding:14px 20px;min-width:170px}
@@ -302,12 +305,12 @@ def build_body():
     dl = f"""
       <div class="dl-card"><h3>Business Operations</h3>
         <div class="dl-for">BizOps · Chief of Staff · Partner &amp; Revenue Ops</div>
-        <div class="dl-links"><a href="{RESUMES['biz_ed']}">Editorial</a>
-          <a href="{RESUMES['biz_mo']}">Modern</a></div></div>
+        <a class="dl-primary" href="{RESUMES['biz_mo']}">Download résumé <span class="arr">↓</span></a>
+        <a class="dl-sec" href="{RESUMES['biz_ed']}">or the ATS-safe version</a></div>
       <div class="dl-card"><h3>AI Deployment</h3>
         <div class="dl-for">Applied AI · AI Ops · AI Strategy &amp; Enablement</div>
-        <div class="dl-links"><a href="{RESUMES['ai_ed']}">Editorial</a>
-          <a href="{RESUMES['ai_mo']}">Modern</a></div></div>"""
+        <a class="dl-primary" href="{RESUMES['ai_mo']}">Download résumé <span class="arr">↓</span></a>
+        <a class="dl-sec" href="{RESUMES['ai_ed']}">or the ATS-safe version</a></div>"""
     contact = "".join(
         f'<a href="{u}"><span class="c-k">{k}</span><span class="c-v">{v}</span></a>'
         for k, v, u in CONTACT
@@ -352,14 +355,18 @@ def build_body():
 
 <section class="section alt" id="system"><div class="wrap reveal">
   <h2 class="sec-title">The system I built</h2>
-  <p class="sec-lead">My edge isn't <em>using</em> AI — it's building the system an org runs it
-  through. I designed a working operating system for my own function in Claude Code, and it's
-  public: five layers, from governed data to a loop that rewrites its own setup.</p>
+  <p class="sec-lead">I've built this function twice — once at Databricks as its first ops hire,
+  and once in public as working software — so I know which parts of an operating cadence an
+  agent can own, and which must stay deterministic, tested code. My edge isn't <em>using</em>
+  AI; it's building the system an org runs it through: five layers, from governed data to a loop
+  that runs the QBR on the tooling itself.</p>
   <div class="layers">{layers}</div>
-  <div class="boundary"><p>The rule that makes AI safe in production: <strong>the model authors
-  rules in plain English; deterministic, tested code computes anything that touches money.</strong>
-  An eval suite pins the math — mid-quarter hires, territory handoffs, split credit, coverage
-  gaps — so no model ever computes a credited dollar, and no deal is silently zeroed.</p>
+  <div class="boundary"><p>This isn't a toy domain: the crediting engine models the kind of
+  partner-incentive program I launched at Databricks — the real job, rebuilt as tested software.
+  The rule that makes AI safe in production: <strong>the model authors rules in plain English;
+  deterministic, tested code computes anything that touches money.</strong> An eval suite pins
+  the math — mid-quarter hires, territory handoffs, split credit, coverage gaps — so no model
+  ever computes a credited dollar, and no deal is silently zeroed.</p>
   <div class="proof-links">{proof}</div></div>
 </div></section>
 

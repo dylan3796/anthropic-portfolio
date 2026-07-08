@@ -61,15 +61,15 @@ VARIANTS = {
     "dylan-ram-ai-deployment": {
         "tagline": "AI Deployment · Agent Systems · Strategy & Enablement",
         "summary": (
-            "Deploys AI into real business workflows — and sets up how an organization "
-            "adopts it, from the foundational data layer to KPI alignment to the self-serve "
-            "enablement that gets non-technical teams building. An operator-engineer who "
-            "draws the hard line on where deterministic, tested code must own the outcome: at "
-            "Databricks, shipped the partner team's first LLM agents to production, and "
-            "independently designed a full agent operating system in Claude Code — skills, "
-            "hooks, subagents, MCP, and a golden-tested engine that keeps the model out of the "
-            "money path. Fluent in Python and SQL; built-and-deployed AI, not slideware, ready "
-            "to answer the question that matters: how do you know it's working."
+            "Deploys AI into the workflows a go-to-market org runs on — reporting, "
+            "forecasting, crediting — and sets up how the org adopts it: foundational data, "
+            "KPI alignment, and self-serve enablement. An operator who builds the systems "
+            "himself and draws the line where deterministic, tested code must own the outcome. "
+            "As Databricks' first Partner Strategy & Ops hire, shipped the team's first LLM "
+            "agents to production and independently built a full agent operating system in "
+            "Claude Code — skills, hooks, subagents, MCP, and a golden-tested engine that keeps "
+            "the model out of the money path. Fluent in Python and SQL, and builds with the "
+            "evals that answer the only question that matters: how do you know it's working."
         ),
         "skills": [
             ("AI & agents", "Claude Code (skills, hooks, subagents, MCP, scoped permissions), "
@@ -84,12 +84,13 @@ VARIANTS = {
                 "note": "promoted Feb 2023 · first Partner S&O hire", "dates": "Aug 2021 – Present",
                 "bullets": [
                     "Deployed the partner team's first LLM reporting agents (Newsletter Agent, "
-                    "FAQ Agent) into production — automated Q&A, insights, and notifications, "
-                    "embedding agentic workflows into how partner metrics reach the org.",
-                    "Spearheading the team's AI strategy: building the foundational "
-                    "data-and-AI layer (a medallion architecture in Spark/SQL) with self-serve "
-                    "interfaces so stakeholders answer their own questions.",
-                    "Aligning KPIs across internal, external, and partner stakeholders as the "
+                    "FAQ Agent) into production — answering partner-metric questions and "
+                    "pushing updates automatically, the team's first agentic reporting motion.",
+                    "Set the team's AI strategy and built the foundational data-and-AI layer — "
+                    "a medallion architecture in Spark/SQL with self-serve interfaces so "
+                    "stakeholders answer their own questions.",
+                    "Align KPIs across a two-sided marketplace — the partner team, the sales "
+                    "org co-selling through partners, and the partners themselves — the "
                     "measurement backbone every AI output reports against.",
                     "Designed the partner attribution model (Salesforce/SQL/Spark) and built "
                     "the team's first revenue forecasting process from scratch — the governed "
@@ -119,7 +120,7 @@ VARIANTS = {
             },
         ],
         "project_title": "Claude Code as an Operating System — a self-built agent platform "
-                         "(public repo, 2026)",
+                         "(public repo)",
         "project_bullets": [
             "Architected a five-layer agent operating system: persistent memory, session-boot "
             "data hooks, long-horizon plans, invocable skills, and a retro loop that proposes "
@@ -143,12 +144,12 @@ VARIANTS = {
             "The operating spine of a GTM org — a zero-to-one builder and one-to-100 scaler. "
             "As Databricks' first Partner Strategy & Ops hire, stood up the forecast, "
             "attribution, and first new-logo incentive programs from scratch, ran annual "
-            "quota-setting across Sales, Finance, and Partner leadership, and now brings AI "
-            "into the operating cadence. Works across a two-sided marketplace — aligning the "
-            "partner team, the sales org that co-sells through partners, and external partners "
-            "at once. Architects the plan, operationalizes it, and dives into the detail; "
-            "seven years partnering directly with GTM executives at Databricks, Salesforce, "
-            "and CBRE."
+            "quota-setting across Sales, Finance, and Partner leadership, and now owns the "
+            "team's AI agenda — deployed its first LLM agents to production and built, in "
+            "public, a working agent operating system for a function like his. Works across a "
+            "two-sided marketplace — aligning the partner team, the sales org that co-sells "
+            "through partners, and the partners themselves. Seven years partnering directly "
+            "with GTM executives at Databricks, Salesforce, and CBRE."
         ),
         "skills": [
             ("Operations & strategy", "Operating cadence, annual & quota planning, OKRs, "
@@ -162,21 +163,19 @@ VARIANTS = {
                 "company": "Databricks", "role": "Partner Strategy & Ops Manager",
                 "note": "promoted Feb 2023 · first Partner S&O hire", "dates": "Aug 2021 – Present",
                 "bullets": [
-                    "Built the partner team's first revenue forecasting process where none "
-                    "existed — designing the methodology and cadence from the ground up.",
+                    "Built the partner team's first revenue forecasting process from a blank "
+                    "page — the methodology and cadence, designed end to end.",
                     "Designed the canonical partner attribution model — the single source of "
                     "truth for how sourced, influenced, and attributed revenue is credited "
-                    "across a two-sided marketplace.",
+                    "across both sides of the marketplace.",
                     "Launched the partner org's first incentive program tied to new-logo "
-                    "acquisition — designing the crediting and payout logic from scratch.",
+                    "acquisition — designing the crediting and payout logic end to end.",
                     "Led annual quota-setting across Sales, Finance, and Partner leadership "
                     "through top-down and bottoms-up planning.",
-                    "Helped craft the partner program strategy from the ground up — the "
-                    "Partner Value Score and tiering system — earning global alignment and "
-                    "executive adoption.",
-                    "Now spearheading KPI alignment across internal, external, and partner "
-                    "stakeholders and building self-serve, AI-driven analytics — the operating "
-                    "cadence's modern layer.",
+                    "Shaped the partner program strategy — the Partner Value Score and tiering "
+                    "framework — earning global alignment and executive adoption.",
+                    "Run KPI alignment across the marketplace — partner team, co-sell sales "
+                    "org, and partners — and build the self-serve, AI-driven analytics on top.",
                 ],
             },
             {
@@ -203,7 +202,7 @@ VARIANTS = {
             },
         ],
         "project_title": "Claude Code as an Operating System — running an AI-native operating "
-                         "cadence (public repo, 2026)",
+                         "cadence (public repo)",
         "project_bullets": [
             "Built a working operating system for a function: big rocks as the planning "
             "pillars, skills as the repeatable plays, a metric dictionary as governance, and "

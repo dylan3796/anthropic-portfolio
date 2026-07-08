@@ -136,10 +136,11 @@ a:hover{text-decoration:underline}
 .dl-card h3{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:18px}
 .dl-card .dl-for{font-family:var(--mono);font-size:11.5px;color:var(--muted);
   letter-spacing:.04em;margin:5px 0 14px}
-.dl-links{display:flex;gap:10px}
-.dl-links a{flex:1;text-align:center;font-size:13.5px;font-weight:600;
-  border:1px solid var(--hairline);border-radius:8px;padding:9px 6px;color:var(--ink)}
-.dl-links a:hover{border-color:var(--accent);text-decoration:none}
+.dl-primary{display:inline-block;margin-top:14px;font-weight:600;font-size:14px;
+  background:var(--ink);color:var(--ground);padding:10px 18px;border-radius:8px}
+.dl-primary:hover{text-decoration:none;opacity:.9}
+.dl-primary .arr{font-family:var(--mono)}
+.dl-sec{display:block;margin-top:10px;font-size:13px;color:var(--muted)}
 .contact{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 .contact a{display:flex;flex-direction:column;gap:2px;background:var(--surface);
   border:1px solid var(--hairline);border-radius:10px;padding:14px 20px;min-width:170px}
@@ -199,14 +200,18 @@ footer{padding:40px 0;border-top:1px solid var(--hairline);color:var(--muted);
 
 <section class="section alt" id="system"><div class="wrap reveal">
   <h2 class="sec-title">The system I built</h2>
-  <p class="sec-lead">My edge isn't <em>using</em> AI — it's building the system an org runs it
-  through. I designed a working operating system for my own function in Claude Code, and it's
-  public: five layers, from governed data to a loop that rewrites its own setup.</p>
+  <p class="sec-lead">I've built this function twice — once at Databricks as its first ops hire,
+  and once in public as working software — so I know which parts of an operating cadence an
+  agent can own, and which must stay deterministic, tested code. My edge isn't <em>using</em>
+  AI; it's building the system an org runs it through: five layers, from governed data to a loop
+  that runs the QBR on the tooling itself.</p>
   <div class="layers"><div class="layer"><div class="layer-name">Memory</div><div class="layer-desc">what every session boots knowing</div></div><div class="layer"><div class="layer-name">Data</div><div class="layer-desc">one governed dictionary, defined once</div></div><div class="layer"><div class="layer-name">Big rocks</div><div class="layer-desc">a living plan per initiative</div></div><div class="layer"><div class="layer-name">Skills</div><div class="layer-desc">recurring work, made invocable</div></div><div class="layer"><div class="layer-name">Loop</div><div class="layer-desc">the setup reviews and rewrites itself</div></div></div>
-  <div class="boundary"><p>The rule that makes AI safe in production: <strong>the model authors
-  rules in plain English; deterministic, tested code computes anything that touches money.</strong>
-  An eval suite pins the math — mid-quarter hires, territory handoffs, split credit, coverage
-  gaps — so no model ever computes a credited dollar, and no deal is silently zeroed.</p>
+  <div class="boundary"><p>This isn't a toy domain: the crediting engine models the kind of
+  partner-incentive program I launched at Databricks — the real job, rebuilt as tested software.
+  The rule that makes AI safe in production: <strong>the model authors rules in plain English;
+  deterministic, tested code computes anything that touches money.</strong> An eval suite pins
+  the math — mid-quarter hires, territory handoffs, split credit, coverage gaps — so no model
+  ever computes a credited dollar, and no deal is silently zeroed.</p>
   <div class="proof-links"><a href="https://github.com/dylan3796/anthropic-portfolio">The repository</a><a href="https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/docs/claude-code-architecture.md">Architecture write-up</a><a href="https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/crediting/engine.py">The crediting engine</a><a href="https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/app.py">Interactive walkthrough</a></div></div>
 </div></section>
 
@@ -222,18 +227,18 @@ footer{padding:40px 0;border-top:1px solid var(--hairline);color:var(--muted);
   <div class="dl-grid">
       <div class="dl-card"><h3>Business Operations</h3>
         <div class="dl-for">BizOps · Chief of Staff · Partner &amp; Revenue Ops</div>
-        <div class="dl-links"><a href="https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-business-operations--editorial.pdf">Editorial</a>
-          <a href="https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-business-operations--modern.pdf">Modern</a></div></div>
+        <a class="dl-primary" href="https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-business-operations--modern.pdf">Download résumé <span class="arr">↓</span></a>
+        <a class="dl-sec" href="https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-business-operations--editorial.pdf">or the ATS-safe version</a></div>
       <div class="dl-card"><h3>AI Deployment</h3>
         <div class="dl-for">Applied AI · AI Ops · AI Strategy &amp; Enablement</div>
-        <div class="dl-links"><a href="https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-ai-deployment--editorial.pdf">Editorial</a>
-          <a href="https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-ai-deployment--modern.pdf">Modern</a></div></div></div>
+        <a class="dl-primary" href="https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-ai-deployment--modern.pdf">Download résumé <span class="arr">↓</span></a>
+        <a class="dl-sec" href="https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-ai-deployment--editorial.pdf">or the ATS-safe version</a></div></div>
   <div class="contact"><a href="mailto:dylanmr96@gmail.com"><span class="c-k">Email</span><span class="c-v">dylanmr96@gmail.com</span></a><a href="https://linkedin.com/in/dylanram"><span class="c-k">LinkedIn</span><span class="c-v">in/dylanram</span></a><a href="https://github.com/dylan3796"><span class="c-k">GitHub</span><span class="c-v">dylan3796</span></a></div>
 </div></section>
 
 <footer><div class="wrap">Built by Dylan Ram with Claude Code · 2026 · this site lives in
 the <a href="https://github.com/dylan3796/anthropic-portfolio">repository</a> it describes.</div></footer>
-<script>const LENS={"ops": {"copy": "The operating spine of a GTM org \u2014 zero to one, then one to 100. I run the forecast, attribution, incentive, and quota systems a partner business depends on, and align them across a two-sided marketplace.", "targets": "Business Operations \u00b7 Chief of Staff \u00b7 Partner &amp; Revenue Ops", "href": "https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-business-operations--modern.pdf", "label": "Business Operations r\u00e9sum\u00e9"}, "ai": {"copy": "The AI-native operator. I deploy LLM agents into real workflows and set up how an org adopts them \u2014 foundational data, KPI alignment, self-serve enablement \u2014 with tested code owning anything that touches money.", "targets": "Applied AI \u00b7 AI Operations \u00b7 AI Strategy &amp; Enablement", "href": "https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-ai-deployment--modern.pdf", "label": "AI Deployment r\u00e9sum\u00e9"}};
+<script>const LENS={"ops": {"copy": "The operating spine of a GTM org \u2014 zero to one, then one to 100. I run the forecast, attribution, incentive, and quota systems a partner business depends on, and align them across a two-sided marketplace.", "targets": "Business Operations \u00b7 Chief of Staff \u00b7 Partner &amp; Revenue Ops", "href": "https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-business-operations--modern.pdf", "label": "Business Operations r\u00e9sum\u00e9"}, "ai": {"copy": "The AI-native operator. I deploy LLM agents into the workflows a GTM org runs on \u2014 reporting, forecasting, crediting \u2014 and set up how it adopts them: foundational data, KPI alignment, self-serve enablement, with tested code owning anything that touches money. All of it is public, down to the eval suite.", "targets": "Applied AI \u00b7 AI Operations \u00b7 AI Strategy &amp; Enablement", "href": "https://github.com/dylan3796/anthropic-portfolio/blob/claude/resume-ai-operations-strategy-yhcgt9/resume/output/dylan-ram-ai-deployment--modern.pdf", "label": "AI Deployment r\u00e9sum\u00e9"}};
 const buttons=document.querySelectorAll('.lens-btn');
 const copy=document.querySelector('[data-lens-copy]');
 const targets=document.querySelector('[data-lens-targets]');
