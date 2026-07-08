@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>DYLAN RAM — Resume</title>
+<style>
+    @page { size: letter; margin: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { background: white; }
+    body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        color: #1a1a1a; font-size: 9.3pt; line-height: 1.33;
+        -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+    .page { width: 8.5in; padding: 0.4in 0.62in; margin: 0 auto; }
+    .name { font-size: 21pt; font-weight: 700; letter-spacing: 0.14em; }
+    .tagline { font-size: 10pt; color: #b5543b; font-weight: 600; margin-top: 2pt; }
+    .contact { font-size: 8.6pt; color: #555; margin-top: 4pt; }
+    .contact span + span::before { content: "  ·  "; color: #bbb; }
+    h2 {
+        font-size: 8.6pt; font-weight: 700; letter-spacing: 0.13em;
+        text-transform: uppercase; color: #b5543b;
+        border-bottom: 1px solid #e3ddd8; padding-bottom: 2pt;
+        margin: 9pt 0 4.5pt 0;
+    }
+    .summary { color: #333; }
+    .skill-line { margin-bottom: 2.5pt; }
+    .skill-line strong { color: #1a1a1a; }
+    .job { margin-bottom: 7pt; }
+    .job-head { display: flex; justify-content: space-between; align-items: baseline; }
+    .job-role { font-weight: 700; font-size: 9.8pt; }
+    .job-co { color: #b5543b; font-weight: 600; }
+    .job-note { color: #777; font-style: italic; font-weight: 400; font-size: 8.8pt; }
+    .job-dates { color: #555; font-size: 8.8pt; white-space: nowrap; }
+    ul { margin: 2.5pt 0 0 0; padding-left: 13pt; }
+    li { margin-bottom: 1.5pt; color: #333; }
+    .proj-title { font-weight: 700; font-size: 9.6pt; }
+    .proj-title .proj-link { color: #777; font-weight: 400; font-size: 8.6pt; }
+    .edu { color: #333; }
+</style></head><body><div class="page">
+<div class="name">DYLAN RAM</div>
+<div class="tagline">AI Operations · GTM Systems · Agent Deployment</div>
+<div class="contact"><span>916-690-5681</span><span>dylanmr96@gmail.com</span><span>linkedin.com/in/dylanram</span><span>github.com/dylan3796/anthropic-portfolio</span></div>
+<h2>Summary</h2>
+<div class="summary">Operations leader who deploys AI inside real business workflows — and knows where it doesn't belong. As Databricks' first Partner Strategy &amp; Ops hire, built the partner data foundation, then put LLM reporting agents into production on top of it. Independently designed and shipped a full agent operating system (Claude Code) for a partner-ops function: session-boot context hooks, invocable skills, and a golden-tested boundary that keeps models out of the money path.</div>
+<h2>Skills</h2>
+<div class="skill-line"><strong>AI systems:</strong> Claude Code (skills, hooks, subagents, scoped permissions), LLM workflow design, agent evals &amp; golden-test patterns</div><div class="skill-line"><strong>Data:</strong> Python (pandas, NumPy), PySpark, SQL, Salesforce &amp; Einstein Analytics, Tableau, Excel/GSheets</div>
+<h2>Experience</h2>
+<div class="job"><div class="job-head"><div class="job-role">Partner Strategy & Ops Manager — <span class="job-co">Databricks</span> <span class="job-note">(promoted Feb 2023 · first Partner S&O hire)</span></div><div class="job-dates">Aug 2021 – Present</div></div><ul><li>Deployed AI reporting agents (Newsletter Agent, FAQ Agent) for automated Q&amp;A, insights, and notifications — integrating LLM workflows into how partner metrics are distributed across the org.</li><li>Built the standardized partner datasets those agents run on — adopted company-wide and powering 10+ executive and team dashboards.</li><li>Scaled partner attribution systems in Salesforce, SQL, and Spark to track bookings, consumption, and pipeline across a two-sided marketplace.</li><li>Designed the Partner Executive and Partner Scorecard dashboards — the single source of truth for Partner Sales and ecosystem health.</li><li>Shaped the Partner Value Score and partner tiering framework, earning global alignment and executive adoption.</li><li>Led the annual quota-setting process, aligning Sales, Finance, and Partner leadership through top-down and bottoms-up planning.</li></ul></div><div class="job"><div class="job-head"><div class="job-role">SMB Sales Strategy & Operations Analyst — <span class="job-co">Salesforce</span></div><div class="job-dates">Jul 2019 – Aug 2021</div></div><ul><li>Automated reporting and forecasting tooling with Python, APIs, and G Suite — QBR decks, forecast-accuracy tracking, and account/territory data pulls.</li><li>Developed the territory-carving Python script that encoded the org's sales guiding principles, personnel, and accounts — the basis of the GTM plan.</li><li>Led the business unit's Tableau migration through enablement and data governance; direct analytics partner to the $250M AMER SMB Central business.</li></ul></div><div class="job"><div class="job-head"><div class="job-role">Business Data Analyst — <span class="job-co">CBRE</span></div><div class="job-dates">Sep 2018 – Jul 2019</div></div><ul><li>Managed the product data warehouse; built Python web-scraping tools and client-facing Tableau dashboards.</li><li>Spearheaded streamlining of the product analytics process — defining key metrics, the dataset, and the flow to visualization.</li></ul></div>
+<h2>Selected Project</h2>
+<div class="job">
+<div class="proj-title">Claude Code as an Operating System — agentic infrastructure for partner ops (public build, 2026)
+ <span class="proj-link">— github.com/dylan3796/anthropic-portfolio</span></div>
+<ul><li>Designed a five-layer agent operating system: persistent memory, SessionStart hooks that boot every session with live plan and scorecard context, long-horizon plans, invocable skills, and a retro loop that proposes edits to its own setup.</li><li>Drew the AI/deterministic boundary for commissions crediting: an agent codifies managers' plain-English coverage changes into effective-dated rules; a golden-tested Python engine applies them to deals — no LLM ever computes a credited dollar.</li><li>Shipped scoped domain skills (/commissions-credit, /partner-qbr, /call-notes-to-jira), a plan-drafting subagent, least-privilege permissions, and a Streamlit walkthrough of the architecture.</li></ul>
+</div>
+<h2>Education</h2>
+<div class="edu"><strong>University of California, Santa Barbara</strong> — B.A. Economics &amp; Accounting · Dean's Honors</div>
+</div></body></html>
