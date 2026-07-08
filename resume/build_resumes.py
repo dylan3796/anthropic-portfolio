@@ -4,12 +4,17 @@
 One fact base, three lenses. All content lives in VARIANTS below —
 edit the dicts, rerun, reprint. Every claim traces to the source
 resume or to work that exists in this repo; see resume/STRATEGY.md
-for the honesty guardrails and the variant-to-job mapping.
+for the honesty guardrails, the variant-to-archetype mapping, and the
+quantification punch-list.
 
     python3 resume/build_resumes.py            # writes resume/output/*.html
     # then print to PDF (chromium shown; any browser's Print works):
     #   chromium --headless --no-sandbox --print-to-pdf-no-header \
     #     --print-to-pdf=out.pdf file:///.../resume/output/<file>.html
+
+Tokens wrapped in <span class="todo">⟪ … ⟫</span> are review placeholders —
+Dylan's real numbers go there. They render in accent italic so they're
+impossible to miss, and MUST be filled or deleted before a resume is sent.
 """
 
 from pathlib import Path
@@ -29,28 +34,41 @@ EDUCATION = (
     "B.A. Economics &amp; Accounting · Dean's Honors"
 )
 
+
+def todo(hint: str) -> str:
+    """A visible fill-me placeholder for a metric Dylan will supply."""
+    return f'<span class="todo">⟪{hint}⟫</span>'
+
+
 # ---------------------------------------------------------------------------
 # The three variants. Same jobs, same facts — different lead, order, and
-# vocabulary. Bullets are reworded for the lens but never inflated.
+# vocabulary, calibrated to the keyword banks in STRATEGY.md. Bullets are
+# reworded per lens but never inflated.
 # ---------------------------------------------------------------------------
 
 VARIANTS = {
-    "dylan-ram-ai-operations": {
-        "tagline": "AI Operations · GTM Systems · Agent Deployment",
+    # =====================================================================
+    # 1 · FORWARD DEPLOYED / APPLIED AI  — the builder pole
+    #     Targets: Applied AI, AI Solutions Engineer, AI Operations,
+    #     adjacent-FDE. Project is the centerpiece; evals are the hook.
+    # =====================================================================
+    "dylan-ram-ai-forward-deployed": {
+        "tagline": "Forward Deployed &amp; Applied AI · Agent Systems · Evals &amp; Deployment",
         "summary": (
-            "Operations leader who deploys AI inside real business workflows — and knows "
-            "where it doesn't belong. As Databricks' first Partner Strategy &amp; Ops hire, "
-            "built the partner data foundation, then put LLM reporting agents into "
-            "production on top of it. Independently designed and shipped a full agent "
-            "operating system (Claude Code) for a partner-ops function: session-boot "
-            "context hooks, invocable skills, and a golden-tested boundary that keeps "
-            "models out of the money path."
+            "Operator-engineer who deploys LLM and agent systems into real business "
+            "workflows — and draws the hard line on where deterministic, tested code must "
+            "own the outcome. At Databricks, shipped the partner team's first LLM agents to "
+            "production. Independently designed a full agent operating system in Claude Code — "
+            "skills, hooks, subagents, MCP, and a golden-tested engine that keeps the model "
+            "out of the money path. Fluent in Python and SQL, comfortable owning a deployment "
+            "end to end and answering the question that matters: how do you know it's working."
         ),
         "skills": [
-            ("AI systems", "Claude Code (skills, hooks, subagents, scoped permissions), "
-             "LLM workflow design, agent evals &amp; golden-test patterns"),
-            ("Data", "Python (pandas, NumPy), PySpark, SQL, Salesforce &amp; Einstein "
-             "Analytics, Tableau, Excel/GSheets"),
+            ("Agents &amp; LLMs", "Claude Code (skills, hooks, subagents, MCP, scoped "
+             "permissions), agent &amp; LLM workflow design, prompt engineering, evals &amp; "
+             "golden-test patterns"),
+            ("Languages &amp; data", "Python (pandas, NumPy), SQL, PySpark, Salesforce "
+             "APIs, Tableau, Git/GitHub"),
         ],
         "jobs": [
             {
@@ -59,19 +77,108 @@ VARIANTS = {
                 "note": "promoted Feb 2023 · first Partner S&O hire",
                 "dates": "Aug 2021 – Present",
                 "bullets": [
-                    "Deployed AI reporting agents (Newsletter Agent, FAQ Agent) for automated "
-                    "Q&amp;A, insights, and notifications — integrating LLM workflows into how "
-                    "partner metrics are distributed across the org.",
-                    "Built the standardized partner datasets those agents run on — adopted "
-                    "company-wide and powering 10+ executive and team dashboards.",
-                    "Scaled partner attribution systems in Salesforce, SQL, and Spark to track "
-                    "bookings, consumption, and pipeline across a two-sided marketplace.",
-                    "Designed the Partner Executive and Partner Scorecard dashboards — the "
-                    "single source of truth for Partner Sales and ecosystem health.",
-                    "Shaped the Partner Value Score and partner tiering framework, earning "
-                    "global alignment and executive adoption.",
-                    "Led the annual quota-setting process, aligning Sales, Finance, and Partner "
-                    "leadership through top-down and bottoms-up planning.",
+                    "Deployed the partner team's first LLM reporting agents (Newsletter Agent, "
+                    "FAQ Agent) into production — automated Q&amp;A, insights, and "
+                    "notifications, embedding agentic workflows into how partner metrics reach "
+                    f"the org, now serving {todo('N stakeholders / queries per week')}.",
+                    "Building the team's foundational data-and-AI layer: a medallion "
+                    "(bronze/silver/gold) architecture in Spark/SQL and self-serve interfaces "
+                    "so stakeholders query answers directly instead of filing requests.",
+                    "Aligning KPIs across internal, external, and partner stakeholders as the "
+                    "measurement backbone the AI layer reports against.",
+                    "Designed the partner attribution model and built the attribution systems "
+                    "in Salesforce, SQL, and Spark — sourced, influenced, and attributed "
+                    "revenue across a two-sided marketplace; the governed data the agents run on.",
+                    "Stood up the team's first revenue forecasting process where none existed — "
+                    f"{todo('what it forecasts + scale')}.",
+                ],
+            },
+            {
+                "company": "Salesforce",
+                "role": "SMB Sales Strategy & Operations Analyst",
+                "note": "",
+                "dates": "Jul 2019 – Aug 2021",
+                "bullets": [
+                    "Built the territory-carving Python script that encoded the org's guiding "
+                    "principles, personnel, and accounts — the engine behind the annual GTM plan.",
+                    "Automated QBR decks, forecast-accuracy tracking, and territory data pulls "
+                    "with Python, APIs, and G Suite.",
+                    "Led the business unit's Tableau migration and established data governance "
+                    "for the $250M AMER SMB Central business.",
+                ],
+            },
+            {
+                "company": "CBRE",
+                "role": "Business Data Analyst",
+                "note": "",
+                "dates": "Sep 2018 – Jul 2019",
+                "bullets": [
+                    "Built Python web-scraping tools and managed the product data warehouse; "
+                    "shipped client-facing Tableau dashboards and streamlined the analytics "
+                    "pipeline end to end.",
+                ],
+            },
+        ],
+        "project_title": "Claude Code as an Operating System — a self-built agent platform "
+                         "(public repo, 2026)",
+        "project_bullets": [
+            "Architected a five-layer agent system: persistent memory, SessionStart hooks "
+            "that boot each session with live data, long-horizon plans, invocable skills, and "
+            "a retro loop that proposes edits to its own setup.",
+            "Drew the AI/deterministic boundary for commissions crediting: an agent turns "
+            "managers' plain-English coverage into effective-dated rules; a golden-tested "
+            "Python engine (crediting/engine.py) applies them to deals — no LLM ever computes "
+            "a credited dollar.",
+            "Wrote the eval suite that proves it: golden tests over mid-quarter hires, "
+            "territory handoffs at the boundary, split credit, and coverage gaps — an "
+            "uncredited deal is surfaced, never silently zeroed.",
+            "Shipped scoped skills, a plan-drafting subagent, least-privilege permissions, and "
+            "MCP integrations; documented the architecture in a Streamlit walkthrough.",
+        ],
+    },
+
+    # =====================================================================
+    # 2 · AI STRATEGY & DEPLOYMENT  — the AI-native operator pole
+    #     Targets: AI Strategy, AI Enablement, AI Operations (non-eng),
+    #     Head of Automation, BizOps-2.0 at AI companies.
+    # =====================================================================
+    "dylan-ram-ai-strategy": {
+        "tagline": "AI Strategy &amp; Deployment · Enablement · Agentic Operating Systems",
+        "summary": (
+            "Sets up how an organization actually deploys AI — from the foundational data "
+            "layer to KPI alignment to the self-serve enablement that gets non-technical "
+            "teams building. At Databricks, spearheading the partner team's AI strategy on "
+            "top of a data foundation built from scratch, and shipped its first LLM agents to "
+            "production. Independently designed a full agent operating system in Claude Code — "
+            "skills, hooks, subagents, MCP, and a tested boundary between AI judgment and "
+            "deterministic execution: built-and-deployed AI work, not slideware."
+        ),
+        "skills": [
+            ("AI deployment &amp; enablement", "Agent operating systems (Claude Code, "
+             "CLAUDE.md, MCP), LLM workflow design, prompt engineering, evals, self-serve "
+             "enablement, playbooks &amp; standards"),
+            ("Data &amp; ops", "SQL, Python (pandas), PySpark, Tableau, Salesforce, medallion "
+             "architecture, KPI definition, executive reporting"),
+        ],
+        "jobs": [
+            {
+                "company": "Databricks",
+                "role": "Partner Strategy & Ops Manager",
+                "note": "promoted Feb 2023 · first Partner S&O hire",
+                "dates": "Aug 2021 – Present",
+                "bullets": [
+                    "Spearheading the partner team's AI strategy — building the foundational "
+                    "data-and-AI layer (a medallion architecture) and aligning KPIs across "
+                    "internal, external, and partner stakeholders as the backbone every AI "
+                    "output measures against.",
+                    "Building self-serve analytics spaces so the team and its stakeholders "
+                    "answer their own questions — turning a standing request queue into direct "
+                    "access.",
+                    "Deployed the team's first LLM agents (Newsletter, FAQ) into production for "
+                    f"automated Q&amp;A, insights, and notifications, reaching {todo('N stakeholders')}.",
+                    "Designed the partner attribution model and the first revenue forecasting "
+                    "process — the governed data the AI layer depends on.",
+                    "Shaped the Partner Value Score and tiering framework adopted globally.",
                 ],
             },
             {
@@ -81,11 +188,10 @@ VARIANTS = {
                 "dates": "Jul 2019 – Aug 2021",
                 "bullets": [
                     "Automated reporting and forecasting tooling with Python, APIs, and G Suite "
-                    "— QBR decks, forecast-accuracy tracking, and account/territory data pulls.",
-                    "Developed the territory-carving Python script that encoded the org's sales "
-                    "guiding principles, personnel, and accounts — the basis of the GTM plan.",
-                    "Led the business unit's Tableau migration through enablement and data "
-                    "governance; direct analytics partner to the $250M AMER SMB Central business.",
+                    "— QBR decks, forecast accuracy, and territory data.",
+                    "Developed the territory-carving Python model behind the annual GTM plan; "
+                    "led the unit's Tableau migration with data governance.",
+                    "Direct analytics partner to the $250M AMER SMB Central business.",
                 ],
             },
             {
@@ -94,44 +200,48 @@ VARIANTS = {
                 "note": "",
                 "dates": "Sep 2018 – Jul 2019",
                 "bullets": [
-                    "Managed the product data warehouse; built Python web-scraping tools and "
-                    "client-facing Tableau dashboards.",
-                    "Spearheaded streamlining of the product analytics process — defining key "
-                    "metrics, the dataset, and the flow to visualization.",
+                    "Managed the product data warehouse and built Python data-collection tools.",
+                    "Built client-facing Tableau dashboards; streamlined the product-analytics "
+                    "process end to end.",
                 ],
             },
         ],
-        "project_title": "Claude Code as an Operating System — agentic infrastructure "
-                         "for partner ops (public build, 2026)",
+        "project_title": "Claude Code as an Operating System — a reference build for "
+                         "deploying AI in a function (public repo, 2026)",
         "project_bullets": [
-            "Designed a five-layer agent operating system: persistent memory, SessionStart "
-            "hooks that boot every session with live plan and scorecard context, long-horizon "
-            "plans, invocable skills, and a retro loop that proposes edits to its own setup.",
-            "Drew the AI/deterministic boundary for commissions crediting: an agent codifies "
-            "managers' plain-English coverage changes into effective-dated rules; a "
-            "golden-tested Python engine applies them to deals — no LLM ever computes a "
-            "credited dollar.",
-            "Shipped scoped domain skills (/commissions-credit, /partner-qbr, "
-            "/call-notes-to-jira), a plan-drafting subagent, least-privilege permissions, and "
-            "a Streamlit walkthrough of the architecture.",
+            "Designed a five-layer operating model for running AI in a team: governed data "
+            "and a single metric dictionary, memory, long-horizon plans, invocable skills, and "
+            "a self-improvement loop — define once, reuse everywhere.",
+            "Set the boundary that makes AI trustworthy in production: the model authors rules "
+            "in plain English; deterministic, tested code executes anything that touches money "
+            "— the speed of language with the trust of a spreadsheet that can't miscount.",
+            "Built the enablement pattern: the ops team self-served first, then began "
+            "authoring their own skills — reusable playbooks and standards, the adoption "
+            "unlock these roles are hired to drive.",
         ],
     },
 
-    "dylan-ram-strategy-ops": {
-        "tagline": "Strategy & Operations · GTM Planning · Partner Ecosystems",
+    # =====================================================================
+    # 3 · BUSINESS OPERATIONS / STRATEGY  — the operating-leader pole
+    #     Primary: Business Operations Lead. Also serves Chief of Staff
+    #     and Partner S&O. Signature programs lead; AI is the modern edge.
+    # =====================================================================
+    "dylan-ram-business-operations": {
+        "tagline": "Business Operations · Strategy &amp; Planning · GTM Systems",
         "summary": (
-            "Strategy &amp; operations leader with seven years as a direct business partner "
-            "to GTM executives at Databricks, Salesforce, and CBRE. First Partner Strategy "
-            "&amp; Ops hire at Databricks: ran annual planning and quota-setting across "
-            "Sales, Finance, and Partner leadership, shaped the tiering framework the global "
-            "partner program runs on, and built the data foundation under all of it — then "
-            "multiplied the team's capacity with AI reporting agents."
+            "The operating spine of a GTM org. As Databricks' first Partner Strategy &amp; Ops "
+            "hire, built the forecast, attribution, and first new-logo incentive programs from "
+            "scratch, ran annual quota-setting across Sales, Finance, and Partner leadership, "
+            "and now sets the AI strategy that makes the team faster. Architects the high-level "
+            "plan, operationalizes it, and dives into the detail — seven years partnering "
+            "directly with GTM executives at Databricks, Salesforce, and CBRE."
         ),
         "skills": [
-            ("Planning & ops", "Annual planning, quota setting, territory design, partner "
-             "programs &amp; tiering, executive reporting, QBRs"),
-            ("Technical", "SQL, Python (pandas), PySpark, Salesforce, Tableau, "
-             "Claude Code / LLM workflows"),
+            ("Operations &amp; strategy", "Operating cadence, annual &amp; quota planning, "
+             "OKRs, territory design, incentive/comp program design, revenue forecasting, "
+             "executive &amp; board reporting"),
+            ("Data &amp; AI", "SQL, Python (pandas), PySpark, Tableau, Salesforce, revenue "
+             "attribution, deployed AI agents, AI enablement (Claude Code)"),
         ],
         "jobs": [
             {
@@ -140,19 +250,21 @@ VARIANTS = {
                 "note": "promoted Feb 2023 · first Partner S&O hire",
                 "dates": "Aug 2021 – Present",
                 "bullets": [
-                    "Led the annual quota-setting process, aligning Sales, Finance, and Partner "
-                    "leadership through top-down and bottoms-up planning.",
-                    "Shaped the Partner Value Score and partner tiering framework, earning "
-                    "global alignment and executive adoption.",
-                    "Designed the Partner Executive and Partner Scorecard dashboards — the "
-                    "single source of truth executives use to run Partner Sales and ecosystem "
-                    "health.",
-                    "Built standardized partner datasets adopted company-wide (powering 10+ "
-                    "executive and team dashboards) and scaled the attribution systems tracking "
-                    "bookings, consumption, and pipeline across a two-sided marketplace.",
-                    "Deployed AI reporting agents (Newsletter Agent, FAQ Agent) for automated "
-                    "Q&amp;A, insights, and notifications, integrating LLM workflows into "
-                    "metric distribution.",
+                    "Built the partner team's first revenue forecasting process where none "
+                    f"existed — {todo('what it forecasts + scale, e.g. $XXXM quarterly partner-sourced')}.",
+                    "Designed the canonical partner attribution model — "
+                    f"{todo('adoption, e.g. company-wide source of truth across N teams')} — "
+                    "defining sourced, influenced, and attributed revenue across a two-sided "
+                    "marketplace.",
+                    "Launched the first partner incentive program tied to new-logo acquisition — "
+                    f"{todo('what it rewards + impact, e.g. drove N net-new logos')}.",
+                    "Led annual quota-setting across Sales, Finance, and Partner leadership "
+                    "through top-down and bottoms-up planning.",
+                    "Shaped the Partner Value Score and tiering framework, earning global "
+                    "alignment and executive adoption.",
+                    "Now spearheading KPI alignment across internal, external, and partner "
+                    "stakeholders and building self-serve, AI-driven analytics — the operating "
+                    "cadence's modern layer.",
                 ],
             },
             {
@@ -161,15 +273,12 @@ VARIANTS = {
                 "note": "",
                 "dates": "Jul 2019 – Aug 2021",
                 "bullets": [
-                    "Acted as direct business partner to the $250M AMER SMB Central business, "
-                    "providing guidance to AVPs, VPs, and RMs across the org.",
-                    "Crafted the FY22 GTM guiding-principles analyses — customer continuity, "
-                    "account proximity, industry mix, top accounts, top cities, AE tenure.",
-                    "Developed the territory-carving Python script that encoded sales guiding "
-                    "principles, personnel, and accounts — the basis of the GTM plan.",
-                    "Automated QBR decks, forecast-accuracy tracking, and territory reporting "
-                    "with Python and APIs; led the unit's Tableau migration with enablement and "
-                    "data governance.",
+                    "Direct business partner to the $250M AMER SMB Central business, advising "
+                    "AVPs, VPs, and RMs across the org.",
+                    "Built the territory-carving model (Python) that encoded the org's guiding "
+                    "principles — the basis of the annual GTM plan.",
+                    "Crafted the FY22 GTM guiding-principles analyses: customer continuity, "
+                    "account proximity, industry mix, top accounts, AE tenure.",
                 ],
             },
             {
@@ -178,103 +287,22 @@ VARIANTS = {
                 "note": "",
                 "dates": "Sep 2018 – Jul 2019",
                 "bullets": [
-                    "Owned the product analytics stack end to end — data warehouse management, "
-                    "Python data collection, and client-facing Tableau dashboards.",
-                    "Spearheaded streamlining of the product analytics process — defining key "
-                    "metrics, the dataset, and the flow to visualization.",
+                    "Owned the product-analytics stack end to end — data warehouse, Python "
+                    "data collection, and client-facing Tableau dashboards.",
+                    "Streamlined the product-analytics process: defined key metrics, the "
+                    "dataset, and the flow to visualization.",
                 ],
             },
         ],
-        "project_title": "Claude Code as an Operating System — public reference build "
-                         "for a partner-ops team (2026)",
+        "project_title": "Claude Code as an Operating System — running an AI-native operating "
+                         "cadence (public repo, 2026)",
         "project_bullets": [
-            "Built a working demonstration of running Claude Code as a team operating "
-            "system: persistent memory, live-data session hooks, long-horizon plans tied to "
-            "strategic initiatives, invocable skills, and a self-improvement loop.",
-            "Headline workflow: commissions crediting where an agent codifies managers' "
-            "plain-English coverage changes into effective-dated rules — and tested code, "
-            "never a model, computes the money.",
-        ],
-    },
-
-    "dylan-ram-data-analytics": {
-        "tagline": "GTM Data & Analytics · Revenue Analytics · AI-Augmented Reporting",
-        "summary": (
-            "Analytics leader who builds the data layer GTM organizations run on — "
-            "attribution systems, governed company-wide datasets, and the executive "
-            "reporting on top — then automates distribution with LLM agents. Seven years "
-            "across Databricks, Salesforce, and CBRE spanning Spark and SQL pipelines, "
-            "Tableau at scale, Salesforce analytics, and deployed AI reporting."
-        ),
-        "skills": [
-            ("Analytics", "SQL (window functions, subqueries), Python (pandas, NumPy), "
-             "PySpark, Tableau (LODs, Set Actions, Prep), Salesforce &amp; Einstein "
-             "Analytics, Excel/GSheets"),
-            ("Governance & AI", "Metric dictionaries, standardized datasets, golden tests, "
-             "LLM workflow integration, Claude Code"),
-        ],
-        "jobs": [
-            {
-                "company": "Databricks",
-                "role": "Partner Strategy & Ops Manager",
-                "note": "promoted Feb 2023 · first Partner S&O hire",
-                "dates": "Aug 2021 – Present",
-                "bullets": [
-                    "Scaled partner attribution systems in Salesforce, SQL, and Spark to track "
-                    "bookings, consumption, and pipeline across a two-sided marketplace.",
-                    "Built standardized partner datasets adopted company-wide, powering 10+ "
-                    "executive and team dashboards.",
-                    "Designed the Partner Executive and Partner Scorecard dashboards — the "
-                    "single source of truth for Partner Sales and ecosystem health.",
-                    "Shaped the Partner Value Score — the composite metric behind the global "
-                    "partner tiering framework — earning executive adoption worldwide.",
-                    "Deployed AI reporting agents (Newsletter Agent, FAQ Agent) for automated "
-                    "Q&amp;A, insights, and notifications — integrating LLM workflows into "
-                    "metric distribution.",
-                    "Led the annual quota-setting process, aligning Sales, Finance, and Partner "
-                    "leadership through top-down and bottoms-up planning.",
-                ],
-            },
-            {
-                "company": "Salesforce",
-                "role": "SMB Sales Strategy & Operations Analyst",
-                "note": "",
-                "dates": "Jul 2019 – Aug 2021",
-                "bullets": [
-                    "Automated reporting and forecasting tools using Python, APIs, and G Suite "
-                    "— QBR decks, forecast accuracy, account/territory-specific data.",
-                    "Led the business unit's Tableau migration through enablement and "
-                    "establishing data governance; maintained and improved its dashboard estate.",
-                    "Developed a territory-carving Python script incorporating sales guiding "
-                    "principles, personnel, and accounts — the basis of the GTM plan.",
-                    "Crafted FY22 GTM analyses for the $250M AMER SMB Central business: "
-                    "customer continuity, account proximity, industry mix, top accounts, AE "
-                    "tenure.",
-                ],
-            },
-            {
-                "company": "CBRE",
-                "role": "Business Data Analyst",
-                "note": "",
-                "dates": "Sep 2018 – Jul 2019",
-                "bullets": [
-                    "Managed the product data warehouse with quarterly SQL updates; built "
-                    "Python web-scraping tools for component data collection.",
-                    "Partnered with clients on durable Tableau dashboards; spearheaded "
-                    "streamlining of product analytics — key metric definitions, dataset "
-                    "design, and the flow to visualization.",
-                ],
-            },
-        ],
-        "project_title": "Claude Code as an Operating System — public reference build "
-                         "for a partner-ops team (2026)",
-        "project_bullets": [
-            "Built a governed analytics core for an agentic setup: one metric dictionary as "
-            "single source of truth, session hooks injecting live scorecard data, and agent "
-            "skills that read definitions instead of re-deriving them.",
-            "Wrote a deterministic commissions-crediting engine with golden tests "
-            "(mid-quarter hires, territory handoffs, split credit, coverage gaps); the LLM "
-            "only authors rules — tested code computes every credited dollar.",
+            "Built a working operating system for a function: big rocks as the planning "
+            "pillars, skills as the repeatable plays, a metric dictionary as governance, and a "
+            "retro loop that runs the QBR on the tooling itself.",
+            "Headline workflow — commissions crediting: an agent codifies managers' "
+            "plain-English coverage changes into effective-dated rules, and tested code, never "
+            "a model, computes the money.",
         ],
     },
 }
@@ -318,6 +346,10 @@ CSS = """
     .proj-title { font-weight: 700; font-size: 9.6pt; }
     .proj-title .proj-link { color: #777; font-weight: 400; font-size: 8.6pt; }
     .edu { color: #333; }
+    .todo {
+        color: #b5543b; font-style: italic; font-weight: 600;
+        border-bottom: 1px dotted #d9a08c;
+    }
 """
 
 

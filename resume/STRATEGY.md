@@ -2,9 +2,9 @@
 
 The play: **don't maintain three resumes, maintain one fact base** with three
 orderings. Every bullet across all variants traces back to the same source
-material (the current resume + the work in this repo), so nothing can drift
-into embellishment — the variants differ only in what leads, what's grouped,
-and which vocabulary the summary and skills sections speak.
+material (the current resume + the real Databricks work + what's verifiably in
+this repo), so nothing drifts into embellishment — the variants differ only in
+what leads, what's grouped, and which vocabulary the summary and skills speak.
 
 Content lives in `build_resumes.py`. Edit the dicts, rerun, reprint:
 
@@ -14,79 +14,115 @@ chromium --headless --no-sandbox --print-to-pdf-no-header \
   --print-to-pdf=resume/output/<name>.pdf file://$PWD/resume/output/<name>.html
 ```
 
-## The three variants
+## The three variants and the roles they chase
 
-| Variant | File | Target roles | What leads |
+The three cover the five archetypes Dylan is targeting without overlap: a
+**builder** pole, an **AI-native operator** pole, and an **operating-leader**
+pole.
+
+| Variant | File | Primary targets | What leads |
 |---|---|---|---|
-| **AI Operations** | `dylan-ram-ai-operations` | AI Operations Manager/Lead, Deployed/Forward-Deployed Engineer (business-facing), AI Enablement, Applied AI / GTM AI, solutions roles at AI-native companies | The deployed agents at Databricks, then the Claude Code operating-system build with the "AI for judgment, tested code for money" boundary |
-| **Strategy & Ops** | `dylan-ram-strategy-ops` | Business Operations, Strategy & Operations, GTM Strategy, Revenue/Partner Operations, ecosystem ops | First-S&O-hire narrative: quota-setting, tiering framework, executive alignment, $250M business partnership — AI as the capacity multiplier, not the headline |
-| **Data & Analytics** | `dylan-ram-data-analytics` | GTM/Revenue Analytics, Senior Analytics/BI, Data & Insights, analytics-engineering-adjacent | Attribution systems, company-wide standardized datasets, single-source-of-truth dashboards, governance — with LLM agents as the distribution layer |
+| **Forward Deployed / Applied AI** | `dylan-ram-ai-forward-deployed` | Applied AI, AI Solutions Engineer, AI Operations, adjacent-FDE | The self-built Claude Code platform as centerpiece — architecture, the deterministic tested engine, and **evals** ("how do you know it's working"), backed by shipped AI at Databricks |
+| **AI Strategy & Deployment** | `dylan-ram-ai-strategy` | AI Strategy, AI Enablement, AI Operations (non-eng), Head of Automation, "BizOps 2.0" at AI companies | Setting up how an org deploys AI: foundational data layer, KPI alignment, self-serve enablement, the operating-system build as a *reference pattern* |
+| **Business Operations / Strategy** | `dylan-ram-business-operations` | **Business Operations Lead (primary)**, Chief of Staff, Partner S&O | The signature programs built from scratch (forecast, attribution, first new-logo incentive), quota-setting, operating cadence — AI as the modern edge |
+
+**Why FDE and AI-Strategy are separate resumes (not one):** the market draws a
+hard line between them. FDE/Applied-AI screens for *ship production code*;
+AI-Strategy/Enablement screens for *built-and-deployed AI in real workflows,
+drove adoption* — a real but lower coding bar. Same person, two different bars,
+so two resumes.
 
 **Decision rule when a JD blends categories:** read the first three
-responsibilities. Pick the variant whose top two Databricks bullets match
-them. If a role is explicitly "AI + ops" (increasingly common), start from
-the AI variant and promote the quota/planning bullet to position three.
+responsibilities. If they say "write production Python / ship integrations" →
+Forward Deployed. If "drive AI adoption / enablement / prototype workflows" →
+AI Strategy. If "operating cadence / planning / cross-functional / own the
+business" → Business Operations. When two fit, send the one whose *keyword bank*
+(below) the JD echoes more.
+
+## What the 2026 market research changed
+
+Full findings summarized here; they drove the wording above.
+
+- **BizOps has become "BizOps 2.0."** JDs now expect an operator who can "open
+  Claude, open Zapier, open the CRM, and just build" — AI fluency is "the job,
+  not a nice-to-have." Dylan's self-built agent system is exactly this signal,
+  so the Business Operations resume keeps AI prominent, not buried.
+- **Chief of Staff JDs now include "own the AI agenda."** Databricks' own CoS
+  posting asks the holder to "identify and implement AI-powered tools to improve
+  operating efficiency." Only ~7% of senior operators read as truly "AI-native"
+  — Dylan clears that bar, and it's his sharpest differentiator for CoS/BizOps.
+- **Partner S&O is a near-verbatim match** to his current title; the level-up
+  keyword is *Senior Manager / Head*, and the phrase to lead with is "architect
+  strategy while operationalizing it and diving deep into the details."
+- **True lab FDE (Anthropic/OpenAI/Palantir) is a reach** — those want "3–5+
+  yrs engineering, ship production applications in Python/TypeScript." The
+  Forward Deployed resume therefore aims at *Applied AI / AI Solutions / AI
+  Operations* adjacents, and leans on the repo + the evals story as proof. Do
+  not claim "software engineer," "production integrations," or "distributed
+  systems" — the research flags these as easily disproven overreach.
 
 ## Keyword banks (mirror the JD's language in summary + skills)
 
-- **AI ops:** deployed AI, agents, LLM workflows, evals, Claude Code, agent
-  operating system, human-in-the-loop, AI enablement, applied AI, guardrails
-- **Strategy & ops:** annual planning, quota setting, territory design,
-  executive alignment, cross-functional, partner ecosystem, GTM strategy,
-  operating cadence, QBR
-- **Data:** attribution, single source of truth, data governance, metric
-  definitions, standardized datasets, Spark/SQL pipelines, executive
-  dashboards, self-serve analytics
+- **AI / agents:** deployed AI agents, agentic workflows, LLM deployment,
+  prompt engineering, agent development, evaluation frameworks / evals, RAG,
+  MCP (Model Context Protocol), AI enablement, AI fluency, self-serve analytics,
+  "AI-native," build/prototype AI-enabled workflows, orchestration, playbooks
+  & standards.
+- **Strategy / ops:** operating cadence / operating rhythm, strategic planning,
+  OKRs, cross-functional, GTM strategy & operations, co-sell, channel/partner
+  management, business acumen, influence without authority, scalable processes,
+  executive/board reporting, incentive/comp program design, quota-setting,
+  forecasting.
+- **Data:** SQL, Python, Tableau / CRM Analytics, Salesforce reporting,
+  dashboards, financial models, revenue attribution, medallion architecture /
+  Spark, data storytelling, KPI definition & tracking.
 
-## What changed from the current resume, and why
+## Quantification punch-list (the ⟪…⟫ placeholders)
 
-1. **Single-column format.** The old two-column sidebar layout is what ATS
-   parsers mangle most — skills and dates end up attached to the wrong jobs.
-   The new template is deliberately parse-safe: standard section headings, no
-   layout tables, no graphics.
-2. **A summary + tagline per variant.** The old resume had no positioning
-   statement; a screener had to infer the story. Now the first four lines do
-   the targeting.
-3. **The portfolio became a "Selected Project" section.** The Claude Code
-   build is the strongest AI evidence available, but it is *not* Databricks
-   work — so it's labeled a public build with the repo link, never merged
-   into employment history.
-4. **Cut "stackoverflow searches," Activities, and most Interests.** Charming
-   at analyst level, costly at manager level. The space went to the project
-   section.
-5. **Same facts, stronger frames.** e.g. "Deployed AI-driven reporting
-   agents…" now closes with what it means ("…into how partner metrics are
-   distributed across the org") — reworded, never inflated.
+The single highest-ROI upgrade. Each placeholder in the resumes maps to a
+number that turns a good bullet into a strong one. Even rough, defensible
+figures work — anything you'd stand behind in an interview.
+
+| Program | The number that would land it |
+|---|---|
+| **Forecast process** | What it forecasts (partner-sourced bookings? consumption?) + scale ($ forecasted per Q, or accuracy % / accuracy improvement) + who relies on it |
+| **Attribution model** | How widely adopted (company-wide? # teams/dashboards) + $ revenue or pipeline it attributes |
+| **New-logo incentive program** | What it rewards + who's enrolled (# PSMs/partners) + impact (# net-new logos, participation, $ influenced) |
+| **AI agents (Newsletter/FAQ)** | Reach — # stakeholders served, queries/week, or hours saved |
+| **Medallion / self-serve** | # sources or tables, # consumers of the gold layer, request-queue reduction |
 
 ## Honesty guardrails (do not cross)
 
-- Every Experience bullet is a rewording of the current resume — no new
-  claims, no new numbers.
+- Every Experience bullet is a rewording of the current resume or of a fact
+  Dylan stated directly — no new claims, no invented numbers.
 - The repo's scorecard figures ($6.5M sourced, 12 partners, etc.) are
   **synthetic demo data**. They never appear on any resume.
-- The Claude Code build is always labeled as a public/independent project.
-- Only add real quantification (agent user counts, hours saved, quota size
-  covered) if it's defensible in an interview and not confidential.
+- The Claude Code build is always labeled a public / independent project.
+- The Forward Deployed resume stays inside "operator-engineer who deploys" and
+  "fluent in Python/SQL" — never "software engineer."
 
-## Known gaps, and how the variants compensate
+## Known gaps and how the variants compensate
 
-- **No formal engineering title** → the AI variant leans on *working,
-  verifiable systems*: the repo link is on the resume, and `crediting/engine.py`
-  + `tests/` are the code-review answer to "can you actually build?"
-- **Thin quantification** ("10+", "$250M") → the highest-ROI edit available
-  is adding 2–3 real, defensible numbers to the Databricks bullets.
-- **One LinkedIn for three resumes** → update LinkedIn to the A/B blend
-  (AI-forward strategy & ops) since every variant links to it.
-- **Portfolio URL** → if the Streamlit app gets a public deployment, swap the
-  GitHub link for it on the AI variant; keep the repo public either way.
+- **No formal engineering title** → the FDE variant leans on the *public repo*
+  (link is on the resume) and the evals answer as the "can you really build?"
+  proof; it targets Applied-AI adjacents, not true lab FDE.
+- **Thin quantification** → the punch-list above is the fix; it's the biggest
+  lever available.
+- **One LinkedIn for three resumes** → update LinkedIn to the AI-native
+  operator blend (the Business Operations lens with AI forward), since all three
+  variants link to it.
+- **Portfolio URL** → the Replit site should become the broad career showcase
+  (next deliverable); when it's live, swap the GitHub link for it on the AI
+  variants and keep the repo public as the code-proof.
 
 ## Per-application checklist
 
 1. Pick the variant by the decision rule above.
-2. Echo the JD's top three responsibility phrases in the summary (only where
+2. Fill or delete every ⟪…⟫ placeholder — none ship.
+3. Echo the JD's top three responsibility phrases in the summary (only where
    true).
-3. Reorder Databricks bullets so the first two match what the role screens
+4. Reorder the Databricks bullets so the first two match what the role screens
    for.
-4. Export and submit as `Dylan-Ram-Resume.pdf` — recruiters see filenames;
+5. Export and submit as `Dylan-Ram-Resume.pdf` — recruiters see filenames;
    don't leak the variant name.
-5. Confirm it's still one page (`build_resumes.py` + print preview).
+6. Confirm it's still one page.

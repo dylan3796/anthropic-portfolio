@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>DYLAN RAM — Resume</title>
+<style>
+    @page { size: letter; margin: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { background: white; }
+    body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        color: #1a1a1a; font-size: 9.3pt; line-height: 1.33;
+        -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+    .page { width: 8.5in; padding: 0.4in 0.62in; margin: 0 auto; }
+    .name { font-size: 21pt; font-weight: 700; letter-spacing: 0.14em; }
+    .tagline { font-size: 10pt; color: #b5543b; font-weight: 600; margin-top: 2pt; }
+    .contact { font-size: 8.6pt; color: #555; margin-top: 4pt; }
+    .contact span + span::before { content: "  ·  "; color: #bbb; }
+    h2 {
+        font-size: 8.6pt; font-weight: 700; letter-spacing: 0.13em;
+        text-transform: uppercase; color: #b5543b;
+        border-bottom: 1px solid #e3ddd8; padding-bottom: 2pt;
+        margin: 9pt 0 4.5pt 0;
+    }
+    .summary { color: #333; }
+    .skill-line { margin-bottom: 2.5pt; }
+    .skill-line strong { color: #1a1a1a; }
+    .job { margin-bottom: 7pt; }
+    .job-head { display: flex; justify-content: space-between; align-items: baseline; }
+    .job-role { font-weight: 700; font-size: 9.8pt; }
+    .job-co { color: #b5543b; font-weight: 600; }
+    .job-note { color: #777; font-style: italic; font-weight: 400; font-size: 8.8pt; }
+    .job-dates { color: #555; font-size: 8.8pt; white-space: nowrap; }
+    ul { margin: 2.5pt 0 0 0; padding-left: 13pt; }
+    li { margin-bottom: 1.5pt; color: #333; }
+    .proj-title { font-weight: 700; font-size: 9.6pt; }
+    .proj-title .proj-link { color: #777; font-weight: 400; font-size: 8.6pt; }
+    .edu { color: #333; }
+    .todo {
+        color: #b5543b; font-style: italic; font-weight: 600;
+        border-bottom: 1px dotted #d9a08c;
+    }
+</style></head><body><div class="page">
+<div class="name">DYLAN RAM</div>
+<div class="tagline">Business Operations · Strategy &amp; Planning · GTM Systems</div>
+<div class="contact"><span>916-690-5681</span><span>dylanmr96@gmail.com</span><span>linkedin.com/in/dylanram</span><span>github.com/dylan3796/anthropic-portfolio</span></div>
+<h2>Summary</h2>
+<div class="summary">The operating spine of a GTM org. As Databricks' first Partner Strategy &amp; Ops hire, built the forecast, attribution, and first new-logo incentive programs from scratch, ran annual quota-setting across Sales, Finance, and Partner leadership, and now sets the AI strategy that makes the team faster. Architects the high-level plan, operationalizes it, and dives into the detail — seven years partnering directly with GTM executives at Databricks, Salesforce, and CBRE.</div>
+<h2>Skills</h2>
+<div class="skill-line"><strong>Operations &amp; strategy:</strong> Operating cadence, annual &amp; quota planning, OKRs, territory design, incentive/comp program design, revenue forecasting, executive &amp; board reporting</div><div class="skill-line"><strong>Data &amp; AI:</strong> SQL, Python (pandas), PySpark, Tableau, Salesforce, revenue attribution, deployed AI agents, AI enablement (Claude Code)</div>
+<h2>Experience</h2>
+<div class="job"><div class="job-head"><div class="job-role">Partner Strategy & Ops Manager — <span class="job-co">Databricks</span> <span class="job-note">(promoted Feb 2023 · first Partner S&O hire)</span></div><div class="job-dates">Aug 2021 – Present</div></div><ul><li>Built the partner team's first revenue forecasting process where none existed — <span class="todo">⟪what it forecasts + scale, e.g. $XXXM quarterly partner-sourced⟫</span>.</li><li>Designed the canonical partner attribution model — <span class="todo">⟪adoption, e.g. company-wide source of truth across N teams⟫</span> — defining sourced, influenced, and attributed revenue across a two-sided marketplace.</li><li>Launched the first partner incentive program tied to new-logo acquisition — <span class="todo">⟪what it rewards + impact, e.g. drove N net-new logos⟫</span>.</li><li>Led annual quota-setting across Sales, Finance, and Partner leadership through top-down and bottoms-up planning.</li><li>Shaped the Partner Value Score and tiering framework, earning global alignment and executive adoption.</li><li>Now spearheading KPI alignment across internal, external, and partner stakeholders and building self-serve, AI-driven analytics — the operating cadence's modern layer.</li></ul></div><div class="job"><div class="job-head"><div class="job-role">SMB Sales Strategy & Operations Analyst — <span class="job-co">Salesforce</span></div><div class="job-dates">Jul 2019 – Aug 2021</div></div><ul><li>Direct business partner to the $250M AMER SMB Central business, advising AVPs, VPs, and RMs across the org.</li><li>Built the territory-carving model (Python) that encoded the org's guiding principles — the basis of the annual GTM plan.</li><li>Crafted the FY22 GTM guiding-principles analyses: customer continuity, account proximity, industry mix, top accounts, AE tenure.</li></ul></div><div class="job"><div class="job-head"><div class="job-role">Business Data Analyst — <span class="job-co">CBRE</span></div><div class="job-dates">Sep 2018 – Jul 2019</div></div><ul><li>Owned the product-analytics stack end to end — data warehouse, Python data collection, and client-facing Tableau dashboards.</li><li>Streamlined the product-analytics process: defined key metrics, the dataset, and the flow to visualization.</li></ul></div>
+<h2>Selected Project</h2>
+<div class="job">
+<div class="proj-title">Claude Code as an Operating System — running an AI-native operating cadence (public repo, 2026)
+ <span class="proj-link">— github.com/dylan3796/anthropic-portfolio</span></div>
+<ul><li>Built a working operating system for a function: big rocks as the planning pillars, skills as the repeatable plays, a metric dictionary as governance, and a retro loop that runs the QBR on the tooling itself.</li><li>Headline workflow — commissions crediting: an agent codifies managers' plain-English coverage changes into effective-dated rules, and tested code, never a model, computes the money.</li></ul>
+</div>
+<h2>Education</h2>
+<div class="edu"><strong>University of California, Santa Barbara</strong> — B.A. Economics &amp; Accounting · Dean's Honors</div>
+</div></body></html>
