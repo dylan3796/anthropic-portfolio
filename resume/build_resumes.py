@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Render Dylan Ram's targeted resumes to print-ready HTML in two designs.
 
-One fact base, three lenses, two layouts. Content lives in VARIANTS; the
-look lives in the two CSS blocks + render fns. Every claim traces to the
-source resume or to work in this repo — see resume/STRATEGY.md.
+One fact base, two lenses, two layouts. Content lives in VARIANTS; the look
+lives in the two CSS blocks + render fns. Every claim traces to the source
+resume or to work in this repo — see resume/STRATEGY.md.
 
     python3 resume/assets/fetch_fonts.py     # once — bundles the fonts
     python3 resume/build_resumes.py          # writes resume/output/*.html
@@ -12,20 +12,25 @@ source resume or to work in this repo — see resume/STRATEGY.md.
     #   chromium --headless --no-sandbox --print-to-pdf-no-header \
     #     --print-to-pdf=out.pdf file:///.../resume/output/<file>.html
 
+The two lenses
+--------------
+- ai-deployment      : the AI person — builds/ships AI AND sets the strategy
+                       for deploying it. Flexes technical-forward (lead with
+                       the engine + evals) or strategy-forward (lead with
+                       self-serve + enablement) by reordering bullets.
+- business-operations: the operating leader — signature programs, planning,
+                       the two-sided-marketplace stakeholder story, zero-to-one
+                       / one-to-100, with AI as the modern edge.
+
 Design notes
 ------------
 - Typography: Lora (editorial serif) for display, Inter for everything else,
   bundled as base64 in assets/fonts.css so PDFs are fully self-contained.
-- Palette: warm near-black ink, terracotta accent (#B4552F text / #D97757
-  rules) — the same Anthropic-inspired family as the portfolio, so the
-  resume and the site read as one system.
-- Two layouts:
-    editorial : single column, ATS-safe. The default for portals/parsers.
-    modern    : two-column with a skills rail. More designed; better for
-                sending straight to a hiring manager. (ATS parsers handle it
-                less reliably — see STRATEGY.md.)
-- No fabricated metrics anywhere. Bullets lead with what the work was and
-  its quality, not what it touched; scale is an interview conversation.
+- Palette: warm near-black ink, terracotta accent — the same family as the
+  portfolio, so the resume and the site read as one system.
+- Two layouts: editorial (single column, ATS-safe) and modern (two-column
+  with a skills rail; more designed, slight ATS risk — see STRATEGY.md).
+- No fabricated metrics. Bullets lead with what the work was and its quality.
 """
 
 from pathlib import Path
@@ -35,7 +40,6 @@ OUT_DIR = HERE / "output"
 FONTS = (HERE / "assets" / "fonts.css").read_text()
 
 NAME = "Dylan Ram"
-# order: primary reach, then links
 CONTACT = [
     "dylanmr96@gmail.com",
     "916-690-5681",
@@ -46,29 +50,33 @@ EDUCATION_SCHOOL = "University of California, Santa Barbara"
 EDUCATION_DEGREE = "B.A. Economics &amp; Accounting · Dean's Honors"
 
 # ---------------------------------------------------------------------------
-# The three variants. Same jobs, same facts — different lead, order, and
+# The two variants. Same jobs, same facts — different lead, order, and
 # vocabulary. Substance over scale; no invented numbers.
 # ---------------------------------------------------------------------------
 
 VARIANTS = {
-    # 1 · FORWARD DEPLOYED / APPLIED AI — the builder pole
-    "dylan-ram-ai-forward-deployed": {
-        "tagline": "Forward Deployed & Applied AI · Agent Systems · Evals & Deployment",
+    # 1 · AI DEPLOYMENT — merges the builder (Applied AI / FDE-adjacent) and
+    #     the AI-native operator (AI Strategy / Enablement). Reorder to lean
+    #     technical (skills+project first) or strategic (self-serve+enablement).
+    "dylan-ram-ai-deployment": {
+        "tagline": "AI Deployment · Agent Systems · Strategy & Enablement",
         "summary": (
-            "Operator-engineer who deploys LLM and agent systems into real business "
-            "workflows — and draws the hard line on where deterministic, tested code must "
-            "own the outcome. At Databricks, shipped the partner team's first LLM agents to "
-            "production; independently designed a full agent operating system in Claude Code — "
-            "skills, hooks, subagents, MCP, and a golden-tested engine that keeps the model "
-            "out of the money path. Fluent in Python and SQL, and ready to answer the "
-            "question that matters: how do you know it's working."
+            "Deploys AI into real business workflows — and sets up how an organization "
+            "adopts it, from the foundational data layer to KPI alignment to the self-serve "
+            "enablement that gets non-technical teams building. An operator-engineer who "
+            "draws the hard line on where deterministic, tested code must own the outcome: at "
+            "Databricks, shipped the partner team's first LLM agents to production, and "
+            "independently designed a full agent operating system in Claude Code — skills, "
+            "hooks, subagents, MCP, and a golden-tested engine that keeps the model out of the "
+            "money path. Fluent in Python and SQL; built-and-deployed AI, not slideware, ready "
+            "to answer the question that matters: how do you know it's working."
         ),
         "skills": [
-            ("Agents & LLMs", "Claude Code (skills, hooks, subagents, MCP, scoped "
-             "permissions), agent & LLM workflow design, prompt engineering, evals & "
-             "golden-test patterns"),
-            ("Languages & data", "Python (pandas, NumPy), SQL, PySpark, Salesforce APIs, "
-             "Tableau, Git/GitHub"),
+            ("AI & agents", "Claude Code (skills, hooks, subagents, MCP, scoped permissions), "
+             "agent & LLM workflow design, prompt engineering, evals & golden-test patterns, "
+             "self-serve enablement, playbooks & standards"),
+            ("Data & engineering", "Python (pandas, NumPy), SQL, PySpark, Tableau, Salesforce, "
+             "medallion architecture, KPI definition, Git/GitHub"),
         ],
         "jobs": [
             {
@@ -78,16 +86,14 @@ VARIANTS = {
                     "Deployed the partner team's first LLM reporting agents (Newsletter Agent, "
                     "FAQ Agent) into production — automated Q&A, insights, and notifications, "
                     "embedding agentic workflows into how partner metrics reach the org.",
-                    "Building the team's foundational data-and-AI layer: a medallion "
-                    "(bronze/silver/gold) architecture in Spark/SQL and self-serve interfaces "
-                    "so stakeholders query answers directly instead of filing requests.",
+                    "Spearheading the team's AI strategy: building the foundational "
+                    "data-and-AI layer (a medallion architecture in Spark/SQL) with self-serve "
+                    "interfaces so stakeholders answer their own questions.",
                     "Aligning KPIs across internal, external, and partner stakeholders as the "
-                    "measurement backbone the AI layer reports against.",
-                    "Designed the partner attribution model and built the attribution systems "
-                    "in Salesforce, SQL, and Spark — sourced, influenced, and attributed "
-                    "revenue across a two-sided marketplace; the governed data the agents run on.",
-                    "Built the team's first partner-revenue forecasting process where none "
-                    "existed — methodology and cadence designed from scratch.",
+                    "measurement backbone every AI output reports against.",
+                    "Designed the partner attribution model (Salesforce/SQL/Spark) and built "
+                    "the team's first revenue forecasting process from scratch — the governed "
+                    "data the agents run on.",
                 ],
             },
             {
@@ -115,95 +121,22 @@ VARIANTS = {
         "project_title": "Claude Code as an Operating System — a self-built agent platform "
                          "(public repo, 2026)",
         "project_bullets": [
-            "Architected a five-layer agent system: persistent memory, SessionStart hooks "
-            "that boot each session with live data, long-horizon plans, invocable skills, and "
-            "a retro loop that proposes edits to its own setup.",
+            "Architected a five-layer agent operating system: persistent memory, session-boot "
+            "data hooks, long-horizon plans, invocable skills, and a retro loop that proposes "
+            "edits to its own setup.",
             "Drew the AI/deterministic boundary for commissions crediting: an agent turns "
             "managers' plain-English coverage into effective-dated rules; a golden-tested "
             "Python engine applies them to deals — no LLM ever computes a credited dollar.",
             "Wrote the eval suite that proves it: golden tests over mid-quarter hires, "
-            "territory handoffs at the boundary, split credit, and coverage gaps — an "
-            "uncredited deal is surfaced, never silently zeroed.",
-            "Shipped scoped skills, a plan-drafting subagent, least-privilege permissions, and "
-            "MCP integrations; documented the architecture in a Streamlit walkthrough.",
-        ],
-    },
-
-    # 2 · AI STRATEGY & DEPLOYMENT — the AI-native operator pole
-    "dylan-ram-ai-strategy": {
-        "tagline": "AI Strategy & Deployment · Enablement · Agentic Operating Systems",
-        "summary": (
-            "Sets up how an organization actually deploys AI — from the foundational data "
-            "layer to KPI alignment to the self-serve enablement that gets non-technical "
-            "teams building. At Databricks, spearheading the partner team's AI strategy on "
-            "top of a data foundation built from scratch, and shipped its first LLM agents to "
-            "production. Independently designed a full agent operating system in Claude Code — "
-            "skills, hooks, subagents, MCP, and a tested boundary between AI judgment and "
-            "deterministic execution: built-and-deployed AI work, not slideware."
-        ),
-        "skills": [
-            ("AI deployment & enablement", "Agent operating systems (Claude Code, CLAUDE.md, "
-             "MCP), LLM workflow design, prompt engineering, evals, self-serve enablement, "
-             "playbooks & standards"),
-            ("Data & ops", "SQL, Python (pandas), PySpark, Tableau, Salesforce, medallion "
-             "architecture, KPI definition, executive reporting"),
-        ],
-        "jobs": [
-            {
-                "company": "Databricks", "role": "Partner Strategy & Ops Manager",
-                "note": "promoted Feb 2023 · first Partner S&O hire", "dates": "Aug 2021 – Present",
-                "bullets": [
-                    "Spearheading the partner team's AI strategy — building the foundational "
-                    "data-and-AI layer (a medallion architecture) and aligning KPIs across "
-                    "internal, external, and partner stakeholders as the backbone every AI "
-                    "output measures against.",
-                    "Building self-serve analytics spaces so the team and its stakeholders "
-                    "answer their own questions — turning a standing request queue into direct "
-                    "access.",
-                    "Deployed the team's first LLM agents (Newsletter, FAQ) into production for "
-                    "automated Q&A, insights, and notifications.",
-                    "Designed the partner attribution model and the first revenue forecasting "
-                    "process — the governed data the AI layer depends on.",
-                    "Shaped the Partner Value Score and tiering framework adopted globally.",
-                ],
-            },
-            {
-                "company": "Salesforce", "role": "SMB Sales Strategy & Operations Analyst",
-                "note": "", "dates": "Jul 2019 – Aug 2021",
-                "bullets": [
-                    "Automated reporting and forecasting tooling with Python, APIs, and G Suite "
-                    "— QBR decks, forecast accuracy, and territory data.",
-                    "Developed the territory-carving Python model behind the annual GTM plan; "
-                    "led the unit's Tableau migration with data governance.",
-                    "Direct analytics partner to the $250M AMER SMB Central business.",
-                ],
-            },
-            {
-                "company": "CBRE", "role": "Business Data Analyst",
-                "note": "", "dates": "Sep 2018 – Jul 2019",
-                "bullets": [
-                    "Managed the product data warehouse and built Python data-collection tools; "
-                    "shipped client-facing Tableau dashboards and streamlined the analytics "
-                    "process end to end.",
-                ],
-            },
-        ],
-        "project_title": "Claude Code as an Operating System — a reference build for "
-                         "deploying AI in a function (public repo, 2026)",
-        "project_bullets": [
-            "Designed a five-layer operating model for running AI in a team: governed data "
-            "and a single metric dictionary, memory, long-horizon plans, invocable skills, and "
-            "a self-improvement loop — define once, reuse everywhere.",
-            "Set the boundary that makes AI trustworthy in production: the model authors rules "
-            "in plain English; deterministic, tested code executes anything that touches money "
-            "— the speed of language with the trust of a spreadsheet that can't miscount.",
+            "territory handoffs, split credit, and coverage gaps — an uncredited deal is "
+            "surfaced, never silently zeroed.",
             "Built the enablement pattern: the ops team self-served first, then began "
             "authoring their own skills — reusable playbooks and standards, the adoption "
             "unlock these roles are hired to drive.",
         ],
     },
 
-    # 3 · BUSINESS OPERATIONS / STRATEGY — the operating-leader pole
+    # 2 · BUSINESS OPERATIONS / STRATEGY — the operating-leader pole
     "dylan-ram-business-operations": {
         "tagline": "Business Operations · Strategy & Planning · GTM Systems",
         "summary": (
