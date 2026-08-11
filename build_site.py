@@ -9,28 +9,45 @@ renders identically on GitHub Pages or anywhere.
 
     python3 build_site.py        # writes docs/index.html (+ scratchpad body-only for previews)
 
-Deploy: repo Settings -> Pages -> Deploy from branch -> <branch> -> /docs.
-When the branch merges to main, update BRANCH below and rerun.
+Deploy: repo Settings -> Pages -> Deploy from branch -> main -> /docs.
+
+The resume PDFs are copied into docs/resumes/ and linked relatively, so the
+published site serves them itself — the links never depend on a branch name
+and keep working after feature branches are deleted.
 """
 
 import json
+import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).parent
 FONTS = (ROOT / "resume" / "assets" / "fonts.css").read_text()
 
-# Resume download links point at the repo's committed PDFs. Update on merge.
-BRANCH = "claude/resume-ai-operations-strategy-yhcgt9"
+BRANCH = "main"
 REPO = "https://github.com/dylan3796/anthropic-portfolio"
 BLOB = f"{REPO}/blob/{BRANCH}"
-PDF = f"{BLOB}/resume/output"
 
-RESUMES = {
-    "biz_ed": f"{PDF}/dylan-ram-business-operations--editorial.pdf",
-    "biz_mo": f"{PDF}/dylan-ram-business-operations--modern.pdf",
-    "ai_ed": f"{PDF}/dylan-ram-ai-deployment--editorial.pdf",
-    "ai_mo": f"{PDF}/dylan-ram-ai-deployment--modern.pdf",
+# Source PDFs live in resume/output/; the site serves its own copies.
+PDF_SRC = ROOT / "resume" / "output"
+PDF_DIR = ROOT / "docs" / "resumes"
+
+RESUME_FILES = {
+    "biz_ed": "dylan-ram-business-operations--editorial.pdf",
+    "biz_mo": "dylan-ram-business-operations--modern.pdf",
+    "ai_ed": "dylan-ram-ai-deployment--editorial.pdf",
+    "ai_mo": "dylan-ram-ai-deployment--modern.pdf",
 }
+RESUMES = {key: f"resumes/{name}" for key, name in RESUME_FILES.items()}
+
+
+def sync_resumes():
+    """Copy the built PDFs next to index.html so Pages serves them directly."""
+    PDF_DIR.mkdir(parents=True, exist_ok=True)
+    for name in RESUME_FILES.values():
+        src = PDF_SRC / name
+        if not src.exists():
+            raise SystemExit(f"missing resume PDF: {src} — run resume/build_resumes.py first")
+        shutil.copy2(src, PDF_DIR / name)
 
 LENS = {
     "ops": {
@@ -404,7 +421,8 @@ def build():
     (ROOT / "docs").mkdir(exist_ok=True)
     (ROOT / "docs" / "index.html").write_text(full)
     (ROOT / "docs" / ".nojekyll").write_text("")  # serve files as-is on GitHub Pages
-    print("wrote docs/index.html")
+    sync_resumes()
+    print(f"wrote docs/index.html + {len(RESUME_FILES)} resumes to docs/resumes/")
     # body-only variant (style + content + script, no <head>/<body>) for embedding/previews
     return style + body + script
 
