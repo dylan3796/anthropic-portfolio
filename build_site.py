@@ -20,6 +20,8 @@ import json
 import shutil
 from pathlib import Path
 
+import site_qa
+
 ROOT = Path(__file__).parent
 FONTS = (ROOT / "resume" / "assets" / "fonts.css").read_text()
 
@@ -387,12 +389,14 @@ def build_body():
   <div class="proof-links">{proof}</div></div>
 </div></section>
 
-<section class="section" id="experience"><div class="wrap reveal">
+{site_qa.section_html()}
+
+<section class="section alt" id="experience"><div class="wrap reveal">
   <h2 class="sec-title">Experience</h2>
   <div class="tl">{tl}</div>
 </div></section>
 
-<section class="section alt" id="resumes"><div class="wrap reveal">
+<section class="section" id="resumes"><div class="wrap reveal">
   <h2 class="sec-title">Take a résumé</h2>
   <p class="sec-lead">Two lenses, two designs each. Editorial is single-column and ATS-safe;
   Modern is the two-column version for reading directly.</p>
@@ -407,8 +411,11 @@ the <a href="{REPO}">repository</a> it describes.</div></footer>
 
 def build():
     body = build_body()
-    style = f"<style>{FONTS}{CSS}</style>"
-    script = f"<script>const LENS={json.dumps(LENS)};{JS_TAIL}</script>"
+    style = f"<style>{FONTS}{CSS}{site_qa.QA_CSS}</style>"
+    script = (
+        f"<script>const LENS={json.dumps(LENS)};{JS_TAIL}"
+        f"{site_qa.data_js()}{site_qa.QA_JS}</script>"
+    )
     full = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
