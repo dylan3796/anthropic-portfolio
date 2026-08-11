@@ -29,6 +29,9 @@ data/DATA_DICTIONARY.md      Metric & schema definitions — source of truth for
 crediting/engine.py          Deterministic crediting engine (the money path; no LLM)
 tests/                       Golden tests / evals — pin the crediting math
 notebooks/                   Analysis artifacts (e.g. scorecard tier/health refresh)
+build_site.py                Builds the public one-link portfolio into docs/
+site_qa.py                   The "Run the screen" corpus, persona, and answer engine
+worker/                      Cloudflare Worker fronting the chat model (holds the API key)
 plans/big-rocks/             One long-lived plan per strategic initiative
 .claude/skills/              Skills, each owned by a big rock (plus one meta-skill)
 .claude/agents/              Subagents (big-rock-planner)
@@ -99,6 +102,11 @@ memory so Claude never has to ask who a PSM is.
 - App: `streamlit run app.py` (port 8501)
 - Crediting math: `python3 tests/test_crediting.py` (golden tests, no deps) —
   must stay green after any change to `crediting/` or `crediting_rules.json`.
+- Site + chat: `python3 tests/test_site_qa.py` (needs node) — retrieval answers,
+  chat client fallback, and the Worker's origin/rate/size guards. Must stay green
+  after any change to `site_qa.py` or `worker/`.
+- Site build: `python3 build_site.py` regenerates `docs/` and `worker/corpus.js`.
+  The corpus is generated — edit `site_qa.py`, never `worker/corpus.js`.
 - Data sanity: `python3 -c "import pandas as pd; print(pd.read_csv('data/partner_metrics.csv'))"`
 - Hooks: `bash .claude/hooks/session_context.sh` should print current big-rock
   status and scorecard headlines with exit code 0.

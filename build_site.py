@@ -429,6 +429,9 @@ def build():
     (ROOT / "docs" / "index.html").write_text(full)
     (ROOT / "docs" / ".nojekyll").write_text("")  # serve files as-is on GitHub Pages
     sync_resumes()
+    # one corpus feeds both the live chat and the offline fallback
+    (ROOT / "worker").mkdir(exist_ok=True)
+    (ROOT / "worker" / "corpus.js").write_text(site_qa.corpus_js())
     print(f"wrote docs/index.html + {len(RESUME_FILES)} resumes to docs/resumes/")
     # body-only variant (style + content + script, no <head>/<body>) for embedding/previews
     return style + body + script

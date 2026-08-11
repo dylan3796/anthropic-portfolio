@@ -1,12 +1,15 @@
-"""Evals for the site's grounded answer engine.
+"""Evals for the site's answer engine, its chat client, and the chat Worker.
 
-The Q&A box on the portfolio makes two promises: it answers real questions
-correctly, and it declines rather than inventing. Both are testable, so they
-are tested — the same standard the crediting engine is held to.
+Three promises are testable, so all three are tested — the same standard the
+crediting engine is held to:
 
-qa_harness.js stubs a minimal DOM and runs the *shipped* retrieval code
-unmodified, so these evals exercise what visitors actually get, not a
-reimplementation of it.
+  1. retrieval  — answers correctly, and declines rather than inventing
+  2. chat client — uses the live model, and degrades to retrieval when it can't
+  3. worker      — refuses foreign origins, caps input, rate-limits, contains
+                   upstream failures without leaking them
+
+Each harness drives the *shipped* code (stubbed DOM, stubbed fetch, stubbed KV)
+rather than a reimplementation of it.
 
     python3 tests/test_site_qa.py
 
@@ -19,29 +22,59 @@ import sys
 import tempfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
 sys.path.insert(0, str(ROOT))
 
 import site_qa  # noqa: E402
 
 
-def main():
-    node = shutil.which("node")
-    if not node:
-        print("skip: node not found (retrieval evals need it)")
-        return 0
-
-    harness = (Path(__file__).parent / "qa_harness.js").read_text()
-    payload = site_qa.data_js() + site_qa.QA_JS
-    with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as fh:
-        fh.write(harness.replace("__PAYLOAD__", payload))
-        script = fh.name
-
-    proc = subprocess.run([node, script], capture_output=True, text=True)
-    Path(script).unlink(missing_ok=True)
+def _run(node, script, cwd=None):
+    proc = subprocess.run([node, script], capture_output=True, text=True, cwd=cwd)
     sys.stdout.write(proc.stdout)
     sys.stderr.write(proc.stderr)
     return proc.returncode
+
+
+def _render(harness_name, endpoint, suffix=".js"):
+    """Inline the shipped client into a harness and write it next to the tests.
+
+    It lands in tests/ so the harness's relative imports still resolve.
+    """
+    harness = (HERE / harness_name).read_text()
+    payload = site_qa.data_js() + site_qa.QA_JS
+    fh = tempfile.NamedTemporaryFile("w", suffix=suffix, dir=HERE, delete=False)
+    with fh:
+        fh.write(harness.replace("__PAYLOAD__", payload))
+    return fh.name
+
+
+def main():
+    node = shutil.which("node")
+    if not node:
+        print("skip: node not found (these evals need it)")
+        return 0
+
+    failures = 0
+
+    # 1 + 2. retrieval, then the chat client with a live endpoint configured
+    for label, harness, endpoint in (
+        ("retrieval", "qa_harness.js", ""),
+        ("chat client", "chat_harness.js", "https://ask-dylan.example.workers.dev"),
+    ):
+        original = site_qa.CHAT_ENDPOINT
+        site_qa.CHAT_ENDPOINT = endpoint
+        script = _render(harness, endpoint)
+        site_qa.CHAT_ENDPOINT = original
+        print(f"\n== {label} ==")
+        failures |= _run(node, script)
+        Path(script).unlink(missing_ok=True)
+
+    # 3. the Worker's guards, against a stubbed provider
+    print("\n== worker guards ==")
+    failures |= _run(node, str(HERE / "worker_harness.mjs"), cwd=str(ROOT))
+
+    return failures
 
 
 if __name__ == "__main__":

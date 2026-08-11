@@ -1,0 +1,22 @@
+name = "ask-dylan"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# Provider selection. PROVIDER picks a preset; the two overrides below win when
+# set, so a provider the presets don't cover needs no code change.
+#   deepseek | moonshot | qwen | zhipu | openai | anthropic
+[vars]
+PROVIDER = "deepseek"
+# PROVIDER_BASE_URL = "https://api.deepseek.com/v1"
+# PROVIDER_MODEL    = "deepseek-chat"
+
+# Per-IP and global request counters. Create with:
+#   npx wrangler kv namespace create RATE_LIMIT
+# then paste the printed id below. Without it the Worker still enforces
+# per-request size caps, but nothing stops one visitor from looping.
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "PASTE_YOUR_KV_NAMESPACE_ID_HERE"
+
+# PROVIDER_API_KEY is a secret, never a var:
+#   npx wrangler secret put PROVIDER_API_KEY
