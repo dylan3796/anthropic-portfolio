@@ -20,14 +20,21 @@ import json
 import shutil
 from pathlib import Path
 
+import content as C
 import site_qa
 
 ROOT = Path(__file__).parent
 FONTS = (ROOT / "resume" / "assets" / "fonts.css").read_text()
 
 BRANCH = "main"
-REPO = "https://github.com/dylan3796/anthropic-portfolio"
+REPO = f"https://github.com/{C.REPO_SLUG}"
 BLOB = f"{REPO}/blob/{BRANCH}"
+
+
+def esc(s):
+    """Escape plain text for HTML. content.py stores plain text; entities are a
+    render-time concern, applied exactly once, here."""
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 # Source PDFs live in resume/output/; the site serves its own copies.
 PDF_SRC = ROOT / "resume" / "output"
@@ -43,46 +50,42 @@ RESUMES = {key: f"resumes/{name}" for key, name in RESUME_FILES.items()}
 
 
 def sync_resumes():
-    """Copy the built PDFs next to index.html so Pages serves them directly."""
+    """Copy the built PDFs next to index.html so Pages serves them directly.
+
+    resume/output/ is gitignored, so on a fresh clone (or any session without
+    Chromium) it is empty. The committed docs/resumes/ copies are then kept
+    as-is — the build must not die just because PDFs weren't regenerated.
+    """
     PDF_DIR.mkdir(parents=True, exist_ok=True)
+    stale = []
     for name in RESUME_FILES.values():
         src = PDF_SRC / name
-        if not src.exists():
-            raise SystemExit(f"missing resume PDF: {src} — run resume/build_resumes.py first")
-        shutil.copy2(src, PDF_DIR / name)
+        if src.exists():
+            shutil.copy2(src, PDF_DIR / name)
+        elif (PDF_DIR / name).exists():
+            stale.append(name)
+        else:
+            raise SystemExit(
+                f"missing resume PDF: {name} in both resume/output/ and docs/resumes/ "
+                "— run resume/build_resumes.py and print the PDFs first"
+            )
+    if stale:
+        print(f"note: {len(stale)} PDF(s) not regenerated this run; "
+              "keeping committed docs/resumes/ copies")
 
+# Career content comes from content.py (plain text) and is escaped here.
+_LENS_HREF = {"ops": RESUMES["biz_mo"], "ai": RESUMES["ai_mo"]}
 LENS = {
-    "ops": {
-        "copy": ("The operating spine of a GTM org — zero to one, then one to 100. I run the "
-                 "forecast, attribution, incentive, and quota systems a partner business "
-                 "depends on, and align them across a two-sided marketplace."),
-        "targets": "Business Operations · Chief of Staff · Partner &amp; Revenue Ops",
-        "href": RESUMES["biz_mo"],
-        "label": "Business Operations résumé",
-    },
-    "ai": {
-        "copy": ("The AI-native operator. I deploy LLM agents into the workflows a GTM org "
-                 "runs on — reporting, forecasting, crediting — and set up how it adopts them: "
-                 "foundational data, KPI alignment, self-serve enablement, with tested code "
-                 "owning anything that touches money. All of it is public, down to the eval "
-                 "suite."),
-        "targets": "Applied AI · AI Operations · AI Strategy &amp; Enablement",
-        "href": RESUMES["ai_mo"],
-        "label": "AI Deployment résumé",
-    },
+    key: {
+        "copy": esc(C.LENSES[key]["site_copy"]),
+        "targets": esc(C.LENSES[key]["site_targets"]),
+        "href": _LENS_HREF[key],
+        "label": C.LENSES[key]["site_label"],
+    }
+    for key in ("ops", "ai")
 }
 
-PROGRAMS = [
-    ("The first forecast",
-     "Built the partner team's first revenue forecasting process where none existed — "
-     "methodology and cadence designed from the ground up."),
-    ("The attribution model",
-     "The canonical, single source of truth for how sourced, influenced, and attributed "
-     "revenue is credited across the marketplace."),
-    ("The first new-logo incentive",
-     "Launched the partner org's first incentive program tied to new-logo acquisition — "
-     "crediting and payout logic built from scratch."),
-]
+PROGRAMS = [(esc(t), esc(d)) for t, d in C.PROGRAMS]
 
 LAYERS = [
     ("Memory", "what every session boots knowing"),
@@ -100,24 +103,15 @@ PROOF_LINKS = [
 ]
 
 EXPERIENCE = [
-    ("2021 — now", "Databricks", "Partner Strategy &amp; Ops Manager",
-     "first Partner S&amp;O hire · promoted 2023",
-     "Built the data-and-AI foundation and the forecast, attribution, and incentive systems "
-     "the partner business runs on; deployed the team's first LLM agents; leads quota-setting "
-     "across Sales, Finance, and Partner leadership."),
-    ("2019 — 2021", "Salesforce", "SMB Sales Strategy &amp; Operations Analyst", "",
-     "Built the territory-carving model behind the annual GTM plan, automated QBR and "
-     "forecast-accuracy tooling, and was the direct analytics partner to a $250M AMER SMB "
-     "business."),
-    ("2018 — 2019", "CBRE", "Business Data Analyst", "",
-     "Owned the product-analytics stack end to end — data warehouse, Python data collection, "
-     "and client-facing Tableau dashboards."),
+    (esc(j["site_when"]), esc(j["company"]), esc(j["role"]),
+     esc(j["site_note"]), esc(j["site_desc"]))
+    for j in C.JOBS
 ]
 
 CONTACT = [
-    ("Email", "dylanmr96@gmail.com", "mailto:dylanmr96@gmail.com"),
-    ("LinkedIn", "in/dylanram", "https://linkedin.com/in/dylanram"),
-    ("GitHub", "dylan3796", "https://github.com/dylan3796"),
+    ("Email", C.EMAIL, f"mailto:{C.EMAIL}"),
+    ("LinkedIn", C.LINKEDIN.removeprefix("linkedin.com/"), f"https://{C.LINKEDIN}"),
+    ("GitHub", C.GITHUB_USER, f"https://github.com/{C.GITHUB_USER}"),
 ]
 
 # ---------------------------------------------------------------------------

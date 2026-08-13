@@ -1,0 +1,41 @@
+# CI — every promise the repo makes, checked on every push.
+#
+# Four gates:
+#   1. crediting golden tests   — the money math never drifts
+#   2. site + chat + worker     — retrieval answers, client fallback, worker guards
+#   3. resume PDFs              — every one exactly one page
+#   4. generated-file drift     — docs/index.html and worker/corpus.js match
+#                                 their sources (edit site_qa.py, never outputs)
+#
+# PDF regeneration needs Chromium, so the drift check excludes docs/resumes/;
+# sync_resumes() falls back to the committed copies in CI.
+
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Crediting golden tests
+        run: python3 tests/test_crediting.py
+
+      - name: Site, chat, and worker evals
+        run: python3 tests/test_site_qa.py
+
+      - name: Resume PDFs are one page each
+        run: python3 tests/test_resume_pdfs.py
+
+      - name: Generated files match sources
+        run: |
+          python3 build_site.py
+          git diff --exit-code docs/index.html worker/corpus.js

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Render Dylan Ram's targeted resumes to print-ready HTML in two designs.
 
-One fact base, two lenses, two layouts. Content lives in VARIANTS; the look
-lives in the two CSS blocks + render fns. Every claim traces to the source
+One fact base, two lenses, two layouts. Career facts live in content.py (the
+single source shared with the site); the look lives in the two CSS blocks +
+render fns here. Every claim traces to the source
 resume or to work in this repo — see resume/STRATEGY.md.
 
     python3 resume/assets/fetch_fonts.py     # once — bundles the fonts
@@ -33,186 +34,53 @@ Design notes
 - No fabricated metrics. Bullets lead with what the work was and its quality.
 """
 
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
+sys.path.insert(0, str(HERE.parent))  # repo root, so `import content` works when run as a script
+
+import content as C
+
 OUT_DIR = HERE / "output"
 FONTS = (HERE / "assets" / "fonts.css").read_text()
 
-NAME = "Dylan Ram"
-CONTACT = [
-    "dylanmr96@gmail.com",
-    "916-690-5681",
-    "linkedin.com/in/dylanram",
-    "github.com/dylan3796/anthropic-portfolio",
-]
-EDUCATION_SCHOOL = "University of California, Santa Barbara"
-EDUCATION_DEGREE = "B.A. Economics &amp; Accounting · Dean's Honors"
 
-# ---------------------------------------------------------------------------
-# The two variants. Same jobs, same facts — different lead, order, and
-# vocabulary. Substance over scale; no invented numbers.
-# ---------------------------------------------------------------------------
+def esc(s):
+    """Escape plain text for HTML. content.py stores plain text; entities are a
+    render-time concern, applied exactly once, here."""
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
-VARIANTS = {
-    # 1 · AI DEPLOYMENT — merges the builder (Applied AI / FDE-adjacent) and
-    #     the AI-native operator (AI Strategy / Enablement). Reorder to lean
-    #     technical (skills+project first) or strategic (self-serve+enablement).
-    "dylan-ram-ai-deployment": {
-        "tagline": "AI Deployment · Agent Systems · Strategy & Enablement",
-        "summary": (
-            "Deploys AI into the workflows a go-to-market org runs on — reporting, "
-            "forecasting, crediting — and sets up how the org adopts it: foundational data, "
-            "KPI alignment, and self-serve enablement. An operator who builds the systems "
-            "himself and draws the line where deterministic, tested code must own the outcome. "
-            "As Databricks' first Partner Strategy & Ops hire, shipped the team's first LLM "
-            "agents to production and independently built a full agent operating system in "
-            "Claude Code — skills, hooks, subagents, MCP, and a golden-tested engine that keeps "
-            "the model out of the money path. Fluent in Python and SQL, and builds with the "
-            "evals that answer the only question that matters: how do you know it's working."
-        ),
-        "skills": [
-            ("AI & agents", "Claude Code (skills, hooks, subagents, MCP, scoped permissions), "
-             "agent & LLM workflow design, prompt engineering, evals & golden-test patterns, "
-             "self-serve enablement, playbooks & standards"),
-            ("Data & engineering", "Python (pandas, NumPy), SQL, PySpark, Tableau, Salesforce, "
-             "medallion architecture, KPI definition, Git/GitHub"),
-        ],
+
+NAME = esc(C.NAME)
+CONTACT = [esc(c) for c in (C.EMAIL, C.PHONE, C.LINKEDIN, f"github.com/{C.REPO_SLUG}")]
+EDUCATION_SCHOOL = esc(C.EDUCATION_SCHOOL)
+EDUCATION_DEGREE = esc(C.EDUCATION_DEGREE)
+
+
+def _variant(lens):
+    """Assemble one render-ready (pre-escaped) variant from content.py."""
+    L = C.LENSES[lens]
+    return {
+        "tagline": esc(L["tagline"]),
+        "summary": esc(L["summary"]),
+        "skills": [(esc(label), esc(body)) for label, body in L["skills"]],
         "jobs": [
             {
-                "company": "Databricks", "role": "Partner Strategy & Ops Manager",
-                "note": "promoted Feb 2023 · first Partner S&O hire", "dates": "Aug 2021 – Present",
-                "bullets": [
-                    "Deployed the partner team's first LLM reporting agents (Newsletter Agent, "
-                    "FAQ Agent) into production — answering partner-metric questions and "
-                    "pushing updates automatically, the team's first agentic reporting motion.",
-                    "Set the team's AI strategy and built the foundational data-and-AI layer — "
-                    "a medallion architecture in Spark/SQL with self-serve interfaces so "
-                    "stakeholders answer their own questions.",
-                    "Align KPIs across a two-sided marketplace — the partner team, the sales "
-                    "org co-selling through partners, and the partners themselves — the "
-                    "measurement backbone every AI output reports against.",
-                    "Designed the partner attribution model (Salesforce/SQL/Spark) and built "
-                    "the team's first revenue forecasting process from scratch — the governed "
-                    "data the agents run on.",
-                ],
-            },
-            {
-                "company": "Salesforce", "role": "SMB Sales Strategy & Operations Analyst",
-                "note": "", "dates": "Jul 2019 – Aug 2021",
-                "bullets": [
-                    "Built the territory-carving Python script that encoded the org's guiding "
-                    "principles, personnel, and accounts — the engine behind the annual GTM plan.",
-                    "Automated QBR decks, forecast-accuracy tracking, and territory data pulls "
-                    "with Python, APIs, and G Suite.",
-                    "Led the business unit's Tableau migration and established data governance "
-                    "for the $250M AMER SMB Central business.",
-                ],
-            },
-            {
-                "company": "CBRE", "role": "Business Data Analyst",
-                "note": "", "dates": "Sep 2018 – Jul 2019",
-                "bullets": [
-                    "Built Python web-scraping tools and managed the product data warehouse; "
-                    "shipped client-facing Tableau dashboards and streamlined the analytics "
-                    "pipeline end to end.",
-                ],
-            },
+                "company": esc(j["company"]),
+                "role": esc(j["role"]),
+                "note": esc(j["resume_note"]),
+                "dates": esc(j["dates"]),
+                "bullets": [esc(b) for b in j["bullets"][lens]],
+            }
+            for j in C.JOBS
         ],
-        "project_title": "Claude Code as an Operating System — a self-built agent platform "
-                         "(public repo)",
-        "project_bullets": [
-            "Architected a five-layer agent operating system: persistent memory, session-boot "
-            "data hooks, long-horizon plans, invocable skills, and a retro loop that proposes "
-            "edits to its own setup.",
-            "Drew the AI/deterministic boundary for commissions crediting: an agent turns "
-            "managers' plain-English coverage into effective-dated rules; a golden-tested "
-            "Python engine applies them to deals — no LLM ever computes a credited dollar.",
-            "Wrote the eval suite that proves it: golden tests over mid-quarter hires, "
-            "territory handoffs, split credit, and coverage gaps — an uncredited deal is "
-            "surfaced, never silently zeroed.",
-            "Built the enablement pattern: the ops team self-served first, then began "
-            "authoring their own skills — reusable playbooks and standards, the adoption "
-            "unlock these roles are hired to drive.",
-        ],
-    },
+        "project_title": esc(L["project_title"]),
+        "project_bullets": [esc(b) for b in L["project_bullets"]],
+    }
 
-    # 2 · BUSINESS OPERATIONS / STRATEGY — the operating-leader pole
-    "dylan-ram-business-operations": {
-        "tagline": "Business Operations · Strategy & Planning · GTM Systems",
-        "summary": (
-            "The operating spine of a GTM org — a zero-to-one builder and one-to-100 scaler. "
-            "As Databricks' first Partner Strategy & Ops hire, stood up the forecast, "
-            "attribution, and first new-logo incentive programs from scratch, ran annual "
-            "quota-setting across Sales, Finance, and Partner leadership, and now owns the "
-            "team's AI agenda — deployed its first LLM agents to production and built, in "
-            "public, a working agent operating system for a function like his. Works across a "
-            "two-sided marketplace — aligning the partner team, the sales org that co-sells "
-            "through partners, and the partners themselves. Seven years partnering directly "
-            "with GTM executives at Databricks, Salesforce, and CBRE."
-        ),
-        "skills": [
-            ("Operations & strategy", "Operating cadence, annual & quota planning, OKRs, "
-             "territory design, incentive/comp program design, revenue forecasting, "
-             "executive & board reporting"),
-            ("Data & AI", "SQL, Python (pandas), PySpark, Tableau, Salesforce, revenue "
-             "attribution, deployed AI agents, AI enablement (Claude Code)"),
-        ],
-        "jobs": [
-            {
-                "company": "Databricks", "role": "Partner Strategy & Ops Manager",
-                "note": "promoted Feb 2023 · first Partner S&O hire", "dates": "Aug 2021 – Present",
-                "bullets": [
-                    "Built the partner team's first revenue forecasting process from a blank "
-                    "page — the methodology and cadence, designed end to end.",
-                    "Designed the canonical partner attribution model — the single source of "
-                    "truth for how sourced, influenced, and attributed revenue is credited "
-                    "across both sides of the marketplace.",
-                    "Launched the partner org's first incentive program tied to new-logo "
-                    "acquisition — designing the crediting and payout logic end to end.",
-                    "Led annual quota-setting across Sales, Finance, and Partner leadership "
-                    "through top-down and bottoms-up planning.",
-                    "Shaped the partner program strategy — the Partner Value Score and tiering "
-                    "framework — earning global alignment and executive adoption.",
-                    "Run KPI alignment across the marketplace — partner team, co-sell sales "
-                    "org, and partners — and build the self-serve, AI-driven analytics on top.",
-                ],
-            },
-            {
-                "company": "Salesforce", "role": "SMB Sales Strategy & Operations Analyst",
-                "note": "", "dates": "Jul 2019 – Aug 2021",
-                "bullets": [
-                    "Direct business partner to the $250M AMER SMB Central business, advising "
-                    "AVPs, VPs, and RMs across the org.",
-                    "Built the territory-carving model (Python) that encoded the org's guiding "
-                    "principles — the basis of the annual GTM plan.",
-                    "Crafted the FY22 GTM guiding-principles analyses: customer continuity, "
-                    "account proximity, industry mix, top accounts, AE tenure.",
-                ],
-            },
-            {
-                "company": "CBRE", "role": "Business Data Analyst",
-                "note": "", "dates": "Sep 2018 – Jul 2019",
-                "bullets": [
-                    "Owned the product-analytics stack end to end — data warehouse, Python "
-                    "data collection, and client-facing Tableau dashboards.",
-                    "Streamlined the product-analytics process: defined key metrics, the "
-                    "dataset, and the flow to visualization.",
-                ],
-            },
-        ],
-        "project_title": "Claude Code as an Operating System — running an AI-native operating "
-                         "cadence (public repo)",
-        "project_bullets": [
-            "Built a working operating system for a function: big rocks as the planning "
-            "pillars, skills as the repeatable plays, a metric dictionary as governance, and "
-            "a retro loop that runs the QBR on the tooling itself.",
-            "Headline workflow — commissions crediting: an agent codifies managers' "
-            "plain-English coverage changes into effective-dated rules, and tested code, never "
-            "a model, computes the money.",
-        ],
-    },
-}
+
+VARIANTS = {C.LENSES[lens]["resume_stem"]: _variant(lens) for lens in ("ai", "ops")}
 
 # ---------------------------------------------------------------------------
 # Shared bits
