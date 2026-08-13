@@ -14,7 +14,10 @@ function el(id) {
   };
   return node;
 }
-const nodes = { askLog: el('askLog'), askInput: el('askInput'), askSend: el('askSend'), ask: el('ask') };
+const nodes = {
+  askLog: el('askLog'), askInput: el('askInput'), askSend: el('askSend'), ask: el('ask'),
+  jdToggle: el('jdToggle'), jdBar: el('jdBar'), jdInput: el('jdInput'), jdSend: el('jdSend'),
+};
 global.document = {
   getElementById: (id) => nodes[id] || null,
   querySelector: () => null,
@@ -87,6 +90,60 @@ const fails = [];
   const roles = seenBody.messages.map((m) => m.role).join(',');
   ok('no orphaned turn after failure', !/user,user/.test(roles), roles);
   ok('recovers after failure', out.includes('Recovered'), out);
+
+  // ---- JD fit check ----
+  const JD = 'We need a revenue operations lead with forecasting experience. '.repeat(10);
+  async function sendJd(jd) {
+    LOG = [];
+    nodes.jdInput.value = jd;
+    handlers.jdSend.click();
+    for (let i = 0; i < 12; i++) await tick();
+    return LOG.map((n) => n.innerHTML).join('\n')
+      .replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+  }
+
+  // 6. toggle is revealed only when an endpoint exists (it is in this run)
+  ok('jd toggle revealed with endpoint', nodes.jdToggle.hidden === false,
+    String(nodes.jdToggle.hidden));
+
+  // 7. success: mapping rendered, both sides pushed into history
+  let jdBody = null;
+  FETCH_IMPL = async (_url, opts) => {
+    jdBody = JSON.parse(opts.body);
+    return { ok: true, json: async () => ({ reply: 'Forecasting — LISTED. Kubernetes — NOT LISTED.' }) };
+  };
+  out = await sendJd(JD);
+  ok('jd request uses jd mode', jdBody.mode === 'jd' && jdBody.jd.length > 100, JSON.stringify(jdBody).slice(0, 80));
+  ok('jd mapping rendered', out.includes('NOT LISTED'), out);
+  FETCH_IMPL = async (_url, opts) => {
+    seenBody = JSON.parse(opts.body);
+    return { ok: true, json: async () => ({ reply: 'Follow-up answered.' }) };
+  };
+  out = await send('what about the second requirement?');
+  const joined = seenBody.messages.map((m) => m.content).join(' ');
+  ok('follow-up carries the fit-check context', /Fit check against this job description/.test(joined),
+    joined.slice(0, 120));
+
+  // 8. failure: honest note, no retrieval fake, history untouched
+  const before = seenBody.messages.length;
+  FETCH_IMPL = async () => { throw new Error('down'); };
+  out = await sendJd(JD);
+  ok('jd failure is honest (no retrieval fallback)', /email me the JD/i.test(out), out);
+  FETCH_IMPL = async (_url, opts) => {
+    seenBody = JSON.parse(opts.body);
+    return { ok: true, json: async () => ({ reply: 'ok' }) };
+  };
+  // Expected growth since `before` (captured at the follow-up SEND): the
+  // follow-up's assistant reply (+1) and this new user turn (+1). A failed JD
+  // contributing anything would make it +3 or more.
+  await send('still with me?');
+  ok('failed jd left no orphaned history', seenBody.messages.length === before + 2,
+    `${seenBody.messages.length} vs ${before}+2`);
+
+  // 9. jd-specific rate limit message
+  FETCH_IMPL = async () => ({ ok: false, json: async () => ({ error: 'rate_limited', scope: 'jd' }) });
+  out = await sendJd(JD);
+  ok('jd rate-limit message shown', /few per hour/i.test(out), out);
 
   console.log(`\n${pass}/${pass + fails.length} passed`);
   if (fails.length) {

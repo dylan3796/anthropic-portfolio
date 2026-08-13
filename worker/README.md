@@ -62,6 +62,7 @@ Then `wrangler deploy` again. Swapping providers means a new `PROVIDER_API_KEY`.
 | Global daily cap | 600 messages/day | KV, 24h window |
 | Input size | 1200 chars/message, 8000 total, 16 turns | `sanitize()` |
 | Output size | 700 tokens | `max_tokens` |
+| JD fit check | 6000-char cap, 5/IP/hour, 1100 output tokens | `{mode:'jd'}` branch |
 
 The origin check is a speed bump, not a wall — a header is trivially forged. The rate
 limits are the real defense, so **don't deploy without the KV namespace bound.**

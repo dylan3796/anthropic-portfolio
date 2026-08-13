@@ -28,8 +28,9 @@ explicit mapping to listed experience — fit and gap both.
       test is a full interview → drafts → approval → green suites run)
 - [ ] Requirement-mapping ("level 1") prompt upgrade with live evals
 - [ ] dylanram.com live: CNAME, HTTPS enforced, chat allowed from the new origin
-- [ ] JD fit-check mode (paste a JD → grounded requirement→evidence mapping)
-- [ ] Lens URLs, OG card, `docs/llms.txt`
+- [x] JD fit-check mode built with its own Worker guards — ships dark until
+      the Worker is deployed — 2026-08
+- [x] Lens URLs, OG card, `docs/llms.txt` — 2026-08
 - [ ] Worker deployed with a spend cap; `CHAT_ENDPOINT` set (owner task)
 
 ## Owned Skills

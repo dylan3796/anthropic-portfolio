@@ -64,7 +64,12 @@ def prompt_contract():
     for r in required:
         mark = "ok  " if r not in missing else "FAIL"
         print(f"{mark}  prompt contains: {r!r}")
-    return 1 if missing else 0
+    jd_required = ["FIT CHECK", "NOT LISTED", "Never soften"]
+    jd_missing = [r for r in jd_required if r not in site_qa.JD_INSTRUCTION]
+    for r in jd_required:
+        mark = "ok  " if r not in jd_missing else "FAIL"
+        print(f"{mark}  jd instruction contains: {r!r}")
+    return 1 if (missing or jd_missing) else 0
 
 
 def main():

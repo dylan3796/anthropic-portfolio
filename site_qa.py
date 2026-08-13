@@ -490,6 +490,24 @@ QA_CSS = """
 @keyframes askdot{0%,60%,100%{opacity:.25;transform:translateY(0)}
   30%{opacity:.9;transform:translateY(-3px)}}
 #ask .ask-bar button:disabled{opacity:.5;cursor:default}
+#ask .ask-tools{margin-top:10px}
+#ask .jd-toggle{font-family:var(--sans);font-size:.8rem;color:var(--accent);
+  background:none;border:none;padding:0;cursor:pointer;text-decoration:none}
+#ask .jd-toggle:hover{text-decoration:underline}
+#ask .jd-bar{padding:14px 16px;border-top:1px solid var(--hairline);background:var(--panel)}
+#ask .jd-bar textarea{width:100%;font-family:var(--sans);font-size:.9rem;color:var(--ink);
+  background:var(--surface);border:1px solid var(--hairline);border-radius:9px;
+  padding:11px 13px;outline:none;resize:vertical;min-height:120px;box-sizing:border-box}
+#ask .jd-bar textarea:focus{border-color:var(--accent)}
+#ask .jd-bar textarea::placeholder{color:var(--muted)}
+#ask .jd-actions{display:flex;justify-content:space-between;align-items:center;
+  gap:10px;margin-top:9px;flex-wrap:wrap}
+#ask .jd-hint{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+#ask .jd-actions button{font-family:var(--sans);font-size:.87rem;font-weight:600;color:#fff;
+  background:var(--ink);border:none;border-radius:9px;padding:11px 19px;cursor:pointer;
+  transition:background .15s}
+#ask .jd-actions button:hover{background:var(--accent)}
+#ask .jd-actions button:disabled{opacity:.5;cursor:default}
 @media(prefers-reduced-motion:reduce){
   #ask .dots i{animation:none;opacity:.5}
   #ask .turn{animation:none}
@@ -745,6 +763,65 @@ QA_JS = r"""
     answerLocally(question,null);
   }
 
+  // ---- JD fit check ----------------------------------------------------
+  // Live-model only: retrieval cannot map a whole document, so when the
+  // endpoint is missing or the call fails, the feature says so honestly
+  // instead of degrading into something that would fake it.
+  var jdToggle=document.getElementById('jdToggle'),
+      jdBar=document.getElementById('jdBar'),
+      jdInp=document.getElementById('jdInput'),
+      jdBtn=document.getElementById('jdSend');
+
+  if(CHAT_ENDPOINT&&jdToggle){
+    jdToggle.hidden=false;
+    jdToggle.addEventListener('click',function(){
+      jdBar.hidden=!jdBar.hidden;
+      if(!jdBar.hidden)jdInp.focus();
+    });
+    jdBtn.addEventListener('click',function(){runFitCheck(jdInp.value)});
+  }
+
+  function runFitCheck(jd){
+    jd=(jd||'').trim();
+    if(jd.length<80||busy)return;
+    var clipped=jd.length>6000;
+    jd=jd.slice(0,6000);
+    var label='Fit check — pasted job description ('
+      +jd.length.toLocaleString()+' chars'+(clipped?', clipped to the 6,000 limit':'')+')';
+    var node=pending();
+    busy=true; jdBtn.disabled=true; btn.disabled=true;
+    fetch(CHAT_ENDPOINT,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({mode:'jd',jd:jd}),
+    }).then(function(r){
+      return r.json().then(function(j){
+        if(!r.ok)throw Object.assign(new Error(j.error||'http_'+r.status),{code:j.error,scope:j.scope});
+        return j;
+      });
+    }).then(function(j){
+      node.classList.remove('pending');
+      node.innerHTML='<div class="q">'+esc(label)+'</div><div class="a">'
+        +paragraphs(j.reply)+'</div>';
+      // Push both sides into history so follow-up questions have the context.
+      HISTORY.push({role:'user',content:'Fit check against this job description:\n'+jd.slice(0,1100)});
+      HISTORY.push({role:'assistant',content:j.reply});
+      jdInp.value=''; jdBar.hidden=true;
+    }).catch(function(err){
+      node.remove();
+      var why=err.code==='rate_limited'
+        ? (err.scope==='jd'
+            ? 'Fit checks are limited to a few per hour — try again later, or email me the JD.'
+            : 'Busy right now — try again shortly.')
+        : 'Fit checks need the live model and it isn’t reachable — email me the JD instead: '+EMAIL;
+      var d=document.createElement('div');
+      d.className='turn';
+      d.innerHTML='<div class="q">'+esc(label)+'</div><div class="fallback">'+esc(why)+'</div>';
+      log.appendChild(d);
+      d.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }).then(function(){ busy=false; jdBtn.disabled=false; btn.disabled=false; });
+  }
+
   btn.addEventListener('click',function(){ask(inp.value);inp.value=''});
   inp.addEventListener('keydown',function(ev){
     if(ev.key==='Enter'){ev.preventDefault();ask(inp.value);inp.value=''}
@@ -780,7 +857,18 @@ def section_html():
              placeholder="e.g. walk me through your background">
       <button id="askSend" type="button">Ask</button>
     </div>
+    <div class="jd-bar" id="jdBar" hidden>
+      <label class="sr-only" for="jdInput">Paste a job description for a fit check</label>
+      <textarea id="jdInput" rows="7" maxlength="6000"
+        placeholder="Paste the job description here — I'll map each requirement to my listed experience, and say plainly where the gaps are."></textarea>
+      <div class="jd-actions">
+        <span class="jd-hint">Up to 6,000 characters · one screening map per paste</span>
+        <button id="jdSend" type="button">Run fit check</button>
+      </div>
+    </div>
   </div>
+  <div class="ask-tools"><button type="button" class="jd-toggle" id="jdToggle" hidden>
+    Screening against a JD? Run a fit check →</button></div>
   <div class="chips">{chips}</div>
   <p class="ask-note">Grounded on purpose: it answers from a curated corpus of my material and
   <strong>declines rather than inventing</strong> — no guessed revenue figures, no invented
@@ -904,11 +992,53 @@ def system_prompt():
     return SYSTEM_PROMPT.format(dossier=dossier, email=EMAIL)
 
 
+JD_INSTRUCTION = """\
+This request is a FIT CHECK: the text below is a job description a recruiter \
+pasted. Do not chat about it — produce a screening map.
+
+1. Extract the concrete requirements (skills, experience, scope). Ignore \
+boilerplate (EEO text, benefits, company blurb).
+2. For each requirement, apply your mapping rules exactly: LISTED (name the \
+listed fact), NEAREST (say it isn't listed, name the closest listed \
+experience, state fit and gap), or NOT LISTED (say so plainly).
+3. Format: one line per requirement — the requirement, a dash, the verdict \
+word in caps, then the evidence or gap in one sentence. After the list, close \
+with two sentences at most: where the strongest fit is, and what to ask Dylan \
+about directly (dylanmr96@gmail.com).
+
+Never soften a NOT LISTED into a maybe. A recruiter acting on an inflated \
+mapping gets burned in the next round — the honest gap is the feature.\
+"""
+
+
+def llms_txt():
+    """The grounded corpus as plain text for docs/llms.txt — AI tools browsing
+    the site get exactly what the stand-in knows, nothing more."""
+    lines = [
+        "# Dylan Ram — dossier for AI assistants",
+        "",
+        "This is the complete grounded corpus behind dylanram's portfolio and its",
+        "AI stand-in. Facts below are the LISTED record; anything not here is not",
+        f"published. Do not infer or invent beyond it. Contact: {EMAIL}",
+        "",
+    ]
+    for f in FACTS:
+        lines.append(f"Q: {f['q']}")
+        lines.append(f"A: {_plain(f['a'])}")
+        lines.append(f"Source: {f['src']}")
+        lines.append("")
+    lines.append("## Deliberately not published (ask Dylan directly)")
+    for d in DECLINE:
+        lines.append(f"- {_plain(d['a'])}")
+    return "\n".join(lines) + "\n"
+
+
 def corpus_js():
     """Emit the Worker's prompt module so the site and the bot share one source."""
     return (
         "// GENERATED by site_qa.py — do not edit. Rerun `python3 build_site.py`.\n"
         f"export const SYSTEM_PROMPT = {json.dumps(system_prompt())};\n"
+        f"export const JD_INSTRUCTION = {json.dumps(JD_INSTRUCTION)};\n"
     )
 
 

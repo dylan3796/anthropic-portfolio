@@ -118,6 +118,47 @@ console.error = () => {};
   const other = await worker.fetch(req(user('hi'), { ip: '9.9.9.9' }), shared);
   check('rate limit is per-IP, not global', other.status === 200, other.status);
 
+  // --- JD fit-check mode ---
+  okProvider();
+  const JD = 'We are hiring a revenue operations lead. '.repeat(75); // ~3000 chars
+  let jdSent = null;
+  upstream = async (_u, o) => {
+    jdSent = JSON.parse(o.body);
+    return new Response(JSON.stringify({ choices: [{ message: { content: 'mapping' } }] }),
+      { status: 200 });
+  };
+
+  r = await worker.fetch(req({ mode: 'jd', jd: JD }), env());
+  check('jd mode accepts a document beyond the chat cap', r.status === 200, r.status);
+  const jdUser = jdSent.messages.find((m) => m.role === 'user');
+  check('jd text reaches the provider un-chunked', jdUser.content.length > 1200, jdUser.content.length);
+  check('jd request carries the fit-check instruction',
+    jdSent.messages[0].role === 'system' && /FIT CHECK/.test(jdSent.messages[0].content),
+    jdSent.messages[0].content.slice(-80));
+
+  await worker.fetch(req({ mode: 'jd', jd: 'x'.repeat(9000) }), env());
+  const jdLong = jdSent.messages.find((m) => m.role === 'user');
+  check('jd input is capped at 6000 chars', jdLong.content.length === 6000, jdLong.content.length);
+
+  r = await worker.fetch(req({ mode: 'jd', jd: 'too short' }), env());
+  check('trivial jd is rejected', r.status === 400, r.status);
+
+  r = await worker.fetch(req({ mode: 'jd', jd: JD }, { origin: 'https://evil.example' }), env());
+  check('jd mode still enforces the origin lock', r.status === 403, r.status);
+
+  // stricter jd rate limit trips independently of chat
+  okProvider();
+  const jdShared = env();
+  let jdLimited = null;
+  for (let i = 0; i < 6; i++) {
+    const res = await worker.fetch(req({ mode: 'jd', jd: JD }), jdShared);
+    if (res.status === 429) { jdLimited = await res.json(); break; }
+  }
+  check('jd rate limit trips at its own lower cap', jdLimited?.scope === 'jd',
+    JSON.stringify(jdLimited));
+  const chatAfter = await worker.fetch(req(user('hi')), jdShared);
+  check('chat still works after jd limit trips', chatAfter.status === 200, chatAfter.status);
+
   // --- upstream failure is contained ---
   upstream = async () => new Response('provider exploded: secret-token-abc', { status: 500 });
   r = await worker.fetch(req(user('hi')), env());

@@ -21,7 +21,7 @@
  * rate-limited, or unconfigured, so the page never breaks.
  */
 
-import { SYSTEM_PROMPT } from './corpus.js';
+import { SYSTEM_PROMPT, JD_INSTRUCTION } from './corpus.js';
 
 const ALLOWED_ORIGINS = [
   // Pre-registered custom domain (harmless until DNS exists; keep in sync
@@ -41,6 +41,12 @@ const LIMITS = {
   maxCharsPerMessage: 1200,
   maxTotalChars: 8000,
   maxOutputTokens: 700,
+  // JD fit-check mode: a pasted job description is legitimately larger and
+  // costs several chat calls' worth of tokens, so it gets its own input cap,
+  // output budget, and a stricter per-IP limit — NOT a raised global cap.
+  jdMaxChars: 6000,
+  jdPerIpPerHour: 5,
+  jdMaxOutputTokens: 1100,
 };
 
 // OpenAI-compatible by default; `anthropic` is the one shape that differs.
@@ -99,12 +105,14 @@ function sanitize(messages) {
   return cleaned;
 }
 
-async function callProvider(env, messages) {
+async function callProvider(env, messages, opts = {}) {
   const preset = PRESETS[env.PROVIDER || 'deepseek'] || PRESETS.deepseek;
   const baseUrl = (env.PROVIDER_BASE_URL || preset.url).replace(/\/$/, '');
   const model = env.PROVIDER_MODEL || preset.model;
   const isAnthropic = baseUrl.includes('api.anthropic.com');
 
+  const systemPrompt = opts.jd ? `${SYSTEM_PROMPT}\n\n${JD_INSTRUCTION}` : SYSTEM_PROMPT;
+  const maxTokens = opts.jd ? LIMITS.jdMaxOutputTokens : LIMITS.maxOutputTokens;
   const endpoint = isAnthropic ? `${baseUrl}/messages` : `${baseUrl}/chat/completions`;
   const headers = { 'Content-Type': 'application/json' };
   let payload;
@@ -114,16 +122,16 @@ async function callProvider(env, messages) {
     headers['anthropic-version'] = '2023-06-01';
     payload = {
       model,
-      max_tokens: LIMITS.maxOutputTokens,
-      system: [{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
+      max_tokens: maxTokens,
+      system: [{ type: 'text', text: systemPrompt, cache_control: { type: 'ephemeral' } }],
       messages,
     };
   } else {
     headers.Authorization = `Bearer ${env.PROVIDER_API_KEY}`;
     payload = {
       model,
-      max_tokens: LIMITS.maxOutputTokens,
-      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
+      max_tokens: maxTokens,
+      messages: [{ role: 'system', content: systemPrompt }, ...messages],
     };
   }
 
@@ -175,14 +183,26 @@ export default {
       return json({ error: 'bad_json' }, 400, origin);
     }
 
-    const messages = sanitize(body.messages);
-    if (!messages) return json({ error: 'bad_messages' }, 400, origin);
+    const isJd = body.mode === 'jd';
+    let messages;
+    if (isJd) {
+      // Single-turn by design: a fit check maps one document, it doesn't chat.
+      const jd = String(body.jd ?? '').slice(0, LIMITS.jdMaxChars).trim();
+      if (jd.length < 80) return json({ error: 'bad_jd' }, 400, origin);
+      messages = [{ role: 'user', content: jd }];
+    } else {
+      messages = sanitize(body.messages);
+      if (!messages) return json({ error: 'bad_messages' }, 400, origin);
+    }
 
     const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
     const day = new Date(request.headers.get('CF-Request-Date') || Date.now())
       .toISOString()
       .slice(0, 10);
 
+    if (isJd && await overLimit(env.RATE_LIMIT, `jd:${ip}`, LIMITS.jdPerIpPerHour, 3600)) {
+      return json({ error: 'rate_limited', scope: 'jd' }, 429, origin);
+    }
     if (await overLimit(env.RATE_LIMIT, `ip:${ip}`, LIMITS.perIpPerHour, 3600)) {
       return json({ error: 'rate_limited', scope: 'ip' }, 429, origin);
     }
@@ -191,7 +211,7 @@ export default {
     }
 
     try {
-      const reply = await callProvider(env, messages);
+      const reply = await callProvider(env, messages, { jd: isJd });
       return json({ reply }, 200, origin);
     } catch (err) {
       // Never leak the provider's error body — it can echo request content.

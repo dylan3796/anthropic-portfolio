@@ -297,7 +297,14 @@ function setLens(k){
   buttons.forEach(b=>{const on=b.dataset.lens===k;
     b.classList.toggle('is-active',on);b.setAttribute('aria-selected',on);});
 }
-buttons.forEach(b=>b.addEventListener('click',()=>setLens(b.dataset.lens)));
+buttons.forEach(b=>b.addEventListener('click',()=>{
+  setLens(b.dataset.lens);
+  const u=new URL(location);u.searchParams.set('lens',b.dataset.lens);
+  history.replaceState(null,'',u);
+}));
+// shareable per-application links: ?lens=ai preselects the toggle
+const lensParam=new URLSearchParams(location.search).get('lens');
+if(lensParam==='ai'||lensParam==='ops')setLens(lensParam);
 const io=new IntersectionObserver((es)=>es.forEach(e=>{
   if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
 }),{threshold:.12});
@@ -416,10 +423,19 @@ def build():
         f"<script>const LENS={json.dumps(LENS)};{JS_TAIL}"
         f"{site_qa.data_js()}{site_qa.QA_JS}</script>"
     )
+    # Absolute base for canonical/OG links: the custom domain once set, the
+    # Pages default until then — so link previews work in both eras.
+    base = f"https://{DOMAIN}" if DOMAIN else "https://dylan3796.github.io/anthropic-portfolio"
     domain_meta = (
-        f'<link rel="canonical" href="https://{DOMAIN}/">'
-        f'<meta property="og:url" content="https://{DOMAIN}/">'
-    ) if DOMAIN else ""
+        f'<link rel="canonical" href="{base}/">'
+        f'<meta property="og:url" content="{base}/">'
+        '<meta property="og:type" content="profile">'
+        '<meta property="og:title" content="Dylan Ram — GTM Operations &amp; AI Deployment">'
+        '<meta property="og:description" content="First Partner Strategy &amp; Ops hire at '
+        'Databricks. Ask my AI stand-in anything — or paste a JD for a grounded fit check.">'
+        f'<meta property="og:image" content="{base}/og.png">'
+        '<meta name="twitter:card" content="summary_large_image">'
+    )
     full = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
@@ -442,6 +458,8 @@ def build():
     # one corpus feeds both the live chat and the offline fallback
     (ROOT / "worker").mkdir(exist_ok=True)
     (ROOT / "worker" / "corpus.js").write_text(site_qa.corpus_js())
+    # ...and AI tools browsing the site get the same grounded record
+    (ROOT / "docs" / "llms.txt").write_text(site_qa.llms_txt())
     print(f"wrote docs/index.html + {len(RESUME_FILES)} resumes to docs/resumes/")
     # body-only variant (style + content + script, no <head>/<body>) for embedding/previews
     return style + body + script
