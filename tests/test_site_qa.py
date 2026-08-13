@@ -57,14 +57,17 @@ def prompt_contract():
     required = [
         "The one rule that matters",
         "Mapping a requirement to listed experience",
-        "Never present adjacency as possession",
+        "Transfers",                              # the maximalist verdict exists
+        "Never claim the unlisted thing itself",  # the honesty line that funds it
+        "argue the transfer",                     # instruction, not just a label
+        "never lead with the",                    # the no-deficit-first rule
         "Dossier — everything you know about Dylan",
     ]
     missing = [r for r in required if r not in prompt]
     for r in required:
         mark = "ok  " if r not in missing else "FAIL"
         print(f"{mark}  prompt contains: {r!r}")
-    jd_required = ["FIT CHECK", "NOT LISTED", "Never soften"]
+    jd_required = ["FIT CHECK", "TRANSFERS", "RAMP", "NOT LISTED", "never soften"]
     jd_missing = [r for r in jd_required if r not in site_qa.JD_INSTRUCTION]
     for r in jd_required:
         mark = "ok  " if r not in jd_missing else "FAIL"

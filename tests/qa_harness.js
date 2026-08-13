@@ -79,6 +79,9 @@ const CASES = [
   ['territory carving', 'guiding principles'],
   ['data governance experience', 'governance'],
   ['how many years of experience', 'Seven years'],
+  ['would he fit a financial operations role', 'financial planning'],
+  ['do his skills transfer outside gtm', 'financial planning'],
+  ['could he do fp&a', 'budget allocation'],
   // declines — must NOT fabricate
   ['what is his salary expectation', '@decline'],
   ['how much does he want to be paid', '@decline'],

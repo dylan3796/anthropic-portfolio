@@ -36,6 +36,13 @@ BLOB = f"{REPO}/blob/{BRANCH}"
 # og:url tags. Cutover runbook: DOMAIN-SETUP.md.
 DOMAIN = ""
 
+# GoatCounter site code for privacy-light analytics (free; no cookies, no
+# consent banner needed). Empty = no analytics script on the page. Set to the
+# code chosen at goatcounter.com signup (e.g. "dylanram") once cold outreach
+# starts — otherwise clicks from those emails are invisible. See
+# outreach/PLAYBOOK.md.
+ANALYTICS_ID = ""
+
 
 def esc(s):
     """Escape plain text for HTML. content.py stores plain text; entities are a
@@ -436,6 +443,29 @@ def build():
         f'<meta property="og:image" content="{base}/og.png">'
         '<meta name="twitter:card" content="summary_large_image">'
     )
+    # Structured data so the "Dylan Ram" search result is his, with the right
+    # links attached — the search every cold email and LinkedIn view triggers.
+    person = {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": C.NAME,
+        "url": f"{base}/",
+        "email": f"mailto:{C.EMAIL}",
+        "jobTitle": C.JOBS[0]["role"],
+        "worksFor": {"@type": "Organization", "name": C.JOBS[0]["company"]},
+        "alumniOf": {"@type": "CollegeOrUniversity", "name": C.EDUCATION_SCHOOL},
+        "sameAs": [f"https://{C.LINKEDIN}", f"https://github.com/{C.GITHUB_USER}"],
+        "knowsAbout": [
+            "Revenue Operations", "Business Operations", "Revenue Forecasting",
+            "Incentive Compensation Design", "Partner Strategy",
+            "AI Deployment", "LLM Agents", "Financial Planning & Analysis",
+        ],
+    }
+    domain_meta += f'<script type="application/ld+json">{json.dumps(person)}</script>'
+    analytics = (
+        f'<script data-goatcounter="https://{ANALYTICS_ID}.goatcounter.com/count" '
+        'async src="//gc.zgo.at/count.js"></script>'
+    ) if ANALYTICS_ID else ""
     full = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
@@ -444,7 +474,7 @@ def build():
         'Databricks. GTM operator and AI builder.">'
         f'{domain_meta}'
         '<script>document.documentElement.classList.add("js")</script>'
-        f'{style}</head><body>{body}{script}</body></html>'
+        f'{style}</head><body>{body}{script}{analytics}</body></html>'
     )
     (ROOT / "docs").mkdir(exist_ok=True)
     (ROOT / "docs" / "index.html").write_text(full)
@@ -460,6 +490,16 @@ def build():
     (ROOT / "worker" / "corpus.js").write_text(site_qa.corpus_js())
     # ...and AI tools browsing the site get the same grounded record
     (ROOT / "docs" / "llms.txt").write_text(site_qa.llms_txt())
+    # crawler plumbing so the personal-name search finds and trusts the page
+    (ROOT / "docs" / "robots.txt").write_text(
+        f"User-agent: *\nAllow: /\n\nSitemap: {base}/sitemap.xml\n"
+    )
+    (ROOT / "docs" / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f'  <url><loc>{base}/</loc></url>\n'
+        '</urlset>\n'
+    )
     print(f"wrote docs/index.html + {len(RESUME_FILES)} resumes to docs/resumes/")
     # body-only variant (style + content + script, no <head>/<body>) for embedding/previews
     return style + body + script

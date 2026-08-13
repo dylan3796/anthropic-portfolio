@@ -31,7 +31,13 @@ explicit mapping to listed experience — fit and gap both.
 - [x] JD fit-check mode built with its own Worker guards — ships dark until
       the Worker is deployed — 2026-08
 - [x] Lens URLs, OG card, `docs/llms.txt` — 2026-08
+- [x] Maximalist transfer framing (LISTED / TRANSFERS / RAMP / NOT LISTED) in
+      the stand-in and the fit check; transferability entry in the corpus — 2026-08
+- [x] Reach kit: cold-email playbook (`outreach/PLAYBOOK.md`), Person
+      structured data, robots/sitemap, opt-in analytics scaffold — 2026-08
 - [ ] Worker deployed with a spend cap; `CHAT_ENDPOINT` set (owner task)
+- [ ] GoatCounter account created; `ANALYTICS_ID` set before the first
+      cold-email batch (owner task)
 
 ## Owned Skills
 

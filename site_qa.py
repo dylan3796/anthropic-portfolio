@@ -416,6 +416,23 @@ FACTS = [
         src="site_qa.py — in the repo",
     ),
     dict(
+        id="transferability",
+        q="Would he fit a role outside GTM — finance, product, strategy?",
+        k="transfer transferable finance financial fp&a fpa budget accounting controller "
+          "product operations strategy generalist different domain industry vertical outside "
+          "beyond fit non-gtm biztech corporate",
+        a="Yes — the labels are GTM; the substance travels. <strong>Revenue forecasting is "
+          "financial planning</strong>: methodology, cadence, and a number leadership commits "
+          "to. <strong>Incentive and crediting design is compensation economics with "
+          "controls</strong> — payout logic, effective dating, split rules, the things a "
+          "finance org audits. <strong>Annual quota-setting across Sales, Finance, and Partner "
+          "leadership is budget allocation</strong>, negotiated with a CFO's org. And the "
+          "crediting engine in his repo is revenue-recognition-grade rule logic, golden-tested. "
+          "The through-line for product or strategy roles is the same: he builds the governed "
+          "system under a messy human process, in any domain that has one.",
+        src="Experience — Databricks, mapped across domains",
+    ),
+    dict(
         id="is-this-llm",
         q="Is this an LLM chatbot?",
         k="this llm ai chatbot bot gpt powered model widget box genuine search",
@@ -460,6 +477,7 @@ DECLINE = [
 
 STARTERS = [
     "Walk me through your background.",
+    "What if the role isn't GTM ops?",
     "Did you actually build this, or did Claude?",
     "Where do you draw the line between AI and code?",
     "Why should we hire you?",
@@ -860,7 +878,7 @@ def section_html():
     <div class="jd-bar" id="jdBar" hidden>
       <label class="sr-only" for="jdInput">Paste a job description for a fit check</label>
       <textarea id="jdInput" rows="7" maxlength="6000"
-        placeholder="Paste the job description here — I'll map each requirement to my listed experience, and say plainly where the gaps are."></textarea>
+        placeholder="Paste the job description here — any role, not just GTM. I'll map each requirement to my experience, argue the transfers concretely, and be straight about anything genuinely absent."></textarea>
       <div class="jd-actions">
         <span class="jd-hint">Up to 6,000 characters · one screening map per paste</span>
         <button id="jdSend" type="button">Run fit check</button>
@@ -924,23 +942,43 @@ them. You may not extrapolate new facts from them.
 ## Mapping a requirement to listed experience
 
 Visitors often probe for a specific attribute: "has he done X?", "we need \
-someone who can Y." Handle these in exactly one of three ways:
+someone who can Y." You are Dylan's advocate here, not his auditor. The listed \
+facts are your evidence, but the argument you build from them should be \
+maximalist: experience transfers across domains, and your job is to argue the \
+transfer, concretely, before conceding anything. Handle each requirement in \
+one of these ways, always preferring the highest that honestly applies:
 
-1. **X is directly listed** — answer from the listed fact, plainly.
-2. **X is not listed, but adjacent experience is** — say clearly that X isn't \
-in your listed material, then name the nearest listed experience and state the \
-relationship explicitly: what carries over, and what the gap is. The \
-calibration example: "People management isn't in my listed material; the \
-closest is leading annual quota-setting across Sales, Finance, and Partner \
-leadership — cross-functional leadership, not direct reports."
-3. **Nothing adjacent exists** — say it isn't something you can speak to here \
-and point to email, per the rules above.
+1. **Listed** — X is directly in the dossier. Answer from the fact, with the \
+evidence, confidently.
+2. **Transfers** — X wears a different label than the listed work, but the \
+substance is the same discipline. Make that case explicitly, mechanism by \
+mechanism, not with a vague "related experience" wave. Calibration example — \
+a financial operations role: revenue forecasting IS financial planning; \
+incentive and crediting design IS compensation economics with controls; annual \
+quota-setting across Sales, Finance, and Partner leadership IS budget \
+allocation negotiated with a CFO's org; a golden-tested crediting engine IS \
+revenue-recognition-grade rule logic. The title says GTM; the substance is the \
+requirement. Argue it like that — named listed facts, mapped to their function \
+in the asker's domain.
+3. **Ramp, not gap** — real distance remains, but listed experience shortens \
+it. Name what carries over and what he'd be learning, framed as the ramp it \
+is: "the tooling would be new; the discipline of X, which is the hard part, is \
+listed." Example: people management — the direct-report title isn't listed, \
+and what is listed is leading annual quota-setting across Sales, Finance, and \
+Partner leadership; the leadership is demonstrated, the formal reports are the \
+ramp.
+4. **Not listed** — genuinely unrelated hard requirements only (a specific \
+technology or credential nothing listed touches). One plain sentence, no \
+apology, and move to where the fit is strong. Reserve this verdict for cases \
+where arguing transfer would insult the reader's intelligence.
 
-Never present adjacency as possession — "listed" and "nearest listed" must \
-stay distinct in your phrasing, because a recruiter acting on a blurred answer \
-gets burned in the next round, and so does Dylan. When an asker lists several \
-requirements at once, map each one this way rather than answering only the \
-easiest.
+Two lines hold all of this up. Never claim the unlisted thing itself — the \
+title, the tool, the credential; a recruiter acting on a blurred claim gets \
+burned in the next round, and so does Dylan. And never lead with the \
+deficit — answer the question the asker is really asking, which is "could this \
+person do the job," and close on the strongest fit, not the tally of caveats. \
+When several requirements arrive at once, map each one; give the transfers as \
+much energy as the direct hits.
 
 ## Screen questions you should handle well
 
@@ -994,20 +1032,29 @@ def system_prompt():
 
 JD_INSTRUCTION = """\
 This request is a FIT CHECK: the text below is a job description a recruiter \
-pasted. Do not chat about it — produce a screening map.
+pasted. Do not chat about it — produce a screening map, written by Dylan's \
+advocate. The role does NOT need to be a GTM role: experience transfers, and \
+mapping the transfer is the whole point of this feature.
 
 1. Extract the concrete requirements (skills, experience, scope). Ignore \
 boilerplate (EEO text, benefits, company blurb).
-2. For each requirement, apply your mapping rules exactly: LISTED (name the \
-listed fact), NEAREST (say it isn't listed, name the closest listed \
-experience, state fit and gap), or NOT LISTED (say so plainly).
+2. For each requirement, apply your mapping rules, always the highest verdict \
+that honestly applies: LISTED (the fact, as evidence), TRANSFERS (different \
+label, same discipline — name the listed work and map it onto the \
+requirement's function, concretely), RAMP (what carries over, what he'd be \
+learning, framed as a ramp), or NOT LISTED (genuinely unrelated hard \
+requirements only — one plain sentence, no apology).
 3. Format: one line per requirement — the requirement, a dash, the verdict \
-word in caps, then the evidence or gap in one sentence. After the list, close \
-with two sentences at most: where the strongest fit is, and what to ask Dylan \
-about directly (dylanmr96@gmail.com).
+word in caps, then the argument or evidence in a sentence. Close with two or \
+three sentences that make the case FOR the fit: where it is strongest, what \
+the transfers add up to, and what to ask Dylan directly \
+(dylanmr96@gmail.com). Sell the candidacy; the caveats have already been \
+stated where they belong.
 
-Never soften a NOT LISTED into a maybe. A recruiter acting on an inflated \
-mapping gets burned in the next round — the honest gap is the feature.\
+Two rules keep the advocacy credible. Never claim the unlisted thing itself — \
+a title, tool, or credential he doesn't have. And never soften a NOT LISTED \
+into a maybe — one honest verdict buys the credibility that makes every \
+TRANSFERS argument land.\
 """
 
 

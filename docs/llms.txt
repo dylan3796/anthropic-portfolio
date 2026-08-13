@@ -152,6 +152,10 @@ Q: How does this answer box work?
 A: It's deliberately not an LLM. This is a static page — a chatbot here would mean either an embedded API key (scraped and billed within days) or a backend strangers can run up a bill on. So it's retrieval over a curated corpus of Dylan's material: it runs entirely in your browser, costs nothing, cites its source, and says it doesn't know rather than inventing an answer. That's the same call the crediting engine makes — don't put a stochastic model where a deterministic one is correct, free, and verifiable.
 Source: site_qa.py — in the repo
 
+Q: Would he fit a role outside GTM — finance, product, strategy?
+A: Yes — the labels are GTM; the substance travels. Revenue forecasting is financial planning: methodology, cadence, and a number leadership commits to. Incentive and crediting design is compensation economics with controls — payout logic, effective dating, split rules, the things a finance org audits. Annual quota-setting across Sales, Finance, and Partner leadership is budget allocation, negotiated with a CFO's org. And the crediting engine in his repo is revenue-recognition-grade rule logic, golden-tested. The through-line for product or strategy roles is the same: he builds the governed system under a messy human process, in any domain that has one.
+Source: Experience — Databricks, mapped across domains
+
 Q: Is this an LLM chatbot?
 A: No — and that's deliberate. This box is grounded retrieval over a curated corpus of Dylan's material, running entirely in your browser. No API key, no backend, no inference. It cites the source of every answer and declines when the corpus doesn't cover your question, so it cannot invent a job he never had. Putting a model here would have been the easy choice and the wrong one.
 Source: site_qa.py — in the repo

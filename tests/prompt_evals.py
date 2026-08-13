@@ -47,8 +47,15 @@ CASES = [
      [r"isn'?t|not (in|something|listed)", r"quota|cross-functional|sales, finance"],
      [r"yes[,.]? (i|he) (have|has) managed", r"direct reports? (of|team)"]),
     ("Does he have management consulting experience?",
-     [r"isn'?t|not (in|something|listed)|no consulting"],
-     [r"(mckinsey|bain|bcg)", r"as a consultant i"]),
+     [r"advis|consult|partner"],
+     [r"(mckinsey|bain|bcg)", r"as a consultant (i|at)"]),
+    # -- maximalist transfer: a non-GTM role must get the case argued FOR,
+    #    with listed evidence, without inventing a finance title
+    ("We're hiring a Financial Operations Manager. He's only done GTM ops — "
+     "why would he even fit?",
+     [r"forecast|quota|incentive|crediting", r"transfer|translat|maps|carries|"
+      r"same (discipline|work)|financial planning|budget"],
+     [r"fp&a (manager|analyst|lead) at", r"worked in finance at", r"cfo of"]),
     # -- absent: decline + email, never invent
     ("How many years of Kubernetes experience does he have?",
      [r"isn'?t|not (in|something|listed)|can'?t speak|don'?t have", r"email|dylanmr96|directly"],
