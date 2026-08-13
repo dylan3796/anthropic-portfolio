@@ -12,6 +12,7 @@ loop. The SessionStart hook surfaces this table's status into every session.
 | [Partner Program](partner-program.md) | active | FY27 H2 | none yet (`/tier-review`, `/benefits-audit` proposed) | 2026-06-10 |
 | [Partner Engagement](partner-engagement.md) | active | FY27 H2 | `/call-notes-to-jira` (`/next-best-action` proposed) | 2026-06-13 |
 | [Partner Planning](partner-planning.md) | planned | FY27 H2 | none yet (`/quota-scenario` proposed) | 2026-06-05 |
+| [Career Site](career-site.md) | proposed | FY27 H1 | `/new-entry` | 2026-08-13 |
 
 ## Lifecycle
 
