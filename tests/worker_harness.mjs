@@ -66,6 +66,13 @@ console.error = () => {};
   r = await worker.fetch(req(user('hi'), { origin: 'https://evil.example' }), env());
   check('foreign origin is rejected', r.status === 403, r.status);
 
+  // the custom domain must stay pre-registered (cutover depends on it)
+  r = await worker.fetch(req(user('hi'), { origin: 'https://dylanram.com' }), env());
+  check('custom domain origin is allowed', r.status === 200, r.status);
+  check('custom domain CORS echo',
+    r.headers.get('Access-Control-Allow-Origin') === 'https://dylanram.com',
+    r.headers.get('Access-Control-Allow-Origin'));
+
   // --- misconfiguration is not a 500 ---
   r = await worker.fetch(req(user('hi')), env({ PROVIDER_API_KEY: undefined }));
   check('missing key returns 503, not a crash', r.status === 503, r.status);

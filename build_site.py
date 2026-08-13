@@ -30,6 +30,12 @@ BRANCH = "main"
 REPO = f"https://github.com/{C.REPO_SLUG}"
 BLOB = f"{REPO}/blob/{BRANCH}"
 
+# Custom domain. Empty = GitHub Pages default (dylan3796.github.io). When set
+# (e.g. "dylanram.com"), the build writes docs/CNAME — which is what actually
+# configures Pages, since docs/ is the publishing source — plus canonical and
+# og:url tags. Cutover runbook: DOMAIN-SETUP.md.
+DOMAIN = ""
+
 
 def esc(s):
     """Escape plain text for HTML. content.py stores plain text; entities are a
@@ -410,18 +416,28 @@ def build():
         f"<script>const LENS={json.dumps(LENS)};{JS_TAIL}"
         f"{site_qa.data_js()}{site_qa.QA_JS}</script>"
     )
+    domain_meta = (
+        f'<link rel="canonical" href="https://{DOMAIN}/">'
+        f'<meta property="og:url" content="https://{DOMAIN}/">'
+    ) if DOMAIN else ""
     full = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         '<title>Dylan Ram — GTM Operations &amp; AI Deployment</title>'
         '<meta name="description" content="Dylan Ram — first Partner Strategy &amp; Ops hire at '
         'Databricks. GTM operator and AI builder.">'
+        f'{domain_meta}'
         '<script>document.documentElement.classList.add("js")</script>'
         f'{style}</head><body>{body}{script}</body></html>'
     )
     (ROOT / "docs").mkdir(exist_ok=True)
     (ROOT / "docs" / "index.html").write_text(full)
     (ROOT / "docs" / ".nojekyll").write_text("")  # serve files as-is on GitHub Pages
+    cname = ROOT / "docs" / "CNAME"
+    if DOMAIN:
+        cname.write_text(DOMAIN + "\n")
+    elif cname.exists():
+        cname.unlink()  # never leave a stale CNAME pointing Pages at a dead domain
     sync_resumes()
     # one corpus feeds both the live chat and the offline fallback
     (ROOT / "worker").mkdir(exist_ok=True)

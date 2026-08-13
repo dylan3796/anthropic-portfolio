@@ -24,6 +24,10 @@
 import { SYSTEM_PROMPT } from './corpus.js';
 
 const ALLOWED_ORIGINS = [
+  // Pre-registered custom domain (harmless until DNS exists; keep in sync
+  // with DOMAIN in build_site.py — see DOMAIN-SETUP.md).
+  'https://dylanram.com',
+  'https://www.dylanram.com',
   'https://dylan3796.github.io',
   'https://claude.ai',
   'http://localhost:8000',
