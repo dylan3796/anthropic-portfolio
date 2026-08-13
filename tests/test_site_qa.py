@@ -49,13 +49,33 @@ def _render(harness_name, endpoint, suffix=".js"):
     return fh.name
 
 
+def prompt_contract():
+    """Hermetic guard: the sections the stand-in's behavior depends on must
+    survive every future edit to SYSTEM_PROMPT. Live behavior is tested in
+    tests/prompt_evals.py (needs a provider key); this pins the text."""
+    prompt = site_qa.system_prompt()
+    required = [
+        "The one rule that matters",
+        "Mapping a requirement to listed experience",
+        "Never present adjacency as possession",
+        "Dossier — everything you know about Dylan",
+    ]
+    missing = [r for r in required if r not in prompt]
+    for r in required:
+        mark = "ok  " if r not in missing else "FAIL"
+        print(f"{mark}  prompt contains: {r!r}")
+    return 1 if missing else 0
+
+
 def main():
     node = shutil.which("node")
-    if not node:
-        print("skip: node not found (these evals need it)")
-        return 0
 
-    failures = 0
+    print("== prompt contract ==")
+    failures = prompt_contract()
+
+    if not node:
+        print("skip: node not found (the remaining evals need it)")
+        return failures
 
     # 1 + 2. retrieval, then the chat client with a live endpoint configured
     for label, harness, endpoint in (
