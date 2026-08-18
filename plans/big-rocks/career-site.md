@@ -20,24 +20,17 @@ explicit mapping to listed experience — fit and gap both.
 
 ## Milestones
 
-- [x] One-link portfolio site with lens toggle and resume downloads — 2026-08
-- [x] Grounded answer engine + live chat behind a provider-agnostic Worker — 2026-08
-- [x] Content consolidation: `content.py` single source, escape-at-render,
-      one-page PDF guard, CI — 2026-08
-- [ ] `/new-entry` shipped and exercised on a real new project (the acceptance
-      test is a full interview → drafts → approval → green suites run)
-- [ ] Requirement-mapping ("level 1") prompt upgrade with live evals
-- [ ] dylanram.com live: CNAME, HTTPS enforced, chat allowed from the new origin
-- [x] JD fit-check mode built with its own Worker guards — ships dark until
-      the Worker is deployed — 2026-08
-- [x] Lens URLs, OG card, `docs/llms.txt` — 2026-08
-- [x] Maximalist transfer framing (LISTED / TRANSFERS / RAMP / NOT LISTED) in
-      the stand-in and the fit check; transferability entry in the corpus — 2026-08
-- [x] Reach kit: cold-email playbook (`outreach/PLAYBOOK.md`), Person
-      structured data, robots/sitemap, opt-in analytics scaffold — 2026-08
-- [ ] Worker deployed with a spend cap; `CHAT_ENDPOINT` set (owner task)
-- [ ] GoatCounter account created; `ANALYTICS_ID` set before the first
-      cold-email batch (owner task)
+- [x] Site + lens toggle + resume downloads — 2026-08
+- [x] Grounded chat + provider-agnostic Worker — 2026-08
+- [x] content.py single source + one-page PDF guard + CI — 2026-08
+- [x] Requirement-mapping prompt (maximalist: LISTED/TRANSFERS/RAMP/NOT LISTED) — 2026-08
+- [x] JD fit check (dark until Worker deploy) — 2026-08
+- [x] Lens URLs, OG card, llms.txt, JSON-LD, robots/sitemap — 2026-08
+- [x] Cold-email playbook (outreach/PLAYBOOK.md) — 2026-08
+- [ ] /new-entry exercised on a real project
+- [ ] Worker deployed + spend cap + CHAT_ENDPOINT (owner)
+- [ ] dylanram.com live (owner; DOMAIN-SETUP.md)
+- [ ] ANALYTICS_ID set before first email batch (owner)
 
 ## Owned Skills
 

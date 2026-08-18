@@ -76,6 +76,8 @@ memory so Claude never has to ask who a PSM is.
   rules in `data/crediting_rules.json`. Applying rules to deals — the money — is
   `crediting/engine.py`, and it is unit-tested. Never compute credited amounts
   in a prompt.
+- **Summaries:** direct. Lead with what shipped, bullets only, no rationale
+  unless asked. Status updates fit in ~10 lines; plan docs one line per item.
 - **App style:** match existing patterns in `app.py` — `narrative-quote` and
   `experience-card` CSS classes, Anthropic-inspired palette (`#D97757` accent,
   `#FAFAF9` background), no emoji in section headings, no new dependencies
