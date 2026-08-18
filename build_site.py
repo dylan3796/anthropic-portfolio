@@ -9,61 +9,96 @@ renders identically on GitHub Pages or anywhere.
 
     python3 build_site.py        # writes docs/index.html (+ scratchpad body-only for previews)
 
-Deploy: repo Settings -> Pages -> Deploy from branch -> <branch> -> /docs.
-When the branch merges to main, update BRANCH below and rerun.
+Deploy: repo Settings -> Pages -> Deploy from branch -> main -> /docs.
+
+The resume PDFs are copied into docs/resumes/ and linked relatively, so the
+published site serves them itself — the links never depend on a branch name
+and keep working after feature branches are deleted.
 """
 
 import json
+import shutil
 from pathlib import Path
+
+import content as C
+import site_qa
 
 ROOT = Path(__file__).parent
 FONTS = (ROOT / "resume" / "assets" / "fonts.css").read_text()
 
-# Resume download links point at the repo's committed PDFs. Update on merge.
-BRANCH = "claude/resume-ai-operations-strategy-yhcgt9"
-REPO = "https://github.com/dylan3796/anthropic-portfolio"
+BRANCH = "main"
+REPO = f"https://github.com/{C.REPO_SLUG}"
 BLOB = f"{REPO}/blob/{BRANCH}"
-PDF = f"{BLOB}/resume/output"
 
-RESUMES = {
-    "biz_ed": f"{PDF}/dylan-ram-business-operations--editorial.pdf",
-    "biz_mo": f"{PDF}/dylan-ram-business-operations--modern.pdf",
-    "ai_ed": f"{PDF}/dylan-ram-ai-deployment--editorial.pdf",
-    "ai_mo": f"{PDF}/dylan-ram-ai-deployment--modern.pdf",
+# Custom domain. Empty = GitHub Pages default (dylan3796.github.io). When set
+# (e.g. "dylanram.com"), the build writes docs/CNAME — which is what actually
+# configures Pages, since docs/ is the publishing source — plus canonical and
+# og:url tags. Cutover runbook: DOMAIN-SETUP.md.
+DOMAIN = ""
+
+# GoatCounter site code for privacy-light analytics (free; no cookies, no
+# consent banner needed). Empty = no analytics script on the page. Set to the
+# code chosen at goatcounter.com signup (e.g. "dylanram") once cold outreach
+# starts — otherwise clicks from those emails are invisible. See
+# outreach/PLAYBOOK.md.
+ANALYTICS_ID = ""
+
+
+def esc(s):
+    """Escape plain text for HTML. content.py stores plain text; entities are a
+    render-time concern, applied exactly once, here."""
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+# Source PDFs live in resume/output/; the site serves its own copies.
+PDF_SRC = ROOT / "resume" / "output"
+PDF_DIR = ROOT / "docs" / "resumes"
+
+RESUME_FILES = {
+    "biz_ed": "dylan-ram-business-operations--editorial.pdf",
+    "biz_mo": "dylan-ram-business-operations--modern.pdf",
+    "ai_ed": "dylan-ram-ai-deployment--editorial.pdf",
+    "ai_mo": "dylan-ram-ai-deployment--modern.pdf",
 }
+RESUMES = {key: f"resumes/{name}" for key, name in RESUME_FILES.items()}
 
+
+def sync_resumes():
+    """Copy the built PDFs next to index.html so Pages serves them directly.
+
+    resume/output/ is gitignored, so on a fresh clone (or any session without
+    Chromium) it is empty. The committed docs/resumes/ copies are then kept
+    as-is — the build must not die just because PDFs weren't regenerated.
+    """
+    PDF_DIR.mkdir(parents=True, exist_ok=True)
+    stale = []
+    for name in RESUME_FILES.values():
+        src = PDF_SRC / name
+        if src.exists():
+            shutil.copy2(src, PDF_DIR / name)
+        elif (PDF_DIR / name).exists():
+            stale.append(name)
+        else:
+            raise SystemExit(
+                f"missing resume PDF: {name} in both resume/output/ and docs/resumes/ "
+                "— run resume/build_resumes.py and print the PDFs first"
+            )
+    if stale:
+        print(f"note: {len(stale)} PDF(s) not regenerated this run; "
+              "keeping committed docs/resumes/ copies")
+
+# Career content comes from content.py (plain text) and is escaped here.
+_LENS_HREF = {"ops": RESUMES["biz_mo"], "ai": RESUMES["ai_mo"]}
 LENS = {
-    "ops": {
-        "copy": ("The operating spine of a GTM org — zero to one, then one to 100. I run the "
-                 "forecast, attribution, incentive, and quota systems a partner business "
-                 "depends on, and align them across a two-sided marketplace."),
-        "targets": "Business Operations · Chief of Staff · Partner &amp; Revenue Ops",
-        "href": RESUMES["biz_mo"],
-        "label": "Business Operations résumé",
-    },
-    "ai": {
-        "copy": ("The AI-native operator. I deploy LLM agents into the workflows a GTM org "
-                 "runs on — reporting, forecasting, crediting — and set up how it adopts them: "
-                 "foundational data, KPI alignment, self-serve enablement, with tested code "
-                 "owning anything that touches money. All of it is public, down to the eval "
-                 "suite."),
-        "targets": "Applied AI · AI Operations · AI Strategy &amp; Enablement",
-        "href": RESUMES["ai_mo"],
-        "label": "AI Deployment résumé",
-    },
+    key: {
+        "copy": esc(C.LENSES[key]["site_copy"]),
+        "targets": esc(C.LENSES[key]["site_targets"]),
+        "href": _LENS_HREF[key],
+        "label": C.LENSES[key]["site_label"],
+    }
+    for key in ("ops", "ai")
 }
 
-PROGRAMS = [
-    ("The first forecast",
-     "Built the partner team's first revenue forecasting process where none existed — "
-     "methodology and cadence designed from the ground up."),
-    ("The attribution model",
-     "The canonical, single source of truth for how sourced, influenced, and attributed "
-     "revenue is credited across the marketplace."),
-    ("The first new-logo incentive",
-     "Launched the partner org's first incentive program tied to new-logo acquisition — "
-     "crediting and payout logic built from scratch."),
-]
+PROGRAMS = [(esc(t), esc(d)) for t, d in C.PROGRAMS]
 
 LAYERS = [
     ("Memory", "what every session boots knowing"),
@@ -81,24 +116,15 @@ PROOF_LINKS = [
 ]
 
 EXPERIENCE = [
-    ("2021 — now", "Databricks", "Partner Strategy &amp; Ops Manager",
-     "first Partner S&amp;O hire · promoted 2023",
-     "Built the data-and-AI foundation and the forecast, attribution, and incentive systems "
-     "the partner business runs on; deployed the team's first LLM agents; leads quota-setting "
-     "across Sales, Finance, and Partner leadership."),
-    ("2019 — 2021", "Salesforce", "SMB Sales Strategy &amp; Operations Analyst", "",
-     "Built the territory-carving model behind the annual GTM plan, automated QBR and "
-     "forecast-accuracy tooling, and was the direct analytics partner to a $250M AMER SMB "
-     "business."),
-    ("2018 — 2019", "CBRE", "Business Data Analyst", "",
-     "Owned the product-analytics stack end to end — data warehouse, Python data collection, "
-     "and client-facing Tableau dashboards."),
+    (esc(j["site_when"]), esc(j["company"]), esc(j["role"]),
+     esc(j["site_note"]), esc(j["site_desc"]))
+    for j in C.JOBS
 ]
 
 CONTACT = [
-    ("Email", "dylanmr96@gmail.com", "mailto:dylanmr96@gmail.com"),
-    ("LinkedIn", "in/dylanram", "https://linkedin.com/in/dylanram"),
-    ("GitHub", "dylan3796", "https://github.com/dylan3796"),
+    ("Email", C.EMAIL, f"mailto:{C.EMAIL}"),
+    ("LinkedIn", C.LINKEDIN.removeprefix("linkedin.com/"), f"https://{C.LINKEDIN}"),
+    ("GitHub", C.GITHUB_USER, f"https://github.com/{C.GITHUB_USER}"),
 ]
 
 # ---------------------------------------------------------------------------
@@ -278,7 +304,14 @@ function setLens(k){
   buttons.forEach(b=>{const on=b.dataset.lens===k;
     b.classList.toggle('is-active',on);b.setAttribute('aria-selected',on);});
 }
-buttons.forEach(b=>b.addEventListener('click',()=>setLens(b.dataset.lens)));
+buttons.forEach(b=>b.addEventListener('click',()=>{
+  setLens(b.dataset.lens);
+  const u=new URL(location);u.searchParams.set('lens',b.dataset.lens);
+  history.replaceState(null,'',u);
+}));
+// shareable per-application links: ?lens=ai preselects the toggle
+const lensParam=new URLSearchParams(location.search).get('lens');
+if(lensParam==='ai'||lensParam==='ops')setLens(lensParam);
 const io=new IntersectionObserver((es)=>es.forEach(e=>{
   if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
 }),{threshold:.12});
@@ -370,12 +403,14 @@ def build_body():
   <div class="proof-links">{proof}</div></div>
 </div></section>
 
-<section class="section" id="experience"><div class="wrap reveal">
+{site_qa.section_html()}
+
+<section class="section alt" id="experience"><div class="wrap reveal">
   <h2 class="sec-title">Experience</h2>
   <div class="tl">{tl}</div>
 </div></section>
 
-<section class="section alt" id="resumes"><div class="wrap reveal">
+<section class="section" id="resumes"><div class="wrap reveal">
   <h2 class="sec-title">Take a résumé</h2>
   <p class="sec-lead">Two lenses, two designs each. Editorial is single-column and ATS-safe;
   Modern is the two-column version for reading directly.</p>
@@ -390,21 +425,82 @@ the <a href="{REPO}">repository</a> it describes.</div></footer>
 
 def build():
     body = build_body()
-    style = f"<style>{FONTS}{CSS}</style>"
-    script = f"<script>const LENS={json.dumps(LENS)};{JS_TAIL}</script>"
+    style = f"<style>{FONTS}{CSS}{site_qa.QA_CSS}</style>"
+    script = (
+        f"<script>const LENS={json.dumps(LENS)};{JS_TAIL}"
+        f"{site_qa.data_js()}{site_qa.QA_JS}</script>"
+    )
+    # Absolute base for canonical/OG links: the custom domain once set, the
+    # Pages default until then — so link previews work in both eras.
+    base = f"https://{DOMAIN}" if DOMAIN else "https://dylan3796.github.io/anthropic-portfolio"
+    domain_meta = (
+        f'<link rel="canonical" href="{base}/">'
+        f'<meta property="og:url" content="{base}/">'
+        '<meta property="og:type" content="profile">'
+        '<meta property="og:title" content="Dylan Ram — GTM Operations &amp; AI Deployment">'
+        '<meta property="og:description" content="First Partner Strategy &amp; Ops hire at '
+        'Databricks. Ask my AI stand-in anything — or paste a JD for a grounded fit check.">'
+        f'<meta property="og:image" content="{base}/og.png">'
+        '<meta name="twitter:card" content="summary_large_image">'
+    )
+    # Structured data so the "Dylan Ram" search result is his, with the right
+    # links attached — the search every cold email and LinkedIn view triggers.
+    person = {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": C.NAME,
+        "url": f"{base}/",
+        "email": f"mailto:{C.EMAIL}",
+        "jobTitle": C.JOBS[0]["role"],
+        "worksFor": {"@type": "Organization", "name": C.JOBS[0]["company"]},
+        "alumniOf": {"@type": "CollegeOrUniversity", "name": C.EDUCATION_SCHOOL},
+        "sameAs": [f"https://{C.LINKEDIN}", f"https://github.com/{C.GITHUB_USER}"],
+        "knowsAbout": [
+            "Revenue Operations", "Business Operations", "Revenue Forecasting",
+            "Incentive Compensation Design", "Partner Strategy",
+            "AI Deployment", "LLM Agents", "Financial Planning & Analysis",
+        ],
+    }
+    domain_meta += f'<script type="application/ld+json">{json.dumps(person)}</script>'
+    analytics = (
+        f'<script data-goatcounter="https://{ANALYTICS_ID}.goatcounter.com/count" '
+        'async src="//gc.zgo.at/count.js"></script>'
+    ) if ANALYTICS_ID else ""
     full = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         '<title>Dylan Ram — GTM Operations &amp; AI Deployment</title>'
         '<meta name="description" content="Dylan Ram — first Partner Strategy &amp; Ops hire at '
         'Databricks. GTM operator and AI builder.">'
+        f'{domain_meta}'
         '<script>document.documentElement.classList.add("js")</script>'
-        f'{style}</head><body>{body}{script}</body></html>'
+        f'{style}</head><body>{body}{script}{analytics}</body></html>'
     )
     (ROOT / "docs").mkdir(exist_ok=True)
     (ROOT / "docs" / "index.html").write_text(full)
     (ROOT / "docs" / ".nojekyll").write_text("")  # serve files as-is on GitHub Pages
-    print("wrote docs/index.html")
+    cname = ROOT / "docs" / "CNAME"
+    if DOMAIN:
+        cname.write_text(DOMAIN + "\n")
+    elif cname.exists():
+        cname.unlink()  # never leave a stale CNAME pointing Pages at a dead domain
+    sync_resumes()
+    # one corpus feeds both the live chat and the offline fallback
+    (ROOT / "worker").mkdir(exist_ok=True)
+    (ROOT / "worker" / "corpus.js").write_text(site_qa.corpus_js())
+    # ...and AI tools browsing the site get the same grounded record
+    (ROOT / "docs" / "llms.txt").write_text(site_qa.llms_txt())
+    # crawler plumbing so the personal-name search finds and trusts the page
+    (ROOT / "docs" / "robots.txt").write_text(
+        f"User-agent: *\nAllow: /\n\nSitemap: {base}/sitemap.xml\n"
+    )
+    (ROOT / "docs" / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f'  <url><loc>{base}/</loc></url>\n'
+        '</urlset>\n'
+    )
+    print(f"wrote docs/index.html + {len(RESUME_FILES)} resumes to docs/resumes/")
     # body-only variant (style + content + script, no <head>/<body>) for embedding/previews
     return style + body + script
 
