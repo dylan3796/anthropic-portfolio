@@ -475,7 +475,11 @@ DECLINE = [
          a="That's personal and out of scope for this page."),
 ]
 
-STARTERS = [
+# Two sets, because the two modes answer differently. Live, the stand-in
+# speaks as Dylan, so the chips are first-person. Offline, retrieval returns
+# curated third-person entries — first-person chips would read as a bait and
+# switch ("walk me through your background" answered with "Dylan builds...").
+STARTERS_LIVE = [
     "Walk me through your background.",
     "What if the role isn't GTM ops?",
     "Did you actually build this, or did Claude?",
@@ -484,6 +488,15 @@ STARTERS = [
     "What are you bad at?",
     "What are you looking for next?",
 ]
+STARTERS_OFFLINE = [
+    "What has he shipped to production?",
+    "Would he fit a role outside GTM?",
+    "Did he build this, or did Claude?",
+    "Where does he draw the line between AI and code?",
+    "Why should we hire him?",
+    "What are his gaps?",
+]
+STARTERS = STARTERS_LIVE if CHAT_ENDPOINT else STARTERS_OFFLINE
 
 QA_CSS = """
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
@@ -853,51 +866,6 @@ QA_JS = r"""
 """
 
 
-def section_html():
-    chips = "".join(
-        f'<button type="button" data-q="{q.replace(chr(34), "&quot;")}">{q}</button>'
-        for q in STARTERS
-    )
-    return f"""
-<section class="section" id="ask"><div class="wrap reveal">
-  <h2 class="sec-title">Run the screen now</h2>
-  <p class="sec-lead">Ask what you'd ask in a first call — background, scope, where AI actually
-  fits, what I'm bad at. You'll get the same answers I'd give, without waiting on a calendar.</p>
-  <div class="ask-shell">
-    <div class="ask-badge"><span class="dot"></span>AI stand-in, trained only on my résumé, this
-      site, and the repo. It won't invent a number — and I'll confirm any of it myself.</div>
-    <div class="ask-log" id="askLog" role="log" aria-live="polite">
-      <p class="ask-empty">Ask anything below, or start with one of these.</p>
-    </div>
-    <div class="ask-bar">
-      <label class="sr-only" for="askInput">Ask Dylan a question</label>
-      <input id="askInput" type="text" autocomplete="off"
-             placeholder="e.g. walk me through your background">
-      <button id="askSend" type="button">Ask</button>
-    </div>
-    <div class="jd-bar" id="jdBar" hidden>
-      <label class="sr-only" for="jdInput">Paste a job description for a fit check</label>
-      <textarea id="jdInput" rows="7" maxlength="6000"
-        placeholder="Paste the job description here — any role, not just GTM. I'll map each requirement to my experience, argue the transfers concretely, and be straight about anything genuinely absent."></textarea>
-      <div class="jd-actions">
-        <span class="jd-hint">Up to 6,000 characters · one screening map per paste</span>
-        <button id="jdSend" type="button">Run fit check</button>
-      </div>
-    </div>
-  </div>
-  <div class="ask-tools"><button type="button" class="jd-toggle" id="jdToggle" hidden>
-    Screening against a JD? Run a fit check →</button></div>
-  <div class="chips">{chips}</div>
-  <p class="ask-note">Grounded on purpose: it answers from a curated corpus of my material and
-  <strong>declines rather than inventing</strong> — no guessed revenue figures, no invented
-  employer. Compensation, timing, and location it won't speak to at all; those are mine to
-  answer. If the model is unreachable it falls back to offline retrieval with sources cited, so
-  the page never dead-ends. <strong>Same call the crediting engine makes</strong> — a model may
-  author language, but it never gets to make up a fact that matters.</p>
-</div></section>
-"""
-
-
 def _plain(html):
     """Strip the answer markup down to text for the model-facing corpus."""
     out, depth = [], 0
@@ -1055,6 +1023,83 @@ Two rules keep the advocacy credible. Never claim the unlisted thing itself — 
 a title, tool, or credential he doesn't have. And never soften a NOT LISTED \
 into a maybe — one honest verdict buys the credibility that makes every \
 TRANSFERS argument land.\
+"""
+
+
+# Copy differs by mode, because the two modes genuinely differ. Promising a
+# conversation the page cannot have is the one thing that would undercut the
+# whole point of a grounded, non-hallucinating record.
+COPY = {
+    True: dict(
+        title="Run the screen now",
+        lead="Ask what you'd ask in a first call — background, scope, where AI actually "
+             "fits, what I'm bad at. You'll get the same answers I'd give, without waiting "
+             "on a calendar.",
+        badge="AI stand-in, trained only on my r\u00e9sum\u00e9, this site, and the repo. It won't "
+              "invent a number — and I'll confirm any of it myself.",
+        placeholder="e.g. walk me through your background",
+        empty="Ask anything below, or start with one of these.",
+        note="Grounded on purpose: it answers from a curated corpus of my material and "
+             "<strong>declines rather than inventing</strong> — no guessed revenue figures, no "
+             "invented employer. Compensation, timing, and location it won't speak to at all; "
+             "those are mine to answer. If the model is unreachable it falls back to offline "
+             "retrieval with sources cited, so the page never dead-ends. <strong>Same call the "
+             "crediting engine makes</strong> — a model may author language, but it never gets "
+             "to make up a fact that matters.",
+    ),
+    False: dict(
+        title="Ask about my work",
+        lead="Search my record the way you'd probe it in a screen. Every answer comes from "
+             "my r\u00e9sum\u00e9, this site, or the repo, and shows you which — including the "
+             "questions it won't answer.",
+        badge="A searchable record, not a chatbot — answers are written by me and cited, so "
+              "nothing here is generated on the fly.",
+        placeholder="e.g. where does he draw the line between AI and code?",
+        empty="Search anything below, or start with one of these.",
+        note="Grounded on purpose: answers come from a curated corpus and <strong>decline "
+             "rather than invent</strong> — no guessed revenue figures, no invented employer. "
+             "Compensation, timing, and location aren't covered at all; those are mine to "
+             "answer directly. <strong>Same call the crediting engine makes</strong> — don't "
+             "put a stochastic model where a deterministic one is correct and verifiable.",
+    ),
+}
+
+
+def section_html():
+    c = COPY[bool(CHAT_ENDPOINT)]
+    chips = "".join(
+        f'<button type="button" data-q="{q.replace(chr(34), "&quot;")}">{q}</button>'
+        for q in STARTERS
+    )
+    return f"""
+<section class="section" id="ask"><div class="wrap reveal">
+  <h2 class="sec-title">{c['title']}</h2>
+  <p class="sec-lead">{c['lead']}</p>
+  <div class="ask-shell">
+    <div class="ask-badge"><span class="dot"></span>{c['badge']}</div>
+    <div class="ask-log" id="askLog" role="log" aria-live="polite">
+      <p class="ask-empty">{c['empty']}</p>
+    </div>
+    <div class="ask-bar">
+      <label class="sr-only" for="askInput">Ask a question about Dylan's work</label>
+      <input id="askInput" type="text" autocomplete="off" placeholder="{c['placeholder']}">
+      <button id="askSend" type="button">Ask</button>
+    </div>
+    <div class="jd-bar" id="jdBar" hidden>
+      <label class="sr-only" for="jdInput">Paste a job description for a fit check</label>
+      <textarea id="jdInput" rows="7" maxlength="6000"
+        placeholder="Paste the job description here — any role, not just GTM. I'll map each requirement to my experience, argue the transfers concretely, and be straight about anything genuinely absent."></textarea>
+      <div class="jd-actions">
+        <span class="jd-hint">Up to 6,000 characters · one screening map per paste</span>
+        <button id="jdSend" type="button">Run fit check</button>
+      </div>
+    </div>
+  </div>
+  <div class="ask-tools"><button type="button" class="jd-toggle" id="jdToggle" hidden>
+    Screening against a JD? Run a fit check →</button></div>
+  <div class="chips">{chips}</div>
+  <p class="ask-note">{c['note']}</p>
+</div></section>
 """
 
 
