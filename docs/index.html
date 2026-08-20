@@ -130,7 +130,7 @@ a:hover{text-decoration:underline}
 .tl-desc{font-size:14.5px;color:var(--body);max-width:70ch}
 
 /* downloads + contact */
-.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}
+.dl-grid{display:grid;grid-template-columns:minmax(0,470px);gap:16px;margin-top:26px}
 .dl-card{background:var(--surface);border:1px solid var(--hairline);border-radius:12px;
   box-shadow:var(--shadow);padding:20px 22px}
 .dl-card h3{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:18px}
@@ -141,6 +141,10 @@ a:hover{text-decoration:underline}
 .dl-primary:hover{text-decoration:none;opacity:.9}
 .dl-primary .arr{font-family:var(--mono)}
 .dl-sec{display:block;margin-top:10px;font-size:13px;color:var(--muted)}
+.dl-other{font-family:var(--sans);font-size:.87rem;color:var(--muted);margin-top:16px}
+.dl-switch{font:inherit;color:var(--accent);background:none;border:none;padding:0;
+  cursor:pointer}
+.dl-switch:hover{text-decoration:underline}
 .contact{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 .contact a{display:flex;flex-direction:column;gap:2px;background:var(--surface);
   border:1px solid var(--hairline);border-radius:10px;padding:14px 20px;min-width:170px}
@@ -348,27 +352,31 @@ footer{padding:40px 0;border-top:1px solid var(--hairline);color:var(--muted);
 
 <section class="section" id="resumes"><div class="wrap reveal">
   <h2 class="sec-title">Take a résumé</h2>
-  <p class="sec-lead">Two lenses, two designs each. Editorial is single-column and ATS-safe;
-  Modern is the two-column version for reading directly.</p>
+  <p class="sec-lead">Matched to the lens you picked above. The ATS-safe version is
+  single-column for application portals; the default is designed for reading.</p>
   <div class="dl-grid">
-      <div class="dl-card"><h3>Business Operations</h3>
-        <div class="dl-for">BizOps · Chief of Staff · Partner &amp; Revenue Ops</div>
-        <a class="dl-primary" href="resumes/dylan-ram-business-operations--modern.pdf">Download résumé <span class="arr">↓</span></a>
-        <a class="dl-sec" href="resumes/dylan-ram-business-operations--editorial.pdf">or the ATS-safe version</a></div>
-      <div class="dl-card"><h3>AI Deployment</h3>
-        <div class="dl-for">Applied AI · AI Ops · AI Strategy &amp; Enablement</div>
-        <a class="dl-primary" href="resumes/dylan-ram-ai-deployment--modern.pdf">Download résumé <span class="arr">↓</span></a>
-        <a class="dl-sec" href="resumes/dylan-ram-ai-deployment--editorial.pdf">or the ATS-safe version</a></div></div>
+      <div class="dl-card" data-dl-card>
+        <h3 data-dl-title>Business Operations</h3>
+        <div class="dl-for" data-dl-for>Business Operations · Chief of Staff · Partner &amp; Revenue Ops</div>
+        <a class="dl-primary" data-dl-primary href="resumes/dylan-ram-business-operations--modern.pdf">Download résumé <span class="arr">↓</span></a>
+        <a class="dl-sec" data-dl-ats href="resumes/dylan-ram-business-operations--editorial.pdf">or the ATS-safe version</a>
+      </div></div>
+  <p class="dl-other">Hiring for the other side? <button type="button" class="dl-switch" data-dl-switch>AI Deployment résumé →</button></p>
   <div class="contact"><a href="mailto:dylanmr96@gmail.com"><span class="c-k">Email</span><span class="c-v">dylanmr96@gmail.com</span></a><a href="https://linkedin.com/in/dylanram"><span class="c-k">LinkedIn</span><span class="c-v">in/dylanram</span></a><a href="https://github.com/dylan3796"><span class="c-k">GitHub</span><span class="c-v">dylan3796</span></a></div>
 </div></section>
 
 <footer><div class="wrap">Built by Dylan Ram with Claude Code · 2026 · this site lives in
 the <a href="https://github.com/dylan3796/anthropic-portfolio">repository</a> it describes.</div></footer>
-<script>const LENS={"ops": {"copy": "The operating spine of a GTM org \u2014 zero to one, then one to 100. I run the forecast, attribution, incentive, and quota systems a partner business depends on, and align them across a two-sided marketplace.", "targets": "Business Operations \u00b7 Chief of Staff \u00b7 Partner &amp; Revenue Ops", "href": "resumes/dylan-ram-business-operations--modern.pdf", "label": "Business Operations r\u00e9sum\u00e9"}, "ai": {"copy": "The AI-native operator. I deploy LLM agents into the workflows a GTM org runs on \u2014 reporting, forecasting, crediting \u2014 and set up how it adopts them: foundational data, KPI alignment, self-serve enablement, with tested code owning anything that touches money. All of it is public, down to the eval suite.", "targets": "Applied AI \u00b7 AI Operations \u00b7 AI Strategy &amp; Enablement", "href": "resumes/dylan-ram-ai-deployment--modern.pdf", "label": "AI Deployment r\u00e9sum\u00e9"}};
+<script>const LENS={"ops": {"copy": "The operating spine of a GTM org \u2014 zero to one, then one to 100. I run the forecast, attribution, incentive, and quota systems a partner business depends on, and align them across a two-sided marketplace.", "targets": "Business Operations \u00b7 Chief of Staff \u00b7 Partner &amp; Revenue Ops", "href": "resumes/dylan-ram-business-operations--modern.pdf", "label": "Business Operations r\u00e9sum\u00e9", "dlTitle": "Business Operations", "dlFor": "Business Operations \u00b7 Chief of Staff \u00b7 Partner &amp; Revenue Ops", "dlAts": "resumes/dylan-ram-business-operations--editorial.pdf", "otherKey": "ai", "otherLabel": "AI Deployment r\u00e9sum\u00e9"}, "ai": {"copy": "The AI-native operator. I deploy LLM agents into the workflows a GTM org runs on \u2014 reporting, forecasting, crediting \u2014 and set up how it adopts them: foundational data, KPI alignment, self-serve enablement, with tested code owning anything that touches money. All of it is public, down to the eval suite.", "targets": "Applied AI \u00b7 AI Operations \u00b7 AI Strategy &amp; Enablement", "href": "resumes/dylan-ram-ai-deployment--modern.pdf", "label": "AI Deployment r\u00e9sum\u00e9", "dlTitle": "AI Deployment", "dlFor": "Applied AI \u00b7 AI Operations \u00b7 AI Strategy &amp; Enablement", "dlAts": "resumes/dylan-ram-ai-deployment--editorial.pdf", "otherKey": "ops", "otherLabel": "Business Operations r\u00e9sum\u00e9"}};
 const buttons=document.querySelectorAll('.lens-btn');
 const copy=document.querySelector('[data-lens-copy]');
 const targets=document.querySelector('[data-lens-targets]');
 const btn=document.querySelector('[data-lens-resume]');
+const dlTitle=document.querySelector('[data-dl-title]');
+const dlFor=document.querySelector('[data-dl-for]');
+const dlPrimary=document.querySelector('[data-dl-primary]');
+const dlAts=document.querySelector('[data-dl-ats]');
+const dlSwitch=document.querySelector('[data-dl-switch]');
 function setLens(k){
   const d=LENS[k];
   copy.style.opacity=0;targets.style.opacity=0;
@@ -379,6 +387,13 @@ function setLens(k){
     btn.querySelector('.lbl').textContent=d.label;
     copy.style.opacity=1;targets.style.opacity=1;
   },160);
+  // the download card follows the lens, so the page never shows two identities
+  dlTitle.textContent=d.dlTitle;
+  dlFor.innerHTML=d.dlFor;
+  dlPrimary.setAttribute('href',d.href);
+  dlAts.setAttribute('href',d.dlAts);
+  dlSwitch.textContent=d.otherLabel+' →';
+  dlSwitch.dataset.target=d.otherKey;
   buttons.forEach(b=>{const on=b.dataset.lens===k;
     b.classList.toggle('is-active',on);b.setAttribute('aria-selected',on);});
 }
@@ -387,9 +402,15 @@ buttons.forEach(b=>b.addEventListener('click',()=>{
   const u=new URL(location);u.searchParams.set('lens',b.dataset.lens);
   history.replaceState(null,'',u);
 }));
+// the quiet "other side" link scrolls back to the toggle so the switch is visible
+dlSwitch.addEventListener('click',()=>{
+  setLens(dlSwitch.dataset.target||'ai');
+  document.getElementById('resumes').scrollIntoView({block:'start'});
+});
 // shareable per-application links: ?lens=ai preselects the toggle
 const lensParam=new URLSearchParams(location.search).get('lens');
 if(lensParam==='ai'||lensParam==='ops')setLens(lensParam);
+else setLens('ops');  // sync the download card with the default on load
 const io=new IntersectionObserver((es)=>es.forEach(e=>{
   if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
 }),{threshold:.12});
