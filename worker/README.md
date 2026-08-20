@@ -11,23 +11,27 @@ not a conversation.
 ## Deploy
 
 ```bash
-cd worker
-npm install -g wrangler         # once
-wrangler login                  # opens a browser
-
-# 1. rate-limit storage — paste the printed id into wrangler.toml
-wrangler kv namespace create RATE_LIMIT
-
-# 2. the provider key (never goes in a file)
-wrangler secret put PROVIDER_API_KEY
-
-# 3. ship it
-wrangler deploy
+cd worker && ./setup.sh
 ```
 
-Wrangler prints a URL like `https://ask-dylan.<subdomain>.workers.dev`. Put it in
-`build_site.py` as `CHAT_ENDPOINT`, rerun `python3 build_site.py`, and commit — the
-site starts using it on the next deploy.
+It logs you in, creates the rate-limit storage and wires the id into
+`wrangler.toml`, takes your API key, deploys, and offers to point the site at the
+new URL and rebuild. Two prompts need you: the browser login and the key. Safe to
+re-run — it skips whatever is already done.
+
+Then commit and push; the site goes live with chat and the fit check on.
+
+<details><summary>Doing it by hand instead</summary>
+
+```bash
+npx wrangler login
+npx wrangler kv namespace create RATE_LIMIT   # paste the id into wrangler.toml
+npx wrangler secret put PROVIDER_API_KEY
+npx wrangler deploy
+```
+
+Then `python3 configure.py chat https://ask-dylan.<subdomain>.workers.dev`.
+</details>
 
 ## Choosing a model
 

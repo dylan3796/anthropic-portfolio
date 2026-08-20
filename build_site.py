@@ -88,12 +88,20 @@ def sync_resumes():
 
 # Career content comes from content.py (plain text) and is escaped here.
 _LENS_HREF = {"ops": RESUMES["biz_mo"], "ai": RESUMES["ai_mo"]}
+_LENS_ATS = {"ops": RESUMES["biz_ed"], "ai": RESUMES["ai_ed"]}
 LENS = {
     key: {
         "copy": esc(C.LENSES[key]["site_copy"]),
         "targets": esc(C.LENSES[key]["site_targets"]),
         "href": _LENS_HREF[key],
         "label": C.LENSES[key]["site_label"],
+        # the download card follows the lens, so the page never shows two
+        # identities at once — an ?lens= link reads as fully committed
+        "dlTitle": esc(C.LENSES[key]["site_label"]).replace(" résumé", ""),
+        "dlFor": esc(C.LENSES[key]["site_targets"]),
+        "dlAts": _LENS_ATS[key],
+        "otherKey": "ai" if key == "ops" else "ops",
+        "otherLabel": esc(C.LENSES["ai" if key == "ops" else "ops"]["site_label"]),
     }
     for key in ("ops", "ai")
 }
@@ -253,7 +261,7 @@ a:hover{text-decoration:underline}
 .tl-desc{font-size:14.5px;color:var(--body);max-width:70ch}
 
 /* downloads + contact */
-.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}
+.dl-grid{display:grid;grid-template-columns:minmax(0,470px);gap:16px;margin-top:26px}
 .dl-card{background:var(--surface);border:1px solid var(--hairline);border-radius:12px;
   box-shadow:var(--shadow);padding:20px 22px}
 .dl-card h3{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:18px}
@@ -264,6 +272,10 @@ a:hover{text-decoration:underline}
 .dl-primary:hover{text-decoration:none;opacity:.9}
 .dl-primary .arr{font-family:var(--mono)}
 .dl-sec{display:block;margin-top:10px;font-size:13px;color:var(--muted)}
+.dl-other{font-family:var(--sans);font-size:.87rem;color:var(--muted);margin-top:16px}
+.dl-switch{font:inherit;color:var(--accent);background:none;border:none;padding:0;
+  cursor:pointer}
+.dl-switch:hover{text-decoration:underline}
 .contact{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 .contact a{display:flex;flex-direction:column;gap:2px;background:var(--surface);
   border:1px solid var(--hairline);border-radius:10px;padding:14px 20px;min-width:170px}
@@ -291,6 +303,11 @@ const buttons=document.querySelectorAll('.lens-btn');
 const copy=document.querySelector('[data-lens-copy]');
 const targets=document.querySelector('[data-lens-targets]');
 const btn=document.querySelector('[data-lens-resume]');
+const dlTitle=document.querySelector('[data-dl-title]');
+const dlFor=document.querySelector('[data-dl-for]');
+const dlPrimary=document.querySelector('[data-dl-primary]');
+const dlAts=document.querySelector('[data-dl-ats]');
+const dlSwitch=document.querySelector('[data-dl-switch]');
 function setLens(k){
   const d=LENS[k];
   copy.style.opacity=0;targets.style.opacity=0;
@@ -301,6 +318,13 @@ function setLens(k){
     btn.querySelector('.lbl').textContent=d.label;
     copy.style.opacity=1;targets.style.opacity=1;
   },160);
+  // the download card follows the lens, so the page never shows two identities
+  dlTitle.textContent=d.dlTitle;
+  dlFor.innerHTML=d.dlFor;
+  dlPrimary.setAttribute('href',d.href);
+  dlAts.setAttribute('href',d.dlAts);
+  dlSwitch.textContent=d.otherLabel+' →';
+  dlSwitch.dataset.target=d.otherKey;
   buttons.forEach(b=>{const on=b.dataset.lens===k;
     b.classList.toggle('is-active',on);b.setAttribute('aria-selected',on);});
 }
@@ -309,9 +333,15 @@ buttons.forEach(b=>b.addEventListener('click',()=>{
   const u=new URL(location);u.searchParams.set('lens',b.dataset.lens);
   history.replaceState(null,'',u);
 }));
+// the quiet "other side" link scrolls back to the toggle so the switch is visible
+dlSwitch.addEventListener('click',()=>{
+  setLens(dlSwitch.dataset.target||'ai');
+  document.getElementById('resumes').scrollIntoView({block:'start'});
+});
 // shareable per-application links: ?lens=ai preselects the toggle
 const lensParam=new URLSearchParams(location.search).get('lens');
 if(lensParam==='ai'||lensParam==='ops')setLens(lensParam);
+else setLens('ops');  // sync the download card with the default on load
 const io=new IntersectionObserver((es)=>es.forEach(e=>{
   if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
 }),{threshold:.12});
@@ -335,15 +365,19 @@ def build_body():
         + f'<div class="tl-desc">{desc}</div></div></div>'
         for when, co, role, note, desc in EXPERIENCE
     )
+    # One card, following the lens. Showing both at once made the page read as
+    # undecided — the last thing a visitor saw was "I'm two people, you pick."
+    _d = LENS["ops"]
     dl = f"""
-      <div class="dl-card"><h3>Business Operations</h3>
-        <div class="dl-for">BizOps · Chief of Staff · Partner &amp; Revenue Ops</div>
-        <a class="dl-primary" href="{RESUMES['biz_mo']}">Download résumé <span class="arr">↓</span></a>
-        <a class="dl-sec" href="{RESUMES['biz_ed']}">or the ATS-safe version</a></div>
-      <div class="dl-card"><h3>AI Deployment</h3>
-        <div class="dl-for">Applied AI · AI Ops · AI Strategy &amp; Enablement</div>
-        <a class="dl-primary" href="{RESUMES['ai_mo']}">Download résumé <span class="arr">↓</span></a>
-        <a class="dl-sec" href="{RESUMES['ai_ed']}">or the ATS-safe version</a></div>"""
+      <div class="dl-card" data-dl-card>
+        <h3 data-dl-title>{_d['dlTitle']}</h3>
+        <div class="dl-for" data-dl-for>{_d['dlFor']}</div>
+        <a class="dl-primary" data-dl-primary href="{_d['href']}">Download résumé <span class="arr">↓</span></a>
+        <a class="dl-sec" data-dl-ats href="{_d['dlAts']}">or the ATS-safe version</a>
+      </div>"""
+    dl_other = (f'<p class="dl-other">Hiring for the other side? '
+                f'<button type="button" class="dl-switch" data-dl-switch>'
+                f'{_d["otherLabel"]} →</button></p>')
     contact = "".join(
         f'<a href="{u}"><span class="c-k">{k}</span><span class="c-v">{v}</span></a>'
         for k, v, u in CONTACT
@@ -412,9 +446,10 @@ def build_body():
 
 <section class="section" id="resumes"><div class="wrap reveal">
   <h2 class="sec-title">Take a résumé</h2>
-  <p class="sec-lead">Two lenses, two designs each. Editorial is single-column and ATS-safe;
-  Modern is the two-column version for reading directly.</p>
+  <p class="sec-lead">Matched to the lens you picked above. The ATS-safe version is
+  single-column for application portals; the default is designed for reading.</p>
   <div class="dl-grid">{dl}</div>
+  {dl_other}
   <div class="contact">{contact}</div>
 </div></section>
 

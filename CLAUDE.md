@@ -33,6 +33,7 @@ content.py                   Career facts — single source for resumes + site
 build_site.py                Builds the public one-link portfolio into docs/
 site_qa.py                   The "Run the screen" corpus, persona, and answer engine
 worker/                      Cloudflare Worker fronting the chat model (holds the API key)
+configure.py                 Turns optional features on: chat / analytics / domain
 plans/big-rocks/             One long-lived plan per strategic initiative
 .claude/skills/              Skills, each owned by a big rock (plus one meta-skill)
 .claude/agents/              Subagents (big-rock-planner)
@@ -116,6 +117,8 @@ memory so Claude never has to ask who a PSM is.
 - Resume PDFs: `python3 tests/test_resume_pdfs.py` — every PDF in
   `docs/resumes/` must be exactly one page. Overflow is fixed by cutting
   content, never by shrinking fonts.
+- Feature switches: `python3 configure.py status` shows what's on; each switch
+  writes its constant and rebuilds. Worker deploy: `cd worker && ./setup.sh`.
 - Data sanity: `python3 -c "import pandas as pd; print(pd.read_csv('data/partner_metrics.csv'))"`
 - Hooks: `bash .claude/hooks/session_context.sh` should print current big-rock
   status and scorecard headlines with exit code 0.
