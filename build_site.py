@@ -36,6 +36,20 @@ BLOB = f"{REPO}/blob/{BRANCH}"
 # og:url tags. Cutover runbook: DOMAIN-SETUP.md.
 DOMAIN = ""
 
+
+def pages_url():
+    """Where GitHub Pages serves this repo, absolute and without a trailing slash.
+
+    Two shapes, and the repo name is what picks between them: a repo named
+    <user>.github.io is a *user site* served at the domain root, anything else
+    is a *project site* served under /<repo>. Deriving it from REPO_SLUG means
+    renaming the repo moves canonical, og:url, JSON-LD, robots, and sitemap
+    together — they are the five places a stale URL does real damage.
+    """
+    repo = C.REPO_SLUG.split("/")[-1]
+    root = f"https://{C.GITHUB_USER}.github.io"
+    return root if repo.lower() == f"{C.GITHUB_USER}.github.io".lower() else f"{root}/{repo}"
+
 # GoatCounter site code for privacy-light analytics (free; no cookies, no
 # consent banner needed). Empty = no analytics script on the page. Set to the
 # code chosen at goatcounter.com signup (e.g. "dylanram") once cold outreach
@@ -467,7 +481,7 @@ def build():
     )
     # Absolute base for canonical/OG links: the custom domain once set, the
     # Pages default until then — so link previews work in both eras.
-    base = f"https://{DOMAIN}" if DOMAIN else "https://dylan3796.github.io/anthropic-portfolio"
+    base = f"https://{DOMAIN}" if DOMAIN else pages_url()
     domain_meta = (
         f'<link rel="canonical" href="{base}/">'
         f'<meta property="og:url" content="{base}/">'

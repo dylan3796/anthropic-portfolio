@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dylan3796.github.io/anthropic-portfolio/sitemap.xml
+Sitemap: https://dylan3796.github.io/sitemap.xml

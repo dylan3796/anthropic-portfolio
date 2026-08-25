@@ -31,7 +31,7 @@ EMAIL = "dylanmr96@gmail.com"
 PHONE = "916-690-5681"
 LINKEDIN = "linkedin.com/in/dylanram"
 GITHUB_USER = "dylan3796"
-REPO_SLUG = "dylan3796/anthropic-portfolio"
+REPO_SLUG = "dylan3796/dylan3796.github.io"
 EDUCATION_SCHOOL = "University of California, Santa Barbara"
 EDUCATION_DEGREE = "B.A. Economics & Accounting · Dean's Honors"
 
