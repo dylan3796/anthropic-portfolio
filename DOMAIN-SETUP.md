@@ -60,7 +60,8 @@ certificate check to pass and tick **Enforce HTTPS**.
 ## Verify
 
 - `https://dylanram.com` and `https://www.dylanram.com` both load the site.
-- `https://dylan3796.github.io/anthropic-portfolio/` 301-redirects to the domain.
+- The Pages default URL (whatever `pages_url()` in `build_site.py` derives from
+  the repo name) 301-redirects to the domain.
 - All four resume downloads work from the new origin.
 - The chat answers from the new origin (Worker CORS — the pinned test:
   `node tests/worker_harness.mjs`).
