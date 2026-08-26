@@ -162,12 +162,16 @@ JOBS = [
             ],
             "ops": [
                 "Built the partner team's first revenue forecasting process from a blank "
-                "page — the methodology and cadence, designed end to end.",
+                "page — the methodology and cadence, designed end to end, a structure "
+                "that remains the spine of the team's forecast years later.",
                 "Designed the canonical partner attribution model — the single source of "
                 "truth for how sourced, influenced, and attributed revenue is credited "
                 "across both sides of the marketplace.",
                 "Launched the partner org's first incentive program tied to new-logo "
                 "acquisition — designing the crediting and payout logic end to end.",
+                "Diagnosed why partner leads were stalling — no rules of engagement — "
+                "and wrote the partner org's first lead RoE; leads that had sat for "
+                "weeks routed in days.",
                 "Led annual quota-setting across Sales, Finance, and Partner leadership "
                 "through top-down and bottoms-up planning.",
                 "Shaped the partner program strategy — the Partner Value Score and tiering "
@@ -249,4 +253,7 @@ PROGRAMS = [
     ("The first new-logo incentive",
      "Launched the partner org's first incentive program tied to new-logo acquisition — "
      "crediting and payout logic built from scratch."),
+    ("The first rules of engagement",
+     "Traced stalled partner leads to a missing layer — no rules of engagement — and "
+     "wrote the first ones; leads that sat for weeks routed in days."),
 ]

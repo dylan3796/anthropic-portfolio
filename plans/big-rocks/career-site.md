@@ -27,7 +27,8 @@ explicit mapping to listed experience — fit and gap both.
 - [x] JD fit check (dark until Worker deploy) — 2026-08
 - [x] Lens URLs, OG card, llms.txt, JSON-LD, robots/sitemap — 2026-08
 - [x] Cold-email playbook (outreach/PLAYBOOK.md) — 2026-08
-- [ ] /new-entry exercised on a real project
+- [x] /new-entry exercised on a real project — 2026-08-26, founder-lens entry
+      (lead RoE story, first-90-days, durability); 3 FACTS + 6 eval pins
 - [ ] Worker deployed + spend cap + CHAT_ENDPOINT (owner)
 - [ ] dylanram.com live (owner; DOMAIN-SETUP.md)
 - [ ] ANALYTICS_ID set before first email batch (owner)
