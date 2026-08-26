@@ -90,6 +90,13 @@ const CASES = [
   ['how many people has he managed', '@decline'],
   ['why is he leaving databricks', '@decline'],
   ['how old is he', '@decline'],
+  // founder-lens facts — first-90-days, lead-rescue, durability
+  ['what would your first 90 days look like', 'listen and count'],
+  ['how would he ramp at an early stage startup', 'listen and count'],
+  ['tell me about a messy problem he diagnosed', 'rules of engagement'],
+  ['what happened with the stuck partner leads', 'rules of engagement'],
+  ['do the systems he builds last', 'remains the spine'],
+  ['does his work survive after he moves on', 'remains the spine'],
   // out of corpus — must refuse
   ['what is his favorite programming language', 'Python'],
   ['does he know kubernetes', '@refuse'],
