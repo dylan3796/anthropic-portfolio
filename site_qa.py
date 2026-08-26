@@ -458,15 +458,15 @@ FACTS = [
         k="90 ninety days first-90 plan playbook early stage startup small company "
           "founding join joining start onboarding ramp-up",
         a="A four-phase arc he has already run at Databricks scale. <strong>Days 1–14: "
-          "listen and count</strong> — sit in on calls, read every won and lost deal, "
+          "listen and count.</strong> Sit in on calls, read every won and lost deal, "
           "write one page on how revenue actually happens versus how everyone says it "
-          "happens. <strong>Days 15–30: make the money legible</strong> — one source of "
+          "happens. <strong>Days 15–30: make the money legible.</strong> One source of "
           "truth for pipeline, spreadsheet before software, a first forecast with stated "
-          "confidence. <strong>Days 31–60: fix the one bleeding process</strong> — find "
+          "confidence. <strong>Days 31–60: fix the one bleeding process.</strong> Find "
           "where leads stall and write the first rules of engagement: an owner and a "
-          "clock on every lead. <strong>Days 61–90: install the rhythm</strong> — a "
+          "clock on every lead. <strong>Days 61–90: install the rhythm.</strong> A "
           "forecast cadence and a review that ends in decisions. Every phase cites "
-          "precedent — he established Databricks' partner forecast where no cadence "
+          "precedent: he established Databricks' partner forecast where no cadence "
           "existed, and wrote its first partner lead rules of engagement.",
         src="Experience — Databricks, compressed to a founding playbook",
     ),
@@ -476,8 +476,8 @@ FACTS = [
         k="leads stuck stalled routing rules engagement roe diagnose diagnosis root "
           "cause judgment messy ambiguous problem fix",
         a="Partner-sourced leads were dying quietly and nobody could say why. He traced "
-          "it to a missing layer: <strong>no rules of engagement</strong> — no owner, no "
-          "clock, so leads stalled between teams. He wrote the partner org's "
+          "it to a missing layer: <strong>no rules of engagement</strong>, so leads had "
+          "no owner and no clock and stalled between teams. He wrote the partner org's "
           "<strong>first lead rules of engagement</strong>, and leads that had sat for "
           "weeks began routing in days. Symptom to root cause to rule to fixed, on data "
           "that couldn't answer the question by itself.",
@@ -488,11 +488,11 @@ FACTS = [
         q="Do the systems he builds last?",
         k="durable durability lasting outlast survive still running spine legacy "
           "maintainable handoff maintained",
-        a="Yes — built to outlast their author. The forecast structure he established "
-          "has <strong>evolved under other hands but remains the spine</strong> of how "
-          "the team forecasts years later. The attribution model is still the single "
-          "source of truth for crediting. The bar he builds to: does it keep running "
-          "when he stops touching it.",
+        a="Yes. They are built to outlast their author. The forecast structure he "
+          "established has <strong>evolved under other hands but remains the "
+          "spine</strong> of how the team forecasts years later. The attribution model "
+          "is still the single source of truth for crediting. The bar he builds to: "
+          "does it keep running when he stops touching it.",
         src="Experience — Databricks",
     ),
 ]

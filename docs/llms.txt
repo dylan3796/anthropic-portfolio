@@ -165,15 +165,15 @@ A: Yes — scroll to Take a résumé below. Two lenses (Business Operations and 
 Source: Site — Take a résumé
 
 Q: What would his first 90 days look like at an early-stage company?
-A: A four-phase arc he has already run at Databricks scale. Days 1–14: listen and count — sit in on calls, read every won and lost deal, write one page on how revenue actually happens versus how everyone says it happens. Days 15–30: make the money legible — one source of truth for pipeline, spreadsheet before software, a first forecast with stated confidence. Days 31–60: fix the one bleeding process — find where leads stall and write the first rules of engagement: an owner and a clock on every lead. Days 61–90: install the rhythm — a forecast cadence and a review that ends in decisions. Every phase cites precedent — he established Databricks' partner forecast where no cadence existed, and wrote its first partner lead rules of engagement.
+A: A four-phase arc he has already run at Databricks scale. Days 1–14: listen and count. Sit in on calls, read every won and lost deal, write one page on how revenue actually happens versus how everyone says it happens. Days 15–30: make the money legible. One source of truth for pipeline, spreadsheet before software, a first forecast with stated confidence. Days 31–60: fix the one bleeding process. Find where leads stall and write the first rules of engagement: an owner and a clock on every lead. Days 61–90: install the rhythm. A forecast cadence and a review that ends in decisions. Every phase cites precedent: he established Databricks' partner forecast where no cadence existed, and wrote its first partner lead rules of engagement.
 Source: Experience — Databricks, compressed to a founding playbook
 
 Q: Tell me about a judgment call — diagnosing a messy problem.
-A: Partner-sourced leads were dying quietly and nobody could say why. He traced it to a missing layer: no rules of engagement — no owner, no clock, so leads stalled between teams. He wrote the partner org's first lead rules of engagement, and leads that had sat for weeks began routing in days. Symptom to root cause to rule to fixed, on data that couldn't answer the question by itself.
+A: Partner-sourced leads were dying quietly and nobody could say why. He traced it to a missing layer: no rules of engagement, so leads had no owner and no clock and stalled between teams. He wrote the partner org's first lead rules of engagement, and leads that had sat for weeks began routing in days. Symptom to root cause to rule to fixed, on data that couldn't answer the question by itself.
 Source: Experience — Databricks
 
 Q: Do the systems he builds last?
-A: Yes — built to outlast their author. The forecast structure he established has evolved under other hands but remains the spine of how the team forecasts years later. The attribution model is still the single source of truth for crediting. The bar he builds to: does it keep running when he stops touching it.
+A: Yes. They are built to outlast their author. The forecast structure he established has evolved under other hands but remains the spine of how the team forecasts years later. The attribution model is still the single source of truth for crediting. The bar he builds to: does it keep running when he stops touching it.
 Source: Experience — Databricks
 
 ## Deliberately not published (ask Dylan directly)
