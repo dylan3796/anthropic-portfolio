@@ -484,6 +484,30 @@ FACTS = [
         src="Experience — Databricks",
     ),
     dict(
+        id="annual-planning",
+        q="Has he done annual planning — quotas, headcount, budgets?",
+        k="annual planning headcount budget budgeting capacity coverage fiscal cycle "
+          "top-down bottoms-up quota-setting",
+        a="Yes, across cycles. He led <strong>annual planning across Sales, Finance, and "
+          "Partner leadership</strong>: quota-setting, headcount, and coverage design, "
+          "negotiated top-down and bottoms-up. The forecast he built is the number those "
+          "plans get set against, which means he has sat on both sides of the planning "
+          "table — producing the number and defending the ask.",
+        src="Experience — Databricks",
+    ),
+    dict(
+        id="exec-partnership",
+        q="How does he work with executives?",
+        k="executive executives presentation deck slides leadership senior investment case "
+          "ask funding stakeholder relationship buy-in access trust",
+        a="As a direct partner, not a report-runner. He writes the <strong>investment cases "
+          "behind new programs</strong> — the classic ask-for-money exercise — and presents "
+          "them at the most senior levels of the GTM org. The part he considers underrated: "
+          "<strong>long-held stakeholder relationships are how the data gets in the room at "
+          "all</strong>. The systems are only as good as the access and trust behind them.",
+        src="Experience — Databricks, Salesforce, CBRE",
+    ),
+    dict(
         id="durability",
         q="Do the systems he builds last?",
         k="durable durability lasting outlast survive still running spine legacy "

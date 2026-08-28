@@ -103,10 +103,18 @@ def sync_resumes():
 # Career content comes from content.py (plain text) and is escaped here.
 _LENS_HREF = {"ops": RESUMES["biz_mo"], "ai": RESUMES["ai_mo"]}
 _LENS_ATS = {"ops": RESUMES["biz_ed"], "ai": RESUMES["ai_ed"]}
+# First words on the page, per lens — a founder arriving on ?lens=ai should
+# never read "GTM operations" before anything else.
+_LENS_EYEBROW = {
+    "ops": "GTM strategy & operations · annual planning",
+    "ai": "AI deployment · agent systems",
+}
+
 LENS = {
     key: {
         "copy": esc(C.LENSES[key]["site_copy"]),
         "targets": esc(C.LENSES[key]["site_targets"]),
+        "eyebrow": _LENS_EYEBROW[key],
         "href": _LENS_HREF[key],
         "label": C.LENSES[key]["site_label"],
         # the download card follows the lens, so the page never shows two
@@ -206,6 +214,9 @@ a:hover{text-decoration:underline}
 .lens{margin-top:40px}
 .lens-label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;
   color:var(--muted);margin-bottom:12px}
+.lens-proof{font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+  color:var(--muted);margin-top:14px}
+.lens-proof a{color:var(--accent);text-decoration:none}
 .lens-toggle{display:inline-flex;gap:4px;padding:4px;border-radius:999px;
   background:var(--panel);border:1px solid var(--hairline)}
 .lens-btn{font-family:var(--mono);font-size:13px;letter-spacing:.03em;
@@ -314,6 +325,7 @@ footer{padding:40px 0;border-top:1px solid var(--hairline);color:var(--muted);
 
 JS_TAIL = """
 const buttons=document.querySelectorAll('.lens-btn');
+const eyebrow=document.querySelector('[data-lens-eyebrow]');
 const copy=document.querySelector('[data-lens-copy]');
 const targets=document.querySelector('[data-lens-targets]');
 const btn=document.querySelector('[data-lens-resume]');
@@ -324,6 +336,7 @@ const dlAts=document.querySelector('[data-dl-ats]');
 const dlSwitch=document.querySelector('[data-dl-switch]');
 function setLens(k){
   const d=LENS[k];
+  eyebrow.textContent=d.eyebrow;
   copy.style.opacity=0;targets.style.opacity=0;
   setTimeout(()=>{
     copy.innerHTML=d.copy;
@@ -399,14 +412,14 @@ def build_body():
     d0 = LENS["ops"]
     return f"""
 <header class="hero"><div class="wrap">
-  <div class="eyebrow">GTM operations · AI deployment</div>
+  <div class="eyebrow" data-lens-eyebrow>GTM strategy &amp; operations · annual planning</div>
   <h1 class="hero-name">Dylan Ram</h1>
   <p class="hero-thesis">I build the systems a go-to-market org runs on — and the AI that runs on top.</p>
   <p class="hero-sub">First Partner Strategy &amp; Ops hire at Databricks. I stood up the forecast,
   attribution, and incentive programs a partner business runs on — then built and deployed the
   AI layer over them.</p>
   <div class="lens">
-    <div class="lens-label">// reading this as a hiring manager for</div>
+    <div class="lens-label">// reading this for</div>
     <div class="lens-toggle" role="tablist" aria-label="Choose a lens">
       <button class="lens-btn is-active" data-lens="ops" role="tab" aria-selected="true">Business Operations</button>
       <button class="lens-btn" data-lens="ai" role="tab" aria-selected="false">AI Deployment</button>
@@ -419,6 +432,8 @@ def build_body():
           <span class="lbl">{d0['label']}</span><span class="arr">↓ PDF</span></a>
       </div>
     </div>
+    <p class="lens-proof">This page runs its own eval suite: every answer it gives is
+    pinned by tests. <a href="{REPO}">Repo →</a></p>
   </div>
 </div></header>
 

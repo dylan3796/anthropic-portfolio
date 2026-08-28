@@ -89,17 +89,16 @@ LENSES = {
     },
     "ops": {
         "resume_stem": "dylan-ram-business-operations",
-        "tagline": "Business Operations · Strategy & Planning · GTM Systems",
+        "tagline": "GTM Strategy & Operations · Annual Planning · Executive Partnership",
         "summary": (
-            "The operating spine of a GTM org — a zero-to-one builder and one-to-100 scaler. "
-            "As Databricks' first Partner Strategy & Ops hire, stood up the forecast, "
-            "attribution, and first new-logo incentive programs from scratch, ran annual "
-            "quota-setting across Sales, Finance, and Partner leadership, and now owns the "
-            "team's AI agenda — deployed its first LLM agents to production and built, in "
-            "public, a working agent operating system for a function like his. Works across a "
-            "two-sided marketplace — aligning the partner team, the sales org that co-sells "
-            "through partners, and the partners themselves. Seven years partnering directly "
-            "with GTM executives at Databricks, Salesforce, and CBRE."
+            "The strategy-and-operations spine of a GTM org: a zero-to-one builder and "
+            "one-to-100 scaler. As Databricks' first Partner Strategy & Ops hire, stood up "
+            "the forecast, attribution, and first new-logo incentive programs from scratch, "
+            "and ran annual planning across Sales, Finance, and Partner leadership: quotas, "
+            "headcount, and coverage, top-down and bottoms-up. Writes the investment cases "
+            "that fund new programs and presents them at the most senior levels of the org. "
+            "Seven years of working relationships with GTM executives at Databricks, "
+            "Salesforce, and CBRE — the access that gets the data in the room at all."
         ),
         "skills": [
             ("Operations & strategy", "Operating cadence, annual & quota planning, OKRs, "
@@ -171,12 +170,12 @@ JOBS = [
                 "acquisition — designing the crediting and payout logic end to end.",
                 "Diagnosed why partner leads were stalling, wrote the org's first lead "
                 "rules of engagement, and cut routing time from weeks to days.",
-                "Led annual quota-setting across Sales, Finance, and Partner leadership "
-                "through top-down and bottoms-up planning.",
+                "Led annual planning across Sales, Finance, and Partner leadership: "
+                "quota-setting, headcount, and coverage design, top-down and bottoms-up.",
+                "Wrote the investment cases behind new programs and presented them to "
+                "senior GTM leadership.",
                 "Shaped the partner program strategy — the Partner Value Score and tiering "
                 "framework — earning global alignment and executive adoption.",
-                "Run KPI alignment across the marketplace — partner team, co-sell sales "
-                "org, and partners — and build the self-serve, AI-driven analytics on top.",
             ],
         },
     },

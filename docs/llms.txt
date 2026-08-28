@@ -172,6 +172,14 @@ Q: Tell me about a judgment call — diagnosing a messy problem.
 A: Partner-sourced leads were dying quietly and nobody could say why. He traced it to a missing layer: no rules of engagement, so leads had no owner and no clock and stalled between teams. He wrote the partner org's first lead rules of engagement, and leads that had sat for weeks began routing in days. Symptom to root cause to rule to fixed, on data that couldn't answer the question by itself.
 Source: Experience — Databricks
 
+Q: Has he done annual planning — quotas, headcount, budgets?
+A: Yes, across cycles. He led annual planning across Sales, Finance, and Partner leadership: quota-setting, headcount, and coverage design, negotiated top-down and bottoms-up. The forecast he built is the number those plans get set against, which means he has sat on both sides of the planning table — producing the number and defending the ask.
+Source: Experience — Databricks
+
+Q: How does he work with executives?
+A: As a direct partner, not a report-runner. He writes the investment cases behind new programs — the classic ask-for-money exercise — and presents them at the most senior levels of the GTM org. The part he considers underrated: long-held stakeholder relationships are how the data gets in the room at all. The systems are only as good as the access and trust behind them.
+Source: Experience — Databricks, Salesforce, CBRE
+
 Q: Do the systems he builds last?
 A: Yes. They are built to outlast their author. The forecast structure he established has evolved under other hands but remains the spine of how the team forecasts years later. The attribution model is still the single source of truth for crediting. The bar he builds to: does it keep running when he stops touching it.
 Source: Experience — Databricks
