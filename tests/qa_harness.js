@@ -90,6 +90,11 @@ const CASES = [
   ['how many people has he managed', '@decline'],
   ['why is he leaving databricks', '@decline'],
   ['how old is he', '@decline'],
+  // strategy-lens facts — annual-planning, exec-partnership
+  ['has he done headcount planning', 'quota-setting, headcount, and coverage'],
+  ['does he run annual planning cycles', 'quota-setting, headcount, and coverage'],
+  ['has he presented to executives', 'investment cases'],
+  ['how does he get stakeholder buy in', 'access and trust'],
   // founder-lens facts — first-90-days, lead-rescue, durability
   ['what would your first 90 days look like', 'listen and count'],
   ['how would he ramp at an early stage startup', 'listen and count'],
