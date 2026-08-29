@@ -119,14 +119,12 @@ _LENS_EYEBROW = {
 LENS = {
     key: {
         "copy": esc(C.LENSES[key]["site_copy"]),
-        "targets": esc(C.LENSES[key]["site_targets"]),
         "eyebrow": _LENS_EYEBROW[key],
         "href": _LENS_HREF[key],
         "label": C.LENSES[key]["site_label"],
         # the download card follows the lens, so the page never shows two
         # identities at once — an ?lens= link reads as fully committed
         "dlTitle": esc(C.LENSES[key]["site_label"]).replace(" résumé", ""),
-        "dlFor": esc(C.LENSES[key]["site_targets"]),
         "dlAts": _LENS_ATS[key],
         "otherKey": "ai" if key == "ops" else "ops",
         "otherLabel": esc(C.LENSES["ai" if key == "ops" else "ops"]["site_label"]),
@@ -351,27 +349,23 @@ JS_TAIL = """
 const buttons=document.querySelectorAll('.lens-btn');
 const eyebrow=document.querySelector('[data-lens-eyebrow]');
 const copy=document.querySelector('[data-lens-copy]');
-const targets=document.querySelector('[data-lens-targets]');
 const btn=document.querySelector('[data-lens-resume]');
 const dlTitle=document.querySelector('[data-dl-title]');
-const dlFor=document.querySelector('[data-dl-for]');
 const dlPrimary=document.querySelector('[data-dl-primary]');
 const dlAts=document.querySelector('[data-dl-ats]');
 const dlSwitch=document.querySelector('[data-dl-switch]');
 function setLens(k){
   const d=LENS[k];
   eyebrow.textContent=d.eyebrow;
-  copy.style.opacity=0;targets.style.opacity=0;
+  copy.style.opacity=0;
   setTimeout(()=>{
     copy.innerHTML=d.copy;
-    targets.innerHTML='Target roles: '+d.targets;
     btn.setAttribute('href',d.href);
     btn.querySelector('.lbl').textContent=d.label;
-    copy.style.opacity=1;targets.style.opacity=1;
+    copy.style.opacity=1;
   },160);
   // the download card follows the lens, so the page never shows two identities
   dlTitle.textContent=d.dlTitle;
-  dlFor.innerHTML=d.dlFor;
   dlPrimary.setAttribute('href',d.href);
   dlAts.setAttribute('href',d.dlAts);
   dlSwitch.textContent=d.otherLabel+' →';
@@ -422,7 +416,6 @@ def build_body():
     dl = f"""
       <div class="dl-card" data-dl-card>
         <h3 data-dl-title>{_d['dlTitle']}</h3>
-        <div class="dl-for" data-dl-for>{_d['dlFor']}</div>
         <a class="dl-primary" data-dl-primary href="{_d['href']}">Download résumé <span class="arr">↓</span></a>
         <a class="dl-sec" data-dl-ats href="{_d['dlAts']}">or the ATS-safe version</a>
       </div>"""
@@ -443,14 +436,13 @@ def build_body():
   incentives, quotas, annual planning, partner investment strategy: stood up from zero, scaled
   across the org, with AI agents deployed on top.</p>
   <div class="lens">
-    <div class="lens-label">// reading this for</div>
+    <div class="lens-label">// the work, two ways</div>
     <div class="lens-toggle" role="tablist" aria-label="Choose a lens">
       <button class="lens-btn is-active" data-lens="ops" role="tab" aria-selected="true">Business Operations</button>
       <button class="lens-btn" data-lens="ai" role="tab" aria-selected="false">AI Deployment</button>
     </div>
     <div class="lens-card">
       <p class="lens-copy" data-lens-copy>{d0['copy']}</p>
-      <p class="lens-targets" data-lens-targets>Target roles: {d0['targets']}</p>
       <div class="lens-actions">
         <a class="btn" data-lens-resume href="{d0['href']}">
           <span class="lbl">{d0['label']}</span><span class="arr">↓ PDF</span></a>
@@ -473,9 +465,10 @@ def build_body():
 </div></section>
 
 <section class="section" id="agents"><div class="wrap reveal">
-  <h2 class="sec-title">The agentic system at partner ops</h2>
-  <p class="sec-lead">What I actually stood up at Databricks — from raw GTM data to agents
-  the org trusts.</p>
+  <h2 class="sec-title">The agentic system</h2>
+  <p class="sec-lead">Stood up at Databricks partner ops and still running: reporting,
+  partner recommendations, and natural-language answers, from raw GTM data to agents
+  reps actually use.</p>
   <div class="flow">
     <div class="stage"><div class="stage-k">Sources</div>
       <div class="stage-v">Salesforce · Spark &amp; SQL pipelines</div></div>
@@ -492,10 +485,10 @@ def build_body():
 </div></section>
 
 <section class="section alt" id="system"><div class="wrap reveal">
-  <h2 class="sec-title">The system I built</h2>
-  <p class="sec-lead">This repo is the operating model I run at Databricks, rebuilt in public
-  so you can inspect it: five layers, from governed data to a loop that runs the QBR on the
-  tooling itself.</p>
+  <h2 class="sec-title">Rebuilt in public</h2>
+  <p class="sec-lead">This repo is the same operating model, rebuilt in the open so you can
+  inspect it: five layers, from governed data to a loop that runs the QBR on the tooling
+  itself.</p>
   <div class="layers">{layers}</div>
   <div class="boundary"><p>This isn't a toy domain: the crediting engine models the kind of
   partner-incentive program I launched at Databricks — the real job, rebuilt as tested software.

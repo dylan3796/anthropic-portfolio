@@ -163,16 +163,17 @@ JOBS = [
                 "data the agents run on.",
             ],
             "ops": [
-                "Built the partner team's first revenue forecasting process from a blank "
+                "Built the partner team's revenue forecasting process from a blank "
                 "page; its methodology and cadence remain the spine of the team's "
                 "forecast years later.",
                 "Designed the canonical partner attribution model — the single source of "
                 "truth for how sourced, influenced, and attributed revenue is credited "
                 "across both sides of the marketplace.",
-                "Launched the partner org's first incentive program tied to new-logo "
-                "acquisition — designing the crediting and payout logic end to end.",
-                "Diagnosed why partner leads were stalling, wrote the org's first lead "
-                "rules of engagement, and cut routing time from weeks to days.",
+                "Launched the partner org's incentive program tied to new-logo "
+                "acquisition — crediting and payout logic designed end to end, still "
+                "in force today.",
+                "Diagnosed why partner leads were stalling, wrote the org's lead rules "
+                "of engagement, and cut routing time from weeks to days.",
                 "Led annual planning across Sales, Finance, and Partner leadership: "
                 "quota-setting, headcount, and coverage design, top-down and bottoms-up.",
                 "Wrote the investment cases behind new programs and presented them to "
@@ -245,16 +246,16 @@ JOBS = [
 # ---------------------------------------------------------------------------
 
 PROGRAMS = [
-    ("The first forecast",
-     "Built the partner team's first revenue forecasting process where none existed — "
-     "methodology and cadence designed from the ground up."),
+    ("The forecast",
+     "Built from a blank page: methodology and cadence designed end to end, and still "
+     "the operating rhythm the team runs today."),
     ("The attribution model",
      "The canonical, single source of truth for how sourced, influenced, and attributed "
-     "revenue is credited across the marketplace."),
-    ("The first new-logo incentive",
-     "Launched the partner org's first incentive program tied to new-logo acquisition — "
-     "crediting and payout logic built from scratch."),
-    ("The first rules of engagement",
+     "revenue is credited across the marketplace — still the standard today."),
+    ("The new-logo incentive",
+     "Launched the partner org's incentive program tied to new-logo acquisition — "
+     "crediting and payout logic built from scratch, still in force."),
+    ("The rules of engagement",
      "Traced stalled partner leads to a missing layer of rules of engagement and wrote "
-     "the first ones — leads that sat for weeks routed in days."),
+     "them — leads that sat for weeks route in days, and the rules still stand."),
 ]
