@@ -432,10 +432,10 @@ def build_body():
 <header class="hero"><div class="wrap">
   <div class="eyebrow" data-lens-eyebrow>GTM strategy &amp; operations · annual planning</div>
   <h1 class="hero-name">Dylan Ram</h1>
-  <p class="hero-thesis">I build the systems a go-to-market org runs on — and the AI that runs on top.</p>
-  <p class="hero-sub">First Partner Strategy &amp; Ops hire at Databricks. I stood up the forecast,
-  attribution, and incentive programs a partner business runs on — then built and deployed the
-  AI layer over them.</p>
+  <p class="hero-thesis">Zero to one, then one to 100.</p>
+  <p class="hero-sub">First Partner Strategy &amp; Ops hire at Databricks. Forecast, attribution,
+  incentives, quotas, annual planning, partner investment strategy: stood up from zero, scaled
+  across the org, with AI agents deployed on top.</p>
   <div class="lens">
     <div class="lens-label">// reading this for</div>
     <div class="lens-toggle" role="tablist" aria-label="Choose a lens">
@@ -476,7 +476,8 @@ def build_body():
     <div class="stage"><div class="stage-k">Governed data</div>
       <div class="stage-v">Medallion data layer · one metric dictionary</div></div>
     <div class="stage"><div class="stage-k">Agents</div>
-      <div class="stage-v">Newsletter Agent · FAQ Agent · self-serve analytics</div></div>
+      <div class="stage-v">Reporting agents · partner recommendations for reps ·
+      partner-fit Q&amp;A · self-serve analytics</div></div>
     <div class="stage"><div class="stage-k">The org</div>
       <div class="stage-v">Partner team · sellers · leadership, answering their own questions</div></div>
   </div>
@@ -486,9 +487,9 @@ def build_body():
 
 <section class="section alt" id="system"><div class="wrap reveal">
   <h2 class="sec-title">The system I built</h2>
-  <p class="sec-lead">Built twice: at Databricks as its first partner ops hire, and again in
-  public as working software. Five layers, from governed data to a loop that runs the QBR on
-  the tooling itself.</p>
+  <p class="sec-lead">This repo is the operating model I run at Databricks, rebuilt in public
+  so you can inspect it: five layers, from governed data to a loop that runs the QBR on the
+  tooling itself.</p>
   <div class="layers">{layers}</div>
   <div class="boundary"><p>This isn't a toy domain: the crediting engine models the kind of
   partner-incentive program I launched at Databricks — the real job, rebuilt as tested software.
