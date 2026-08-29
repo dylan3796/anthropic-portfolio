@@ -259,3 +259,19 @@ PROGRAMS = [
      "Traced stalled partner leads to a missing layer of rules of engagement and wrote "
      "them — leads that sat for weeks route in days, and the rules still stand."),
 ]
+
+# Signature work through the AI lens — same record, the building side of it.
+PROGRAMS_AI = [
+    ("The production agents",
+     "Newsletter and FAQ agents shipped to production — answering partner-metric "
+     "questions and pushing updates automatically, still running today."),
+    ("The recommendation layer",
+     "Agents that suggest the right partner for a rep's deal, and natural-language "
+     "Q&A over which partners fit a use case, deal, or account."),
+    ("The governed data layer",
+     "A medallion architecture in Spark and SQL with one metric dictionary — the "
+     "foundation every agent answers from."),
+    ("The crediting engine",
+     "The AI/deterministic boundary made real: a model authors plain-English rules, "
+     "a golden-tested engine computes the money, an eval suite pins the math."),
+]
