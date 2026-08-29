@@ -36,6 +36,12 @@ BLOB = f"{REPO}/blob/{BRANCH}"
 # og:url tags. Cutover runbook: DOMAIN-SETUP.md.
 DOMAIN = ""
 
+# The ask-box section. Off for now at Dylan's call — the offline search box
+# read as a gimmick next to the rest of the page. Flip to True to bring it
+# back (the corpus, evals, and Worker plumbing all stay live underneath, so
+# nothing rots while it's hidden).
+QA_SECTION = False
+
 
 def pages_url():
     """Where GitHub Pages serves this repo, absolute and without a trailing slash.
@@ -500,7 +506,7 @@ def build_body():
   <div class="proof-links">{proof}</div></div>
 </div></section>
 
-{site_qa.section_html()}
+{site_qa.section_html() if QA_SECTION else ""}
 
 <section class="section alt" id="experience"><div class="wrap reveal">
   <h2 class="sec-title">Experience</h2>
@@ -523,10 +529,12 @@ the <a href="{REPO}">repository</a> it describes.</div></footer>
 
 def build():
     body = build_body()
-    style = f"<style>{FONTS}{CSS}{site_qa.QA_CSS}</style>"
+    qa_css = site_qa.QA_CSS if QA_SECTION else ""
+    style = f"<style>{FONTS}{CSS}{qa_css}</style>"
+    qa_js = f"{site_qa.data_js()}{site_qa.QA_JS}" if QA_SECTION else ""
     script = (
         f"<script>const LENS={json.dumps(LENS)};{JS_TAIL}"
-        f"{site_qa.data_js()}{site_qa.QA_JS}</script>"
+        f"{qa_js}</script>"
     )
     # Absolute base for canonical/OG links: the custom domain once set, the
     # Pages default until then — so link previews work in both eras.
