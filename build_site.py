@@ -258,6 +258,20 @@ a:hover{text-decoration:underline}
 .aside strong{color:var(--ink);font-weight:600}
 
 /* system / layers */
+.range{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.range span{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--body);
+  background:var(--surface);border:1px solid var(--hairline);border-radius:999px;padding:6px 12px}
+.flow{display:flex;align-items:stretch;gap:0;margin:28px 0 14px}
+.stage{flex:1;background:var(--surface);border:1px solid var(--hairline);border-radius:10px;
+  padding:14px 16px;position:relative}
+.stage+.stage{margin-left:34px}
+.stage+.stage::before{content:"→";position:absolute;left:-26px;top:50%;transform:translateY(-50%);
+  color:var(--accent-bright);font-size:17px;font-weight:700}
+.stage-k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent-bright);margin-bottom:6px}
+.stage-v{font-size:13.5px;color:var(--body);line-height:1.5}
+.rail{margin-top:12px;font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:var(--muted);
+  border-left:2px solid var(--accent-bright);padding:8px 14px;background:var(--surface)}
 .layers{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:28px 0}
 .layer{background:var(--surface);border:1px solid var(--hairline);border-top:2px solid var(--accent-bright);
   border-radius:10px;padding:15px 14px}
@@ -318,6 +332,10 @@ footer{padding:40px 0;border-top:1px solid var(--hairline);color:var(--muted);
   .hero{padding:52px 0 24px}
   .cards{grid-template-columns:1fr}
   .layers{grid-template-columns:1fr 1fr}
+  .eyebrow{font-size:11px;letter-spacing:.09em}
+  .flow{flex-direction:column}
+  .stage+.stage{margin-left:0;margin-top:30px}
+  .stage+.stage::before{content:"↓";left:50%;top:-26px;transform:translateX(-50%)}
   .dl-grid{grid-template-columns:1fr}
   .tl-row{grid-template-columns:1fr;gap:6px}
 }
@@ -439,23 +457,38 @@ def build_body():
 
 <section class="section" id="work"><div class="wrap reveal">
   <h2 class="sec-title">Signature work</h2>
-  <p class="sec-lead">Three systems that didn't exist before — built zero to one, then scaled
-  one to 100 — alongside annual quota-setting and the partner program strategy (the Partner
-  Value Score and tiering system).</p>
+  <p class="sec-lead">Systems that didn't exist before — built zero to one, scaled one to 100,
+  and run across a two-sided marketplace: the partner team, the sellers who co-sell through
+  partners, and the partners themselves.</p>
   <div class="cards">{cards}</div>
-  <p class="aside">Every one of these runs across a <strong>two-sided marketplace</strong> —
-  three constituencies at once: the partner team, the sales org that co-sells through partners,
-  and the partners themselves. Balancing internal and external stakeholders is the operating
-  problem most companies actually face.</p>
+  <div class="range"><span>Territory design</span><span>Zero-to-one builds</span>
+  <span>Strategic initiatives</span><span>Annual &amp; headcount planning</span>
+  <span>Executive partnership</span><span>Leadership presentations</span></div>
+</div></section>
+
+<section class="section" id="agents"><div class="wrap reveal">
+  <h2 class="sec-title">The agentic system at partner ops</h2>
+  <p class="sec-lead">What I actually stood up at Databricks — from raw GTM data to agents
+  the org trusts.</p>
+  <div class="flow">
+    <div class="stage"><div class="stage-k">Sources</div>
+      <div class="stage-v">Salesforce · Spark &amp; SQL pipelines</div></div>
+    <div class="stage"><div class="stage-k">Governed data</div>
+      <div class="stage-v">Medallion data layer · one metric dictionary</div></div>
+    <div class="stage"><div class="stage-k">Agents</div>
+      <div class="stage-v">Newsletter Agent · FAQ Agent · self-serve analytics</div></div>
+    <div class="stage"><div class="stage-k">The org</div>
+      <div class="stage-v">Partner team · sellers · leadership, answering their own questions</div></div>
+  </div>
+  <p class="rail">The money path never touches a model: plain-English rules → deterministic,
+  tested engine → eval suite pins the math.</p>
 </div></section>
 
 <section class="section alt" id="system"><div class="wrap reveal">
   <h2 class="sec-title">The system I built</h2>
-  <p class="sec-lead">I've built this function twice — once at Databricks as its first ops hire,
-  and once in public as working software — so I know which parts of an operating cadence an
-  agent can own, and which must stay deterministic, tested code. My edge isn't <em>using</em>
-  AI; it's building the system an org runs it through: five layers, from governed data to a loop
-  that runs the QBR on the tooling itself.</p>
+  <p class="sec-lead">Built twice: at Databricks as its first partner ops hire, and again in
+  public as working software. Five layers, from governed data to a loop that runs the QBR on
+  the tooling itself.</p>
   <div class="layers">{layers}</div>
   <div class="boundary"><p>This isn't a toy domain: the crediting engine models the kind of
   partner-incentive program I launched at Databricks — the real job, rebuilt as tested software.
