@@ -494,8 +494,8 @@ def build_body():
     <div class="stage"><div class="stage-k">The org</div>
       <div class="stage-v">Partner team · sellers · leadership, answering their own questions</div></div>
   </div>
-  <p class="rail">The money path never touches a model: plain-English rules → deterministic,
-  tested engine → eval suite pins the math.</p>
+  <p class="rail">The operating rule, everywhere: the money path never touches a model.
+  Plain-English rules → deterministic, tested code → evals pinning the math.</p>
 </div></section>
 
 <section class="section alt" id="system"><div class="wrap reveal">
