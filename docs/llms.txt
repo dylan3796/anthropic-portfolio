@@ -61,7 +61,7 @@ A: He runs KPI alignment across the marketplace — partner team, co-sell sales 
 Source: Experience — Databricks
 
 Q: What LLM agents has he shipped to production?
-A: He deployed the partner team's first LLM reporting agents into production — a Newsletter Agent and an FAQ Agent that answer partner-metric questions and push updates automatically. It was the team's first agentic reporting motion, running on the governed data layer he built underneath it.
+A: A working portfolio, not one bot. He deployed the partner team's first LLM reporting agents into production — a Newsletter Agent and an FAQ Agent that answer partner-metric questions and push updates automatically — then built the recommendation layer: agents that suggest the right partner for a rep's deal, agents working the partner ops portal, and natural-language Q&A over which partners fit a given use case, deal, or account. All of it runs on the governed data layer he built underneath.
 Source: Experience — Databricks
 
 Q: What is his AI strategy work?

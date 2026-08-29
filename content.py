@@ -45,12 +45,13 @@ LENSES = {
         "tagline": "AI Deployment · Agent Systems · Strategy & Enablement",
         "summary": (
             "Deploys AI into the workflows a go-to-market org runs on — reporting, "
-            "forecasting, crediting — and sets up how the org adopts it: foundational data, "
-            "KPI alignment, and self-serve enablement. An operator who builds the systems "
-            "himself and draws the line where deterministic, tested code must own the outcome. "
+            "forecasting, crediting — and sets up how the org adopts it: data, KPIs, "
+            "self-serve enablement. An operator who builds the systems himself and draws "
+            "the line where deterministic, tested code must own the outcome. "
             "As Databricks' first Partner Strategy & Ops hire, shipped the team's first LLM "
-            "agents to production and independently built a full agent operating system in "
-            "Claude Code — skills, hooks, subagents, MCP, and a golden-tested engine that keeps "
+            "agents to production — reporting agents, partner-recommendation agents for "
+            "reps' deals, natural-language partner-fit Q&A — and independently built a full "
+            "agent operating system in Claude Code, with a golden-tested engine that keeps "
             "the model out of the money path. Fluent in Python and SQL, and builds with the "
             "evals that answer the only question that matters: how do you know it's working."
         ),
@@ -95,8 +96,10 @@ LENSES = {
             "one-to-100 scaler. As Databricks' first Partner Strategy & Ops hire, stood up "
             "the forecast, attribution, and first new-logo incentive programs from scratch, "
             "and ran annual planning across Sales, Finance, and Partner leadership: quotas, "
-            "headcount, and coverage, top-down and bottoms-up. Writes the investment cases "
-            "that fund new programs and presents them at the most senior levels of the org. "
+            "headcount, and coverage, top-down and bottoms-up. Runs the strategic "
+            "initiatives that shape the partner book — which regional SIs to invest in, how "
+            "partners are tiered — and writes the investment cases that fund them, "
+            "presented at the most senior levels. "
             "Seven years of working relationships with GTM executives at Databricks, "
             "Salesforce, and CBRE — the access that gets the data in the room at all."
         ),
@@ -146,9 +149,9 @@ JOBS = [
         ),
         "bullets": {
             "ai": [
-                "Deployed the partner team's first LLM reporting agents (Newsletter Agent, "
-                "FAQ Agent) into production — answering partner-metric questions and "
-                "pushing updates automatically, the team's first agentic reporting motion.",
+                "Deployed the partner team's first LLM agents to production: reporting "
+                "agents (Newsletter, FAQ), partner-recommendation agents for reps' deals, "
+                "and natural-language partner-fit Q&A.",
                 "Set the team's AI strategy and built the foundational data-and-AI layer — "
                 "a medallion architecture in Spark/SQL with self-serve interfaces so "
                 "stakeholders answer their own questions.",

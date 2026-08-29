@@ -170,11 +170,15 @@ FACTS = [
     dict(
         id="llm-agents",
         q="What LLM agents has he shipped to production?",
-        k="llm agent agents deployed production newsletter faq bot real shipped",
-        a="He deployed the partner team's <strong>first LLM reporting agents into "
-          "production</strong> — a Newsletter Agent and an FAQ Agent that answer partner-metric "
-          "questions and push updates automatically. It was the team's first agentic reporting "
-          "motion, running on the governed data layer he built underneath it.",
+        k="llm agent agents deployed production newsletter faq bot real shipped "
+          "recommendation recommend portal chatbot fit",
+        a="A working portfolio, not one bot. He deployed the partner team's <strong>first "
+          "LLM reporting agents into production</strong> — a Newsletter Agent and an FAQ "
+          "Agent that answer partner-metric questions and push updates automatically — then "
+          "built the recommendation layer: <strong>agents that suggest the right partner "
+          "for a rep's deal</strong>, agents working the partner ops portal, and "
+          "natural-language Q&amp;A over which partners fit a given use case, deal, or "
+          "account. All of it runs on the governed data layer he built underneath.",
         src="Experience — Databricks",
     ),
     dict(
