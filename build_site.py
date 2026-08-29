@@ -133,6 +133,7 @@ LENS = {
 }
 
 PROGRAMS = [(esc(t), esc(d)) for t, d in C.PROGRAMS]
+PROGRAMS_AI = [(esc(t), esc(d)) for t, d in C.PROGRAMS_AI]
 
 LAYERS = [
     ("Memory", "what every session boots knowing"),
@@ -357,6 +358,8 @@ const dlSwitch=document.querySelector('[data-dl-switch]');
 function setLens(k){
   const d=LENS[k];
   eyebrow.textContent=d.eyebrow;
+  // signature work follows the lens too
+  document.querySelectorAll('[data-lens-only]').forEach(e=>{e.hidden=e.dataset.lensOnly!==k});
   copy.style.opacity=0;
   setTimeout(()=>{
     copy.innerHTML=d.copy;
@@ -397,6 +400,9 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 def build_body():
     cards = "".join(
         f'<div class="card"><h3>{t}</h3><p>{d}</p></div>' for t, d in PROGRAMS
+    )
+    cards_ai = "".join(
+        f'<div class="card"><h3>{t}</h3><p>{d}</p></div>' for t, d in PROGRAMS_AI
     )
     layers = "".join(
         f'<div class="layer"><div class="layer-name">{n}</div>'
@@ -458,10 +464,18 @@ def build_body():
   <p class="sec-lead">Systems that didn't exist before — built zero to one, scaled one to 100,
   and run across a two-sided marketplace: the partner team, the sellers who co-sell through
   partners, and the partners themselves.</p>
-  <div class="cards">{cards}</div>
-  <div class="range"><span>Territory design</span><span>Zero-to-one builds</span>
-  <span>Strategic initiatives</span><span>Annual &amp; headcount planning</span>
-  <span>Executive partnership</span><span>Leadership presentations</span></div>
+  <div data-lens-only="ops">
+    <div class="cards">{cards}</div>
+    <div class="range"><span>Territory design</span><span>Zero-to-one builds</span>
+    <span>Strategic initiatives</span><span>Annual &amp; headcount planning</span>
+    <span>Executive partnership</span><span>Leadership presentations</span></div>
+  </div>
+  <div data-lens-only="ai" hidden>
+    <div class="cards">{cards_ai}</div>
+    <div class="range"><span>Production agents</span><span>Evals &amp; golden tests</span>
+    <span>Governed data layers</span><span>Agent workflow design</span>
+    <span>Python &amp; SQL</span><span>Self-serve enablement</span></div>
+  </div>
 </div></section>
 
 <section class="section" id="agents"><div class="wrap reveal">
