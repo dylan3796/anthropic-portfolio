@@ -41,7 +41,7 @@ A: The canonical model for how partner revenue is credited — sourced, influenc
 Source: Experience — Databricks
 
 Q: What incentive program did he launch?
-A: The partner org's first incentive program tied to new-logo acquisition — he designed the crediting and payout logic end to end. The crediting engine in his public repo is a rebuild of exactly this kind of program as tested software.
+A: The partner org's first incentive program tied to new-logo acquisition — he designed the crediting and payout logic end to end. The crediting engine in his public repo demonstrates the same class of problem, built from scratch on synthetic data.
 Source: Experience — Databricks
 
 Q: Does he have experience with quota setting and planning?
@@ -77,7 +77,7 @@ A: By making the team self-sufficient rather than dependent on him. The pattern:
 Source: Project — Claude Code as an Operating System
 
 Q: What is this repository?
-A: Claude Code as an Operating System — a working agent platform he built himself, in public. It's this function rebuilt as software: persistent memory, a governed data layer, long-horizon plans, invocable skills, and a retro loop that proposes edits to its own setup. The site you're reading is generated from it.
+A: Claude Code as an Operating System — a working agent platform he built himself, in public, from scratch on synthetic data: persistent memory, a governed data layer, long-horizon plans, invocable skills, and a retro loop that proposes edits to its own setup. The site you're reading is generated from it.
 Source: Project — public repo
 
 Q: What are the five layers of the agent operating system?

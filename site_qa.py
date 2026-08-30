@@ -123,7 +123,8 @@ FACTS = [
         k="incentive new logo acquisition payout commission comp program bonus spiff",
         a="The partner org's <strong>first incentive program tied to new-logo acquisition</strong> "
           "— he designed the crediting and payout logic end to end. The crediting engine in his "
-          "public repo is a rebuild of exactly this kind of program as tested software.",
+          "public repo demonstrates the same class of problem, built from scratch on synthetic "
+          "data.",
         src="Experience — Databricks",
     ),
     dict(
@@ -218,7 +219,7 @@ FACTS = [
         q="What is this repository?",
         k="repo github project portfolio claude code operating system built public",
         a="<strong>Claude Code as an Operating System</strong> — a working agent platform he "
-          "built himself, in public. It's this function rebuilt as software: persistent memory, "
+          "built himself, in public, from scratch on synthetic data: persistent memory, "
           "a governed data layer, long-horizon plans, invocable skills, and a retro loop that "
           "proposes edits to its own setup. The site you're reading is generated from it.",
         src="Project — public repo",
