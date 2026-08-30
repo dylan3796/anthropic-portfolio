@@ -500,9 +500,9 @@ def build_body():
 
 <section class="section alt" id="system"><div class="wrap reveal">
   <h2 class="sec-title">Built in the open</h2>
-  <p class="sec-lead">This repo demonstrates the same discipline from scratch, on synthetic
-  data — nothing proprietary: five layers, from governed data to a loop that runs the QBR on
-  the tooling itself.</p>
+  <p class="sec-lead">This repo demonstrates the same discipline, built from scratch on
+  synthetic data: five layers, from governed data to a loop that runs the QBR on the
+  tooling itself.</p>
   <div class="layers">{layers}</div>
   <div class="boundary"><p>This isn't a toy domain: incentive crediting is a class of problem
   I know from running it — and everything here is built from scratch on synthetic data.
