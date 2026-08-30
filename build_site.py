@@ -499,13 +499,13 @@ def build_body():
 </div></section>
 
 <section class="section alt" id="system"><div class="wrap reveal">
-  <h2 class="sec-title">Rebuilt in public</h2>
-  <p class="sec-lead">This repo is the same operating model, rebuilt in the open so you can
-  inspect it: five layers, from governed data to a loop that runs the QBR on the tooling
-  itself.</p>
+  <h2 class="sec-title">Built in the open</h2>
+  <p class="sec-lead">This repo demonstrates the same discipline from scratch, on synthetic
+  data — nothing proprietary: five layers, from governed data to a loop that runs the QBR on
+  the tooling itself.</p>
   <div class="layers">{layers}</div>
-  <div class="boundary"><p>This isn't a toy domain: the crediting engine models the kind of
-  partner-incentive program I launched at Databricks — the real job, rebuilt as tested software.
+  <div class="boundary"><p>This isn't a toy domain: incentive crediting is a class of problem
+  I know from running it — and everything here is built from scratch on synthetic data.
   The rule that makes AI safe in production: <strong>the model authors rules in plain English;
   deterministic, tested code computes anything that touches money.</strong> An eval suite pins
   the math — mid-quarter hires, territory handoffs, split credit, coverage gaps — so no model

@@ -271,8 +271,8 @@ PROGRAMS_AI = [
     ("The governed data layer",
      "A medallion architecture in Spark and SQL with one metric dictionary — the "
      "foundation every agent answers from."),
-    ("The crediting engine, built in public",
-     "A working rebuild of an incentive program's money path, open source in this "
-     "site's repo: a model authors plain-English crediting rules, a golden-tested "
-     "engine computes every dollar, and an eval suite pins the math."),
+    ("The crediting engine",
+     "A demonstration built from scratch on synthetic data: a model authors "
+     "plain-English crediting rules, a golden-tested engine computes every dollar, "
+     "and an eval suite pins the math."),
 ]
