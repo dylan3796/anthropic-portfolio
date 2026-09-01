@@ -108,8 +108,8 @@ def sync_resumes():
 # First words on the page, per lens — a founder arriving on ?lens=ai should
 # never read "GTM operations" before anything else.
 _LENS_EYEBROW = {
-    "ops": "GTM strategy & operations · annual planning",
-    "ai": "AI deployment · agent systems",
+    "ops": "Go-to-market strategy · operations",
+    "ai": "AI deployment · GTM engineering",
 }
 
 LENS = {
@@ -401,7 +401,7 @@ def build_body():
     d0 = LENS["ops"]
     return f"""
 <header class="hero"><div class="wrap">
-  <div class="eyebrow" data-lens-eyebrow>GTM strategy &amp; operations · annual planning</div>
+  <div class="eyebrow" data-lens-eyebrow>Go-to-market strategy · operations</div>
   <h1 class="hero-name">Dylan Ram</h1>
   <p class="hero-thesis">Systems at scale, across the whole revenue function.</p>
   <p class="hero-sub">Built out the foundation of Databricks' Partner Strategy &amp; Ops team:
