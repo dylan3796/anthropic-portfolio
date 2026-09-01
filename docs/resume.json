@@ -1,10 +1,10 @@
 {
  "basics": {
   "name": "Dylan Ram",
-  "label": "GTM Strategy & Operations \u00b7 Annual Planning \u00b7 Executive Partnership",
+  "label": "GTM Strategy & Operations \u00b7 AI Deployment",
   "email": "dylanmr96@gmail.com",
   "url": "https://dylanram.com/",
-  "summary": "The strategy-and-operations spine of a GTM org: a zero-to-one builder and one-to-100 scaler. As Databricks' first Partner Strategy & Ops hire, stood up the forecast, attribution, and first new-logo incentive programs from scratch, and ran annual planning across Sales, Finance, and Partner leadership: quotas, headcount, and coverage, top-down and bottoms-up. Runs the strategic initiatives that shape the partner book \u2014 which regional SIs to invest in, how partners are tiered \u2014 and writes the investment cases that fund them, presented at the most senior levels. Seven years of working relationships with GTM executives at Databricks, Salesforce, and CBRE \u2014 the access that gets the data in the room at all.",
+  "summary": "The strategy-and-operations spine of a GTM org \u2014 and the builder who deploys the AI on top. Built out the foundation of Databricks' Partner Strategy & Ops team as its first hire: forecasting, attribution, incentives, quotas, and planning, with LLM agents in production and a data foundation shaped with stakeholders. Runs the strategic initiatives that shape the partner book and writes the investment cases that fund them. Seven years with GTM executives at Databricks, Salesforce, and CBRE.",
   "profiles": [
    {
     "network": "LinkedIn",
@@ -24,16 +24,12 @@
    "summary": "Built the data-and-AI foundation and the forecast, attribution, and incentive systems the partner business runs on; deployed the team's first LLM agents; leads quota-setting across Sales, Finance, and Partner leadership.",
    "highlights": [
     "Built the partner team's revenue forecasting process from a blank page; its methodology and cadence remain the spine of the team's forecast years later.",
-    "Designed the canonical partner attribution model \u2014 the single source of truth for how sourced, influenced, and attributed revenue is credited across both sides of the marketplace.",
-    "Launched the partner org's incentive program tied to new-logo acquisition \u2014 crediting and payout logic designed end to end, still in force today.",
+    "Designed the canonical partner attribution model \u2014 the single source of truth for how revenue is credited across both sides of the marketplace.",
+    "Launched the partner org's incentive program tied to new-logo acquisition \u2014 crediting and payout logic end to end, still in force.",
     "Unblocked the partner channel as a revenue source: diagnosed stalling leads, wrote the rules of engagement, lead flow in days instead of weeks.",
-    "Led annual planning across Sales, Finance, and Partner leadership: quota-setting, headcount, and coverage design, top-down and bottoms-up.",
-    "Wrote the investment cases behind new programs and presented them to senior GTM leadership.",
-    "Shaped the partner program strategy \u2014 the Partner Value Score and tiering framework \u2014 earning global alignment and executive adoption.",
-    "Deployed the partner team's first LLM agents to production: reporting agents (Newsletter, FAQ), partner-recommendation agents for reps' deals, and natural-language partner-fit Q&A.",
-    "Set the team's AI strategy and built the data-and-AI foundation with stakeholders: agreeing what to ingest, formalizing it into the insights the team runs on, with self-serve interfaces on top.",
-    "Align KPIs across a two-sided marketplace \u2014 the partner team, the sales org co-selling through partners, and the partners themselves \u2014 the measurement backbone every AI output reports against.",
-    "Designed the partner attribution model (Salesforce/SQL/Spark) and built the team's first revenue forecasting process from scratch \u2014 the governed data the agents run on."
+    "Led annual planning across Sales, Finance, and Partner leadership: quota-setting, headcount, and coverage, top-down and bottoms-up \u2014 and wrote the investment cases presented to senior GTM leadership.",
+    "Deployed the team's first LLM agents to production: reporting agents (Newsletter, FAQ), partner-recommendation agents for reps' deals, and natural-language partner-fit Q&A.",
+    "Built the data-and-AI foundation with stakeholders \u2014 a medallion architecture in Spark/SQL, formalized into insights powering 10+ executive and team dashboards adopted company-wide."
    ]
   },
   {
@@ -44,10 +40,7 @@
    "highlights": [
     "Direct business partner to the $250M AMER SMB Central business, advising AVPs, VPs, and RMs across the org.",
     "Built the territory-carving model (Python) that encoded the org's guiding principles \u2014 the basis of the annual GTM plan.",
-    "Crafted the FY22 GTM guiding-principles analyses: customer continuity, account proximity, industry mix, top accounts, AE tenure.",
-    "Built the territory-carving Python script that encoded the org's guiding principles, personnel, and accounts \u2014 the engine behind the annual GTM plan.",
-    "Automated QBR decks, forecast-accuracy tracking, and territory data pulls with Python, APIs, and G Suite.",
-    "Led the business unit's Tableau migration and established data governance for the $250M AMER SMB Central business."
+    "Automated QBR decks, forecast-accuracy tracking, and territory data pulls; led the unit's Tableau migration and data governance."
    ]
   },
   {
@@ -57,8 +50,7 @@
    "summary": "Owned the product-analytics stack end to end \u2014 data warehouse, Python data collection, and client-facing Tableau dashboards.",
    "highlights": [
     "Owned the product-analytics stack end to end \u2014 data warehouse, Python data collection, and client-facing Tableau dashboards.",
-    "Streamlined the product-analytics process: defined key metrics, the dataset, and the flow to visualization.",
-    "Built Python web-scraping tools and managed the product data warehouse; shipped client-facing Tableau dashboards and streamlined the analytics pipeline end to end."
+    "Streamlined the product-analytics process: defined key metrics, the dataset, and the flow to visualization."
    ]
   }
  ],
@@ -70,57 +62,28 @@
  ],
  "skills": [
   {
-   "name": "Operations & strategy",
+   "name": "Strategy & operations",
    "keywords": [
-    "Operating cadence",
-    "annual & quota planning",
-    "OKRs",
-    "territory design",
-    "incentive/comp program design",
+    "Annual & quota planning",
+    "headcount & coverage",
+    "incentive/comp design",
     "revenue forecasting",
-    "executive & board reporting"
+    "territory design",
+    "executive reporting & investment cases"
    ]
   },
   {
-   "name": "Data & AI",
+   "name": "AI & engineering",
    "keywords": [
-    "SQL",
+    "LLM agents & workflow design",
+    "evals & golden tests",
+    "Claude Code",
     "Python (pandas)",
-    "PySpark",
-    "Tableau",
-    "Salesforce",
-    "revenue attribution",
-    "deployed AI agents",
-    "AI enablement (Claude Code)"
-   ]
-  },
-  {
-   "name": "AI & agents",
-   "keywords": [
-    "Claude Code (skills",
-    "hooks",
-    "subagents",
-    "MCP",
-    "scoped permissions)",
-    "agent & LLM workflow design",
-    "prompt engineering",
-    "evals & golden-test patterns",
-    "self-serve enablement",
-    "playbooks & standards"
-   ]
-  },
-  {
-   "name": "Data & engineering",
-   "keywords": [
-    "Python (pandas",
-    "NumPy)",
     "SQL",
     "PySpark",
-    "Tableau",
-    "Salesforce",
     "medallion architecture",
-    "KPI definition",
-    "Git/GitHub"
+    "Tableau",
+    "Salesforce"
    ]
   }
  ],

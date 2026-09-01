@@ -74,10 +74,8 @@ PDF_SRC = ROOT / "resume" / "output"
 PDF_DIR = ROOT / "docs" / "resumes"
 
 RESUME_FILES = {
-    "biz_ed": "dylan-ram-business-operations--editorial.pdf",
-    "biz_mo": "dylan-ram-business-operations--modern.pdf",
-    "ai_ed": "dylan-ram-ai-deployment--editorial.pdf",
-    "ai_mo": "dylan-ram-ai-deployment--modern.pdf",
+    "main": "dylan-ram--modern.pdf",
+    "ats": "dylan-ram--editorial.pdf",
 }
 RESUMES = {key: f"resumes/{name}" for key, name in RESUME_FILES.items()}
 
@@ -107,8 +105,6 @@ def sync_resumes():
               "keeping committed docs/resumes/ copies")
 
 # Career content comes from content.py (plain text) and is escaped here.
-_LENS_HREF = {"ops": RESUMES["biz_mo"], "ai": RESUMES["ai_mo"]}
-_LENS_ATS = {"ops": RESUMES["biz_ed"], "ai": RESUMES["ai_ed"]}
 # First words on the page, per lens — a founder arriving on ?lens=ai should
 # never read "GTM operations" before anything else.
 _LENS_EYEBROW = {
@@ -120,14 +116,6 @@ LENS = {
     key: {
         "copy": esc(C.LENSES[key]["site_copy"]),
         "eyebrow": _LENS_EYEBROW[key],
-        "href": _LENS_HREF[key],
-        "label": C.LENSES[key]["site_label"],
-        # the download card follows the lens, so the page never shows two
-        # identities at once — an ?lens= link reads as fully committed
-        "dlTitle": esc(C.LENSES[key]["site_label"]).replace(" résumé", ""),
-        "dlAts": _LENS_ATS[key],
-        "otherKey": "ai" if key == "ops" else "ops",
-        "otherLabel": esc(C.LENSES["ai" if key == "ops" else "ops"]["site_label"]),
     }
     for key in ("ops", "ai")
 }
@@ -350,11 +338,6 @@ JS_TAIL = """
 const buttons=document.querySelectorAll('.lens-btn');
 const eyebrow=document.querySelector('[data-lens-eyebrow]');
 const copy=document.querySelector('[data-lens-copy]');
-const btn=document.querySelector('[data-lens-resume]');
-const dlTitle=document.querySelector('[data-dl-title]');
-const dlPrimary=document.querySelector('[data-dl-primary]');
-const dlAts=document.querySelector('[data-dl-ats]');
-const dlSwitch=document.querySelector('[data-dl-switch]');
 function setLens(k){
   const d=LENS[k];
   eyebrow.textContent=d.eyebrow;
@@ -363,16 +346,8 @@ function setLens(k){
   copy.style.opacity=0;
   setTimeout(()=>{
     copy.innerHTML=d.copy;
-    btn.setAttribute('href',d.href);
-    btn.querySelector('.lbl').textContent=d.label;
     copy.style.opacity=1;
   },160);
-  // the download card follows the lens, so the page never shows two identities
-  dlTitle.textContent=d.dlTitle;
-  dlPrimary.setAttribute('href',d.href);
-  dlAts.setAttribute('href',d.dlAts);
-  dlSwitch.textContent=d.otherLabel+' →';
-  dlSwitch.dataset.target=d.otherKey;
   buttons.forEach(b=>{const on=b.dataset.lens===k;
     b.classList.toggle('is-active',on);b.setAttribute('aria-selected',on);});
 }
@@ -381,11 +356,6 @@ buttons.forEach(b=>b.addEventListener('click',()=>{
   const u=new URL(location);u.searchParams.set('lens',b.dataset.lens);
   history.replaceState(null,'',u);
 }));
-// the quiet "other side" link scrolls back to the toggle so the switch is visible
-dlSwitch.addEventListener('click',()=>{
-  setLens(dlSwitch.dataset.target||'ai');
-  document.getElementById('resumes').scrollIntoView({block:'start'});
-});
 // shareable per-application links: ?lens=ai preselects the toggle
 const lensParam=new URLSearchParams(location.search).get('lens');
 if(lensParam==='ai'||lensParam==='ops')setLens(lensParam);
@@ -416,18 +386,14 @@ def build_body():
         + f'<div class="tl-desc">{desc}</div></div></div>'
         for when, co, role, note, desc in EXPERIENCE
     )
-    # One card, following the lens. Showing both at once made the page read as
-    # undecided — the last thing a visitor saw was "I'm two people, you pick."
-    _d = LENS["ops"]
+    # One résumé, one identity. The lens retells the page; the PDF is singular.
     dl = f"""
-      <div class="dl-card" data-dl-card>
-        <h3 data-dl-title>{_d['dlTitle']}</h3>
-        <a class="dl-primary" data-dl-primary href="{_d['href']}">Download résumé <span class="arr">↓</span></a>
-        <a class="dl-sec" data-dl-ats href="{_d['dlAts']}">or the ATS-safe version</a>
+      <div class="dl-card">
+        <h3>Dylan Ram</h3>
+        <a class="dl-primary" href="{RESUMES['main']}">Download résumé <span class="arr">↓</span></a>
+        <a class="dl-sec" href="{RESUMES['ats']}">or the ATS-safe version</a>
       </div>"""
-    dl_other = (f'<p class="dl-other">Hiring for the other side? '
-                f'<button type="button" class="dl-switch" data-dl-switch>'
-                f'{_d["otherLabel"]} →</button></p>')
+    dl_other = ""
     contact = "".join(
         f'<a href="{u}"><span class="c-k">{k}</span><span class="c-v">{v}</span></a>'
         for k, v, u in CONTACT
@@ -450,8 +416,8 @@ def build_body():
     <div class="lens-card">
       <p class="lens-copy" data-lens-copy>{d0['copy']}</p>
       <div class="lens-actions">
-        <a class="btn" data-lens-resume href="{d0['href']}">
-          <span class="lbl">{d0['label']}</span><span class="arr">↓ PDF</span></a>
+        <a class="btn" href="{RESUMES['main']}">
+          <span class="lbl">Résumé</span><span class="arr">↓ PDF</span></a>
       </div>
     </div>
     <p class="lens-proof">This page runs its own eval suite: every answer it gives is
@@ -521,9 +487,9 @@ def build_body():
 </div></section>
 
 <section class="section" id="resumes"><div class="wrap reveal">
-  <h2 class="sec-title">Take a résumé</h2>
-  <p class="sec-lead">Matched to the lens you picked above. The ATS-safe version is
-  single-column for application portals; the default is designed for reading.</p>
+  <h2 class="sec-title">Take the résumé</h2>
+  <p class="sec-lead">One résumé, the whole record. The ATS-safe version is single-column
+  for application portals; the default is designed for reading.</p>
   <div class="dl-grid">{dl}</div>
   {dl_other}
   <p class="aside">The stories behind these systems are better told live.</p>
@@ -616,10 +582,10 @@ def build():
     resume_json = {
         "basics": {
             "name": C.NAME,
-            "label": C.LENSES["ops"]["tagline"],
+            "label": C.RESUME["tagline"],
             "email": C.EMAIL,
             "url": f"{base}/",
-            "summary": C.LENSES["ops"]["summary"],
+            "summary": C.RESUME["summary"],
             "profiles": [
                 {"network": "LinkedIn", "url": f"https://{C.LINKEDIN}"},
                 {"network": "GitHub", "url": f"https://github.com/{C.GITHUB_USER}"},
@@ -629,14 +595,14 @@ def build():
             {
                 "name": j["company"], "position": j["role"], "dates": j["dates"],
                 "summary": j["site_desc"],
-                "highlights": j["bullets"]["ops"] + j["bullets"]["ai"],
+                "highlights": j["bullets"]["one"],
             }
             for j in C.JOBS
         ],
         "education": [{"institution": C.EDUCATION_SCHOOL, "area": C.EDUCATION_DEGREE}],
         "skills": [
             {"name": name, "keywords": [kw.strip() for kw in details.split(",")]}
-            for lens in ("ops", "ai") for name, details in C.LENSES[lens]["skills"]
+            for name, details in C.RESUME["skills"]
         ],
         "projects": [{"name": t, "description": d} for t, d in C.PROGRAMS + C.PROGRAMS_AI],
         "meta": {"canonical": f"{base}/resume.json", "llms": f"{base}/llms.txt",

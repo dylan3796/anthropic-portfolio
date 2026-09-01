@@ -92,8 +92,8 @@ FACTS = [
         k="target job search open to interested position fit hiring seeking",
         a="Two lenses on the same track record. <strong>Business Operations</strong> — BizOps "
           "lead, Chief of Staff, Partner &amp; Revenue Ops. <strong>AI Deployment</strong> — "
-          "Applied AI, AI Ops, AI Strategy &amp; Enablement. There's a résumé tailored to each "
-          "in the section below.",
+          "Applied AI, GTM Engineering, AI Strategy &amp; Enablement. One résumé covers "
+          "both; the site tells the record both ways.",
         src="Site — Take a résumé",
     ),
 
@@ -452,8 +452,8 @@ FACTS = [
         id="resume",
         q="Can I get his résumé?",
         k="resume cv pdf download copy document",
-        a="Yes — scroll to <strong>Take a résumé</strong> below. Two lenses (Business Operations "
-          "and AI Deployment), each in an ATS-safe single-column version and a two-column "
+        a="Yes — scroll to <strong>Take a résumé</strong> below. One résumé, the whole record, "
+          "in two formats: an ATS-safe single-column version for portals, and a designed "
           "version for reading directly.",
         src="Site — Take a résumé",
     ),

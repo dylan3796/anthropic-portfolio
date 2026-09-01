@@ -148,6 +148,26 @@ JOBS = [
             "leads quota-setting across Sales, Finance, and Partner leadership."
         ),
         "bullets": {
+            "one": [
+                "Built the partner team's revenue forecasting process from a blank page; "
+                "its methodology and cadence remain the spine of the team's forecast "
+                "years later.",
+                "Designed the canonical partner attribution model — the single source of "
+                "truth for how revenue is credited across both sides of the marketplace.",
+                "Launched the partner org's incentive program tied to new-logo "
+                "acquisition — crediting and payout logic end to end, still in force.",
+                "Unblocked the partner channel as a revenue source: diagnosed stalling "
+                "leads, wrote the rules of engagement, lead flow in days instead of weeks.",
+                "Led annual planning across Sales, Finance, and Partner leadership: "
+                "quota-setting, headcount, and coverage, top-down and bottoms-up — and "
+                "wrote the investment cases presented to senior GTM leadership.",
+                "Deployed the team's first LLM agents to production: reporting agents "
+                "(Newsletter, FAQ), partner-recommendation agents for reps' deals, and "
+                "natural-language partner-fit Q&A.",
+                "Built the data-and-AI foundation with stakeholders — a medallion "
+                "architecture in Spark/SQL, formalized into insights powering 10+ "
+                "executive and team dashboards adopted company-wide.",
+            ],
             "ai": [
                 "Deployed the partner team's first LLM agents to production: reporting "
                 "agents (Newsletter, FAQ), partner-recommendation agents for reps' deals, "
@@ -196,6 +216,14 @@ JOBS = [
             "$250M AMER SMB business."
         ),
         "bullets": {
+            "one": [
+                "Direct business partner to the $250M AMER SMB Central business, "
+                "advising AVPs, VPs, and RMs across the org.",
+                "Built the territory-carving model (Python) that encoded the org's "
+                "guiding principles — the basis of the annual GTM plan.",
+                "Automated QBR decks, forecast-accuracy tracking, and territory data "
+                "pulls; led the unit's Tableau migration and data governance.",
+            ],
             "ai": [
                 "Built the territory-carving Python script that encoded the org's guiding "
                 "principles, personnel, and accounts — the engine behind the annual GTM plan.",
@@ -226,6 +254,12 @@ JOBS = [
             "collection, and client-facing Tableau dashboards."
         ),
         "bullets": {
+            "one": [
+                "Owned the product-analytics stack end to end — data warehouse, Python "
+                "data collection, and client-facing Tableau dashboards.",
+                "Streamlined the product-analytics process: defined key metrics, the "
+                "dataset, and the flow to visualization.",
+            ],
             "ai": [
                 "Built Python web-scraping tools and managed the product data warehouse; "
                 "shipped client-facing Tableau dashboards and streamlined the analytics "
@@ -274,3 +308,37 @@ PROGRAMS_AI = [
      "The discipline, demonstrated from scratch: AI authors the rules, tested code "
      "owns every dollar."),
 ]
+
+# The one résumé. Two formats of the same content (designed + ATS-safe), one
+# identity — the site's lens toggle retells the page, not the PDF.
+RESUME = {
+    "resume_stem": "dylan-ram",
+    "tagline": "GTM Strategy & Operations · AI Deployment",
+    "summary": (
+        "The strategy-and-operations spine of a GTM org — and the builder who deploys "
+        "the AI on top. Built out the foundation of Databricks' Partner Strategy & Ops "
+        "team as its first hire: forecasting, attribution, incentives, quotas, and "
+        "planning, with LLM agents in production and a data foundation shaped with "
+        "stakeholders. Runs the strategic initiatives that shape the partner book and "
+        "writes the investment cases that fund them. Seven years with GTM executives "
+        "at Databricks, Salesforce, and CBRE."
+    ),
+    "skills": [
+        ("Strategy & operations", "Annual & quota planning, headcount & coverage, "
+         "incentive/comp design, revenue forecasting, territory design, executive "
+         "reporting & investment cases"),
+        ("AI & engineering", "LLM agents & workflow design, evals & golden tests, "
+         "Claude Code, Python (pandas), SQL, PySpark, medallion architecture, "
+         "Tableau, Salesforce"),
+    ],
+    "project_title": "Claude Code as an Operating System — a self-built agent platform "
+                     "(public repo)",
+    "project_bullets": [
+        "Architected a five-layer agent operating system: persistent memory, "
+        "session-boot data hooks, long-horizon plans, invocable skills, and a retro "
+        "loop that proposes edits to its own setup.",
+        "Drew the AI/deterministic boundary for commissions crediting: an agent "
+        "authors plain-English rules; a golden-tested Python engine computes every "
+        "dollar — no LLM ever touches the money.",
+    ],
+}

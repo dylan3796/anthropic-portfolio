@@ -58,9 +58,8 @@ EDUCATION_SCHOOL = esc(C.EDUCATION_SCHOOL)
 EDUCATION_DEGREE = esc(C.EDUCATION_DEGREE)
 
 
-def _variant(lens):
+def _variant(L, bullets_key):
     """Assemble one render-ready (pre-escaped) variant from content.py."""
-    L = C.LENSES[lens]
     return {
         "tagline": esc(L["tagline"]),
         "summary": esc(L["summary"]),
@@ -71,7 +70,7 @@ def _variant(lens):
                 "role": esc(j["role"]),
                 "note": esc(j["resume_note"]),
                 "dates": esc(j["dates"]),
-                "bullets": [esc(b) for b in j["bullets"][lens]],
+                "bullets": [esc(b) for b in j["bullets"][bullets_key]],
             }
             for j in C.JOBS
         ],
@@ -80,7 +79,9 @@ def _variant(lens):
     }
 
 
-VARIANTS = {C.LENSES[lens]["resume_stem"]: _variant(lens) for lens in ("ai", "ops")}
+# One résumé now — the unified record, in both layouts. The per-lens variants
+# still build from LENSES if ever needed; the shipped set is C.RESUME alone.
+VARIANTS = {C.RESUME["resume_stem"]: _variant(C.RESUME, "one")}
 
 # ---------------------------------------------------------------------------
 # Shared bits
