@@ -34,7 +34,7 @@ BLOB = f"{REPO}/blob/{BRANCH}"
 # (e.g. "dylanram.com"), the build writes docs/CNAME — which is what actually
 # configures Pages, since docs/ is the publishing source — plus canonical and
 # og:url tags. Cutover runbook: DOMAIN-SETUP.md.
-DOMAIN = ""
+DOMAIN = "dylanram.com"
 
 # The ask-box section. Off for now at Dylan's call — the offline search box
 # read as a gimmick next to the rest of the page. Flip to True to bring it

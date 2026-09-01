@@ -4,4 +4,4 @@ Allow: /
 # AI agents and recruiting crawlers: /llms.txt is a structured dossier of
 # this candidate's record; /resume.json is the same record machine-readable.
 
-Sitemap: https://dylan3796.github.io/sitemap.xml
+Sitemap: https://dylanram.com/sitemap.xml
