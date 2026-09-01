@@ -26,12 +26,12 @@
     "Built the partner team's revenue forecasting process from a blank page; its methodology and cadence remain the spine of the team's forecast years later.",
     "Designed the canonical partner attribution model \u2014 the single source of truth for how sourced, influenced, and attributed revenue is credited across both sides of the marketplace.",
     "Launched the partner org's incentive program tied to new-logo acquisition \u2014 crediting and payout logic designed end to end, still in force today.",
-    "Diagnosed why partner leads were stalling, wrote the org's lead rules of engagement, and cut routing time from weeks to days.",
+    "Unblocked the partner channel as a revenue source: diagnosed stalling leads, wrote the rules of engagement, lead flow in days instead of weeks.",
     "Led annual planning across Sales, Finance, and Partner leadership: quota-setting, headcount, and coverage design, top-down and bottoms-up.",
     "Wrote the investment cases behind new programs and presented them to senior GTM leadership.",
     "Shaped the partner program strategy \u2014 the Partner Value Score and tiering framework \u2014 earning global alignment and executive adoption.",
     "Deployed the partner team's first LLM agents to production: reporting agents (Newsletter, FAQ), partner-recommendation agents for reps' deals, and natural-language partner-fit Q&A.",
-    "Set the team's AI strategy and built the foundational data-and-AI layer \u2014 a medallion architecture in Spark/SQL with self-serve interfaces so stakeholders answer their own questions.",
+    "Set the team's AI strategy and built the data-and-AI foundation with stakeholders: agreeing what to ingest, formalizing it into the insights the team runs on, with self-serve interfaces on top.",
     "Align KPIs across a two-sided marketplace \u2014 the partner team, the sales org co-selling through partners, and the partners themselves \u2014 the measurement backbone every AI output reports against.",
     "Designed the partner attribution model (Salesforce/SQL/Spark) and built the team's first revenue forecasting process from scratch \u2014 the governed data the agents run on."
    ]
@@ -127,35 +127,35 @@
  "projects": [
   {
    "name": "The forecast",
-   "description": "Built from a blank page: methodology and cadence designed end to end, and still the operating rhythm the team runs today."
+   "description": "Gave the partner business a number it could plan against. Still the number the org runs on today."
   },
   {
    "name": "The attribution model",
-   "description": "The canonical, single source of truth for how sourced, influenced, and attributed revenue is credited across the marketplace \u2014 still the standard today."
+   "description": "Settled how partner revenue gets counted: one standard the whole marketplace aligns to, still in force."
   },
   {
    "name": "The new-logo incentive",
-   "description": "Launched the partner org's incentive program tied to new-logo acquisition \u2014 crediting and payout logic built from scratch, still in force."
+   "description": "Turned partner incentives into a growth lever for new business. Still running."
   },
   {
    "name": "The rules of engagement",
-   "description": "Traced stalled partner leads to a missing layer of rules of engagement and wrote them \u2014 leads that sat for weeks route in days, and the rules still stand."
+   "description": "Unblocked the partner channel as a revenue source: lead flow that moves in days, not weeks."
   },
   {
    "name": "The production agents",
-   "description": "Newsletter and FAQ agents shipped to production \u2014 answering partner-metric questions and pushing updates automatically, still running today."
+   "description": "Put partner reporting on autopilot: agents that keep the org current without anyone pulling a report."
   },
   {
    "name": "The recommendation layer",
-   "description": "Agents that suggest the right partner for a rep's deal, and natural-language Q&A over which partners fit a use case, deal, or account."
+   "description": "Points sellers to the right partner for the deal in front of them, in plain language."
   },
   {
    "name": "The governed data layer",
-   "description": "A medallion architecture in Spark and SQL with one metric dictionary \u2014 the foundation every agent answers from."
+   "description": "Made the data worth building on: one foundation, shaped with stakeholders, that every agent and insight runs from."
   },
   {
    "name": "The crediting engine",
-   "description": "A demonstration built from scratch on synthetic data: a model authors plain-English crediting rules, a golden-tested engine computes every dollar, and an eval suite pins the math."
+   "description": "The discipline, demonstrated from scratch: AI authors the rules, tested code owns every dollar."
   }
  ],
  "meta": {

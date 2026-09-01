@@ -197,9 +197,9 @@ FACTS = [
         q="What is the foundational data layer?",
         k="medallion spark sql architecture warehouse governed pipeline bronze silver gold self serve",
         a="A <strong>medallion architecture in Spark/SQL</strong> with self-serve interfaces on "
-          "top. His view is that this comes first: agents are only as trustworthy as the data "
-          "underneath them, so the governed layer is the prerequisite for the AI, not an "
-          "afterthought.",
+          "top — built and maintained <strong>with stakeholders</strong>: agreeing what data to "
+          "ingest, then formalizing it into the insights the team runs on. His view is that this "
+          "comes first: agents are only as trustworthy as the data underneath them.",
         src="Experience — Databricks",
     ),
     dict(
@@ -458,34 +458,15 @@ FACTS = [
         src="Site — Take a résumé",
     ),
     dict(
-        id="first-90-days",
-        q="What would his first 90 days look like at an early-stage company?",
-        k="90 ninety days first-90 plan playbook early stage startup small company "
-          "founding join joining start onboarding ramp-up",
-        a="A four-phase arc he has already run at Databricks scale. <strong>Days 1–14: "
-          "listen and count.</strong> Sit in on calls, read every won and lost deal, "
-          "write one page on how revenue actually happens versus how everyone says it "
-          "happens. <strong>Days 15–30: make the money legible.</strong> One source of "
-          "truth for pipeline, spreadsheet before software, a first forecast with stated "
-          "confidence. <strong>Days 31–60: fix the one bleeding process.</strong> Find "
-          "where leads stall and write the first rules of engagement: an owner and a "
-          "clock on every lead. <strong>Days 61–90: install the rhythm.</strong> A "
-          "forecast cadence and a review that ends in decisions. Every phase cites "
-          "precedent: he established Databricks' partner forecast where no cadence "
-          "existed, and wrote its first partner lead rules of engagement.",
-        src="Experience — Databricks, compressed to a founding playbook",
-    ),
-    dict(
         id="lead-rescue",
         q="Tell me about a judgment call — diagnosing a messy problem.",
         k="leads stuck stalled routing rules engagement roe diagnose diagnosis root "
           "cause judgment messy ambiguous problem fix",
         a="Partner-sourced leads were dying quietly and nobody could say why. He traced "
           "it to a missing layer: <strong>no rules of engagement</strong>, so leads had "
-          "no owner and no clock and stalled between teams. He wrote the partner org's "
-          "<strong>first lead rules of engagement</strong>, and leads that had sat for "
-          "weeks began routing in days. Symptom to root cause to rule to fixed, on data "
-          "that couldn't answer the question by itself.",
+          "no owner and no clock and stalled between teams. He wrote the rules, and "
+          "<strong>the partner channel unblocked as a revenue source</strong> — lead "
+          "flow that moves in days, not weeks.",
         src="Experience — Databricks",
     ),
     dict(

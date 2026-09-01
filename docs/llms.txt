@@ -69,7 +69,7 @@ A: He owns the team's AI agenda — setting the strategy and building the founda
 Source: Experience — Databricks
 
 Q: What is the foundational data layer?
-A: A medallion architecture in Spark/SQL with self-serve interfaces on top. His view is that this comes first: agents are only as trustworthy as the data underneath them, so the governed layer is the prerequisite for the AI, not an afterthought.
+A: A medallion architecture in Spark/SQL with self-serve interfaces on top — built and maintained with stakeholders: agreeing what data to ingest, then formalizing it into the insights the team runs on. His view is that this comes first: agents are only as trustworthy as the data underneath them.
 Source: Experience — Databricks
 
 Q: How does he drive AI adoption on a team?
@@ -164,12 +164,8 @@ Q: Can I get his résumé?
 A: Yes — scroll to Take a résumé below. Two lenses (Business Operations and AI Deployment), each in an ATS-safe single-column version and a two-column version for reading directly.
 Source: Site — Take a résumé
 
-Q: What would his first 90 days look like at an early-stage company?
-A: A four-phase arc he has already run at Databricks scale. Days 1–14: listen and count. Sit in on calls, read every won and lost deal, write one page on how revenue actually happens versus how everyone says it happens. Days 15–30: make the money legible. One source of truth for pipeline, spreadsheet before software, a first forecast with stated confidence. Days 31–60: fix the one bleeding process. Find where leads stall and write the first rules of engagement: an owner and a clock on every lead. Days 61–90: install the rhythm. A forecast cadence and a review that ends in decisions. Every phase cites precedent: he established Databricks' partner forecast where no cadence existed, and wrote its first partner lead rules of engagement.
-Source: Experience — Databricks, compressed to a founding playbook
-
 Q: Tell me about a judgment call — diagnosing a messy problem.
-A: Partner-sourced leads were dying quietly and nobody could say why. He traced it to a missing layer: no rules of engagement, so leads had no owner and no clock and stalled between teams. He wrote the partner org's first lead rules of engagement, and leads that had sat for weeks began routing in days. Symptom to root cause to rule to fixed, on data that couldn't answer the question by itself.
+A: Partner-sourced leads were dying quietly and nobody could say why. He traced it to a missing layer: no rules of engagement, so leads had no owner and no clock and stalled between teams. He wrote the rules, and the partner channel unblocked as a revenue source — lead flow that moves in days, not weeks.
 Source: Experience — Databricks
 
 Q: Has he done annual planning — quotas, headcount, budgets?

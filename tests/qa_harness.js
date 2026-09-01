@@ -96,8 +96,6 @@ const CASES = [
   ['has he presented to executives', 'investment cases'],
   ['how does he get stakeholder buy in', 'access and trust'],
   // founder-lens facts — first-90-days, lead-rescue, durability
-  ['what would your first 90 days look like', 'listen and count'],
-  ['how would he ramp at an early stage startup', 'listen and count'],
   ['tell me about a messy problem he diagnosed', 'rules of engagement'],
   ['what happened with the stuck partner leads', 'rules of engagement'],
   ['do the systems he builds last', 'remains the spine'],

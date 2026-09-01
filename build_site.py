@@ -437,10 +437,10 @@ def build_body():
 <header class="hero"><div class="wrap">
   <div class="eyebrow" data-lens-eyebrow>GTM strategy &amp; operations · annual planning</div>
   <h1 class="hero-name">Dylan Ram</h1>
-  <p class="hero-thesis">Zero to one, then one to 100.</p>
-  <p class="hero-sub">First Partner Strategy &amp; Ops hire at Databricks. Forecast, attribution,
-  incentives, quotas, annual planning, partner investment strategy: stood up from zero, scaled
-  across the org, with AI agents deployed on top.</p>
+  <p class="hero-thesis">Systems at scale, across the whole revenue function.</p>
+  <p class="hero-sub">Built out the foundation of Databricks' Partner Strategy &amp; Ops team:
+  forecasting, attribution, incentives, quotas, planning — and AI deployed on top of
+  all of it.</p>
   <div class="lens">
     <div class="lens-label">// the work, two ways</div>
     <div class="lens-toggle" role="tablist" aria-label="Choose a lens">
@@ -526,6 +526,7 @@ def build_body():
   single-column for application portals; the default is designed for reading.</p>
   <div class="dl-grid">{dl}</div>
   {dl_other}
+  <p class="aside">The stories behind these systems are better told live.</p>
   <div class="contact">{contact}</div>
 </div></section>
 
