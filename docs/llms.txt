@@ -29,7 +29,7 @@ A: Email dylanmr96@gmail.com, or find him at linkedin.com/in/dylanram and github
 Source: Contact
 
 Q: What kind of roles is he looking for?
-A: Two lenses on the same track record. Business Operations — BizOps lead, Chief of Staff, Partner & Revenue Ops. AI Deployment — Applied AI, AI Ops, AI Strategy & Enablement. There's a résumé tailored to each in the section below.
+A: Two lenses on the same track record. Business Operations — BizOps lead, Chief of Staff, Partner & Revenue Ops. AI Deployment — Applied AI, GTM Engineering, AI Strategy & Enablement. One résumé covers both; the site tells the record both ways.
 Source: Site — Take a résumé
 
 Q: What did he build for revenue forecasting?
@@ -161,7 +161,7 @@ A: No — and that's deliberate. This box is grounded retrieval over a curated c
 Source: site_qa.py — in the repo
 
 Q: Can I get his résumé?
-A: Yes — scroll to Take a résumé below. Two lenses (Business Operations and AI Deployment), each in an ATS-safe single-column version and a two-column version for reading directly.
+A: Yes — scroll to Take a résumé below. One résumé, the whole record, in two formats: an ATS-safe single-column version for portals, and a designed version for reading directly.
 Source: Site — Take a résumé
 
 Q: Tell me about a judgment call — diagnosing a messy problem.
