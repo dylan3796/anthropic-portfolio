@@ -605,8 +605,43 @@ def build():
     (ROOT / "docs" / "llms.txt").write_text(site_qa.llms_txt())
     # crawler plumbing so the personal-name search finds and trusts the page
     (ROOT / "docs" / "robots.txt").write_text(
-        f"User-agent: *\nAllow: /\n\nSitemap: {base}/sitemap.xml\n"
+        "User-agent: *\nAllow: /\n\n"
+        "# AI agents and recruiting crawlers: /llms.txt is a structured dossier of\n"
+        "# this candidate's record; /resume.json is the same record machine-readable.\n"
+        f"\nSitemap: {base}/sitemap.xml\n"
     )
+    # JSON Resume-style feed for agentic recruiters: the same facts content.py
+    # feeds everything else, no more and no less. Phone deliberately omitted.
+    resume_json = {
+        "basics": {
+            "name": C.NAME,
+            "label": C.LENSES["ops"]["tagline"],
+            "email": C.EMAIL,
+            "url": f"{base}/",
+            "summary": C.LENSES["ops"]["summary"],
+            "profiles": [
+                {"network": "LinkedIn", "url": f"https://{C.LINKEDIN}"},
+                {"network": "GitHub", "url": f"https://github.com/{C.GITHUB_USER}"},
+            ],
+        },
+        "work": [
+            {
+                "name": j["company"], "position": j["role"], "dates": j["dates"],
+                "summary": j["site_desc"],
+                "highlights": j["bullets"]["ops"] + j["bullets"]["ai"],
+            }
+            for j in C.JOBS
+        ],
+        "education": [{"institution": C.EDUCATION_SCHOOL, "area": C.EDUCATION_DEGREE}],
+        "skills": [
+            {"name": name, "keywords": [kw.strip() for kw in details.split(",")]}
+            for lens in ("ops", "ai") for name, details in C.LENSES[lens]["skills"]
+        ],
+        "projects": [{"name": t, "description": d} for t, d in C.PROGRAMS + C.PROGRAMS_AI],
+        "meta": {"canonical": f"{base}/resume.json", "llms": f"{base}/llms.txt",
+                 "resumes": f"{base}/resumes/"},
+    }
+    (ROOT / "docs" / "resume.json").write_text(json.dumps(resume_json, indent=1))
     (ROOT / "docs" / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

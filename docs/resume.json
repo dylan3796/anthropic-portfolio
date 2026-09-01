@@ -1,0 +1,166 @@
+{
+ "basics": {
+  "name": "Dylan Ram",
+  "label": "GTM Strategy & Operations \u00b7 Annual Planning \u00b7 Executive Partnership",
+  "email": "dylanmr96@gmail.com",
+  "url": "https://dylan3796.github.io/",
+  "summary": "The strategy-and-operations spine of a GTM org: a zero-to-one builder and one-to-100 scaler. As Databricks' first Partner Strategy & Ops hire, stood up the forecast, attribution, and first new-logo incentive programs from scratch, and ran annual planning across Sales, Finance, and Partner leadership: quotas, headcount, and coverage, top-down and bottoms-up. Runs the strategic initiatives that shape the partner book \u2014 which regional SIs to invest in, how partners are tiered \u2014 and writes the investment cases that fund them, presented at the most senior levels. Seven years of working relationships with GTM executives at Databricks, Salesforce, and CBRE \u2014 the access that gets the data in the room at all.",
+  "profiles": [
+   {
+    "network": "LinkedIn",
+    "url": "https://linkedin.com/in/dylanram"
+   },
+   {
+    "network": "GitHub",
+    "url": "https://github.com/dylan3796"
+   }
+  ]
+ },
+ "work": [
+  {
+   "name": "Databricks",
+   "position": "Partner Strategy & Ops Manager",
+   "dates": "Aug 2021 \u2013 Present",
+   "summary": "Built the data-and-AI foundation and the forecast, attribution, and incentive systems the partner business runs on; deployed the team's first LLM agents; leads quota-setting across Sales, Finance, and Partner leadership.",
+   "highlights": [
+    "Built the partner team's revenue forecasting process from a blank page; its methodology and cadence remain the spine of the team's forecast years later.",
+    "Designed the canonical partner attribution model \u2014 the single source of truth for how sourced, influenced, and attributed revenue is credited across both sides of the marketplace.",
+    "Launched the partner org's incentive program tied to new-logo acquisition \u2014 crediting and payout logic designed end to end, still in force today.",
+    "Diagnosed why partner leads were stalling, wrote the org's lead rules of engagement, and cut routing time from weeks to days.",
+    "Led annual planning across Sales, Finance, and Partner leadership: quota-setting, headcount, and coverage design, top-down and bottoms-up.",
+    "Wrote the investment cases behind new programs and presented them to senior GTM leadership.",
+    "Shaped the partner program strategy \u2014 the Partner Value Score and tiering framework \u2014 earning global alignment and executive adoption.",
+    "Deployed the partner team's first LLM agents to production: reporting agents (Newsletter, FAQ), partner-recommendation agents for reps' deals, and natural-language partner-fit Q&A.",
+    "Set the team's AI strategy and built the foundational data-and-AI layer \u2014 a medallion architecture in Spark/SQL with self-serve interfaces so stakeholders answer their own questions.",
+    "Align KPIs across a two-sided marketplace \u2014 the partner team, the sales org co-selling through partners, and the partners themselves \u2014 the measurement backbone every AI output reports against.",
+    "Designed the partner attribution model (Salesforce/SQL/Spark) and built the team's first revenue forecasting process from scratch \u2014 the governed data the agents run on."
+   ]
+  },
+  {
+   "name": "Salesforce",
+   "position": "SMB Sales Strategy & Operations Analyst",
+   "dates": "Jul 2019 \u2013 Aug 2021",
+   "summary": "Built the territory-carving model behind the annual GTM plan, automated QBR and forecast-accuracy tooling, and was the direct analytics partner to a $250M AMER SMB business.",
+   "highlights": [
+    "Direct business partner to the $250M AMER SMB Central business, advising AVPs, VPs, and RMs across the org.",
+    "Built the territory-carving model (Python) that encoded the org's guiding principles \u2014 the basis of the annual GTM plan.",
+    "Crafted the FY22 GTM guiding-principles analyses: customer continuity, account proximity, industry mix, top accounts, AE tenure.",
+    "Built the territory-carving Python script that encoded the org's guiding principles, personnel, and accounts \u2014 the engine behind the annual GTM plan.",
+    "Automated QBR decks, forecast-accuracy tracking, and territory data pulls with Python, APIs, and G Suite.",
+    "Led the business unit's Tableau migration and established data governance for the $250M AMER SMB Central business."
+   ]
+  },
+  {
+   "name": "CBRE",
+   "position": "Business Data Analyst",
+   "dates": "Sep 2018 \u2013 Jul 2019",
+   "summary": "Owned the product-analytics stack end to end \u2014 data warehouse, Python data collection, and client-facing Tableau dashboards.",
+   "highlights": [
+    "Owned the product-analytics stack end to end \u2014 data warehouse, Python data collection, and client-facing Tableau dashboards.",
+    "Streamlined the product-analytics process: defined key metrics, the dataset, and the flow to visualization.",
+    "Built Python web-scraping tools and managed the product data warehouse; shipped client-facing Tableau dashboards and streamlined the analytics pipeline end to end."
+   ]
+  }
+ ],
+ "education": [
+  {
+   "institution": "University of California, Santa Barbara",
+   "area": "B.A. Economics & Accounting \u00b7 Dean's Honors"
+  }
+ ],
+ "skills": [
+  {
+   "name": "Operations & strategy",
+   "keywords": [
+    "Operating cadence",
+    "annual & quota planning",
+    "OKRs",
+    "territory design",
+    "incentive/comp program design",
+    "revenue forecasting",
+    "executive & board reporting"
+   ]
+  },
+  {
+   "name": "Data & AI",
+   "keywords": [
+    "SQL",
+    "Python (pandas)",
+    "PySpark",
+    "Tableau",
+    "Salesforce",
+    "revenue attribution",
+    "deployed AI agents",
+    "AI enablement (Claude Code)"
+   ]
+  },
+  {
+   "name": "AI & agents",
+   "keywords": [
+    "Claude Code (skills",
+    "hooks",
+    "subagents",
+    "MCP",
+    "scoped permissions)",
+    "agent & LLM workflow design",
+    "prompt engineering",
+    "evals & golden-test patterns",
+    "self-serve enablement",
+    "playbooks & standards"
+   ]
+  },
+  {
+   "name": "Data & engineering",
+   "keywords": [
+    "Python (pandas",
+    "NumPy)",
+    "SQL",
+    "PySpark",
+    "Tableau",
+    "Salesforce",
+    "medallion architecture",
+    "KPI definition",
+    "Git/GitHub"
+   ]
+  }
+ ],
+ "projects": [
+  {
+   "name": "The forecast",
+   "description": "Built from a blank page: methodology and cadence designed end to end, and still the operating rhythm the team runs today."
+  },
+  {
+   "name": "The attribution model",
+   "description": "The canonical, single source of truth for how sourced, influenced, and attributed revenue is credited across the marketplace \u2014 still the standard today."
+  },
+  {
+   "name": "The new-logo incentive",
+   "description": "Launched the partner org's incentive program tied to new-logo acquisition \u2014 crediting and payout logic built from scratch, still in force."
+  },
+  {
+   "name": "The rules of engagement",
+   "description": "Traced stalled partner leads to a missing layer of rules of engagement and wrote them \u2014 leads that sat for weeks route in days, and the rules still stand."
+  },
+  {
+   "name": "The production agents",
+   "description": "Newsletter and FAQ agents shipped to production \u2014 answering partner-metric questions and pushing updates automatically, still running today."
+  },
+  {
+   "name": "The recommendation layer",
+   "description": "Agents that suggest the right partner for a rep's deal, and natural-language Q&A over which partners fit a use case, deal, or account."
+  },
+  {
+   "name": "The governed data layer",
+   "description": "A medallion architecture in Spark and SQL with one metric dictionary \u2014 the foundation every agent answers from."
+  },
+  {
+   "name": "The crediting engine",
+   "description": "A demonstration built from scratch on synthetic data: a model authors plain-English crediting rules, a golden-tested engine computes every dollar, and an eval suite pins the math."
+  }
+ ],
+ "meta": {
+  "canonical": "https://dylan3796.github.io/resume.json",
+  "llms": "https://dylan3796.github.io/llms.txt",
+  "resumes": "https://dylan3796.github.io/resumes/"
+ }
+}
