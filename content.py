@@ -42,7 +42,7 @@ EDUCATION_DEGREE = "B.A. Economics & Accounting · Dean's Honors"
 LENSES = {
     "ai": {
         "resume_stem": "dylan-ram-ai-deployment",
-        "tagline": "AI Deployment · Agent Systems · Strategy & Enablement",
+        "tagline": "AI Deployment · GTM Engineering · Agent Systems",
         "summary": (
             "Deploys AI into the workflows a go-to-market org runs on — reporting, "
             "forecasting, crediting — and sets up how the org adopts it: data, KPIs, "
@@ -152,9 +152,9 @@ JOBS = [
                 "Deployed the partner team's first LLM agents to production: reporting "
                 "agents (Newsletter, FAQ), partner-recommendation agents for reps' deals, "
                 "and natural-language partner-fit Q&A.",
-                "Set the team's AI strategy and built the foundational data-and-AI layer — "
-                "a medallion architecture in Spark/SQL with self-serve interfaces so "
-                "stakeholders answer their own questions.",
+                "Set the team's AI strategy and built the data-and-AI foundation with "
+                "stakeholders: agreeing what to ingest, formalizing it into the insights "
+                "the team runs on, with self-serve interfaces on top.",
                 "Align KPIs across a two-sided marketplace — the partner team, the sales "
                 "org co-selling through partners, and the partners themselves — the "
                 "measurement backbone every AI output reports against.",
@@ -172,8 +172,8 @@ JOBS = [
                 "Launched the partner org's incentive program tied to new-logo "
                 "acquisition — crediting and payout logic designed end to end, still "
                 "in force today.",
-                "Diagnosed why partner leads were stalling, wrote the org's lead rules "
-                "of engagement, and cut routing time from weeks to days.",
+                "Unblocked the partner channel as a revenue source: diagnosed stalling "
+                "leads, wrote the rules of engagement, lead flow in days instead of weeks.",
                 "Led annual planning across Sales, Finance, and Partner leadership: "
                 "quota-setting, headcount, and coverage design, top-down and bottoms-up.",
                 "Wrote the investment cases behind new programs and presented them to "
@@ -247,32 +247,30 @@ JOBS = [
 
 PROGRAMS = [
     ("The forecast",
-     "Built from a blank page: methodology and cadence designed end to end, and still "
-     "the operating rhythm the team runs today."),
+     "Gave the partner business a number it could plan against. Still the number the "
+     "org runs on today."),
     ("The attribution model",
-     "The canonical, single source of truth for how sourced, influenced, and attributed "
-     "revenue is credited across the marketplace — still the standard today."),
+     "Settled how partner revenue gets counted: one standard the whole marketplace "
+     "aligns to, still in force."),
     ("The new-logo incentive",
-     "Launched the partner org's incentive program tied to new-logo acquisition — "
-     "crediting and payout logic built from scratch, still in force."),
+     "Turned partner incentives into a growth lever for new business. Still running."),
     ("The rules of engagement",
-     "Traced stalled partner leads to a missing layer of rules of engagement and wrote "
-     "them — leads that sat for weeks route in days, and the rules still stand."),
+     "Unblocked the partner channel as a revenue source: lead flow that moves in days, "
+     "not weeks."),
 ]
 
 # Signature work through the AI lens — same record, the building side of it.
 PROGRAMS_AI = [
     ("The production agents",
-     "Newsletter and FAQ agents shipped to production — answering partner-metric "
-     "questions and pushing updates automatically, still running today."),
+     "Put partner reporting on autopilot: agents that keep the org current without "
+     "anyone pulling a report."),
     ("The recommendation layer",
-     "Agents that suggest the right partner for a rep's deal, and natural-language "
-     "Q&A over which partners fit a use case, deal, or account."),
+     "Points sellers to the right partner for the deal in front of them, in plain "
+     "language."),
     ("The governed data layer",
-     "A medallion architecture in Spark and SQL with one metric dictionary — the "
-     "foundation every agent answers from."),
+     "Made the data worth building on: one foundation, shaped with stakeholders, "
+     "that every agent and insight runs from."),
     ("The crediting engine",
-     "A demonstration built from scratch on synthetic data: a model authors "
-     "plain-English crediting rules, a golden-tested engine computes every dollar, "
-     "and an eval suite pins the math."),
+     "The discipline, demonstrated from scratch: AI authors the rules, tested code "
+     "owns every dollar."),
 ]
