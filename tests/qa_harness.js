@@ -70,7 +70,7 @@ const CASES = [
   ['what are the five layers', 'Big rocks'],
   ['what is this repo', 'Operating System'],
   ['how do i contact him', 'dylanmr96'],
-  ['can i get his resume', 'Take a résumé'],
+  ['can i get his resume', 'Take the résumé'],
   ['what roles is he looking for', 'Chief of Staff'],
   ['how does this chatbot work', 'not an LLM'],
   ['is this an llm', 'grounded retrieval'],

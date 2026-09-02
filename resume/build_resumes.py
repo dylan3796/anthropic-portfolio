@@ -53,7 +53,7 @@ def esc(s):
 
 
 NAME = esc(C.NAME)
-CONTACT = [esc(c) for c in (C.EMAIL, C.PHONE, C.LINKEDIN, f"github.com/{C.REPO_SLUG}")]
+CONTACT = [esc(c) for c in (C.EMAIL, C.PHONE, C.SITE, C.LINKEDIN, f"github.com/{C.GITHUB_USER}")]
 EDUCATION_SCHOOL = esc(C.EDUCATION_SCHOOL)
 EDUCATION_DEGREE = esc(C.EDUCATION_DEGREE)
 
@@ -95,9 +95,11 @@ RESET = """
 
 
 def _skill_lines(variant, label_cls, body_cls):
+    # Bodies are stored lowercase-led (they are lists, and resume.json splits
+    # them into keywords); the résumé line reads as a sentence, so capitalize here.
     return "".join(
         f'<div class="skill-line"><span class="{label_cls}">{label}</span>'
-        f'<span class="{body_cls}">{body}</span></div>'
+        f'<span class="{body_cls}">{body[:1].upper() + body[1:]}</span></div>'
         for label, body in variant["skills"]
     )
 
@@ -121,14 +123,14 @@ def _project(variant):
     pb = "".join(f"<li>{b}</li>" for b in variant["project_bullets"])
     return (
         f'<div class="job"><div class="proj-title">{variant["project_title"]}'
-        f' <span class="proj-link">— github.com/dylan3796/anthropic-portfolio</span></div>'
+        f' <span class="proj-link">— github.com/{C.REPO_SLUG}</span></div>'
         f'<ul>{pb}</ul></div>'
     )
 
 
 def _doc(css, body):
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
-            f'<title>{NAME} — Resume</title><style>{FONTS}{RESET}{css}</style></head>'
+            f'<title>{NAME} — Résumé</title><style>{FONTS}{RESET}{css}</style></head>'
             f'<body>{body}</body></html>')
 
 
@@ -163,7 +165,7 @@ EDITORIAL_CSS = """
     li { margin-bottom: 1.7pt; color: #33302e; }
     li::marker { color: #D97757; }
     .proj-title { font-size: 9.8pt; font-weight: 600; color: #1c1a19; }
-    .proj-title .proj-link { font-weight: 400; font-size: 8.3pt; color: #8a8580; }
+    .proj-title .proj-link { display: inline-block; font-weight: 400; font-size: 8.3pt; color: #8a8580; }
     .edu { color: #33302e; }
     .edu strong { color: #1c1a19; }
 """
