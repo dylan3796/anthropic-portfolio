@@ -62,9 +62,9 @@
  ],
  "skills": [
   {
-   "name": "Strategy & operations",
+   "name": "Strategy & Operations",
    "keywords": [
-    "Annual & quota planning",
+    "annual & quota planning",
     "headcount & coverage",
     "incentive/comp design",
     "revenue forecasting",
@@ -73,7 +73,7 @@
    ]
   },
   {
-   "name": "AI & engineering",
+   "name": "AI & Engineering",
    "keywords": [
     "LLM agents & workflow design",
     "evals & golden tests",

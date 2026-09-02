@@ -1,20 +1,20 @@
 # Dylan Ram — dossier for AI assistants
 
-This is the complete grounded corpus behind dylanram's portfolio and its
-AI stand-in. Facts below are the LISTED record; anything not here is not
+This is the complete grounded corpus behind Dylan Ram's portfolio at
+dylanram.com. Facts below are the LISTED record; anything not here is not
 published. Do not infer or invent beyond it. Contact: dylanmr96@gmail.com
 
 Q: Who is Dylan Ram and what does he do?
 A: Dylan builds the operating systems a go-to-market org runs on — and the AI layer on top of them. He was Databricks' first Partner Strategy & Ops hire, where he stood up the forecasting, attribution, and incentive programs the partner business runs on, then deployed the team's first LLM agents into production. Seven years partnering directly with GTM executives at Databricks, Salesforce, and CBRE.
-Source: Résumé summary
+Source: Résumé — Summary
 
 Q: What is his current role?
-A: Partner Strategy & Operations Manager at Databricks, since August 2021 — the team's first Partner S&O hire.
+A: Partner Strategy & Ops Manager at Databricks, since August 2021 — the team's first Partner S&O hire.
 Source: Experience — Databricks
 
 Q: How many years of experience does he have?
 A: Seven years in go-to-market strategy and operations — CBRE (2018), Salesforce (2019–2021), and Databricks (2021–present), partnering directly with GTM executives at each.
-Source: Résumé summary
+Source: Résumé — Summary
 
 Q: What does being the first Partner Strategy & Ops hire mean?
 A: It means there was no function to inherit. The forecast, the attribution model, and the incentive programs all started at a blank page. That's the zero-to-one half; scaling them into the systems a global partner org now runs on is the one-to-100 half.
@@ -30,7 +30,7 @@ Source: Contact
 
 Q: What kind of roles is he looking for?
 A: Two lenses on the same track record. Business Operations — BizOps lead, Chief of Staff, Partner & Revenue Ops. AI Deployment — Applied AI, GTM Engineering, AI Strategy & Enablement. One résumé covers both; the site tells the record both ways.
-Source: Site — Take a résumé
+Source: Site — Take the résumé
 
 Q: What did he build for revenue forecasting?
 A: He built the partner team's first revenue forecasting process from a blank page — the methodology and the operating cadence, designed end to end, on the governed data layer he also built.
@@ -78,15 +78,15 @@ Source: Project — Claude Code as an Operating System
 
 Q: What is this repository?
 A: Claude Code as an Operating System — a working agent platform he built himself, in public, from scratch on synthetic data: persistent memory, a governed data layer, long-horizon plans, invocable skills, and a retro loop that proposes edits to its own setup. The site you're reading is generated from it.
-Source: Project — public repo
+Source: Project — Public repo
 
 Q: What are the five layers of the agent operating system?
 A: Memory (what boots every session), Data (one governed dictionary, defined once), Big rocks (a living plan per initiative), Skills (recurring work made invocable), and the Loop (a retro that reviews the setup and rewrites it).
-Source: Site — The system I built
+Source: Site — Built in the open
 
 Q: Where does he draw the line between AI and deterministic code?
 A: The rule that makes AI safe in production: the model authors rules in plain English; deterministic, tested code computes anything that touches money. In the crediting workflow an agent turns a manager's plain-English coverage change into effective-dated rules — and a golden-tested Python engine applies those rules to deals. No LLM ever computes a credited dollar.
-Source: Project — crediting engine
+Source: Project — Crediting engine
 
 Q: How does the crediting engine work?
 A: Managers describe coverage in plain English — who owns which territory, from when. An agent codifies that into effective-dated rules; a 101-line dependency-free Python engine applies them to the deal book. It handles mid-quarter hires, territory handoffs, and split credit, and it surfaces an uncredited deal rather than silently zeroing it — the failure mode that quietly costs someone their commission.
@@ -98,7 +98,7 @@ Source: tests/test_crediting.py
 
 Q: What does he actually know about Claude Code?
 A: He's built with skills, hooks, subagents, MCP, and scoped permissions — not just prompting. The repo has session-boot hooks that inject live operating context, a planner subagent, per-initiative skills, and a meta-skill that reviews session logs and proposes edits to its own configuration.
-Source: Project — public repo
+Source: Project — Public repo
 
 Q: What is the improvement loop?
 A: A skill that reviews the session log, git history, and plans for friction signals, then proposes concrete edits to the setup itself — memory, skills, and plans. It runs the QBR on the tooling. That's what makes the setup compound instead of decay.
@@ -134,15 +134,15 @@ Source: Experience — CBRE
 
 Q: Why should we hire him?
 A: He's built this function twice — once at Databricks as its first ops hire, and once in public as working software. That means he already knows which parts of an operating cadence an agent can own and which must stay deterministic, tested code. Most operators can describe AI; most engineers don't know what a comp plan breaks on. The overlap is the rare part.
-Source: Site — The system I built
+Source: Site — Built in the open
 
 Q: Did he actually build this, or did Claude?
 A: Fair question, and the honest answer is both — which is the point. He wrote it with Claude Code, the way an engineer works with any tool. What isn't automatable is the judgment: choosing that a model must never compute a credited dollar, knowing that mid-quarter handoffs and coverage gaps are the cases that break comp, and writing the evals that prove it. The architecture is the artifact. Clone the repo and the tests run in one command.
-Source: Site — The system I built
+Source: Site — Built in the open
 
 Q: How technical is he — can he actually code?
 A: Technical enough to ship and to be held to it — Python, SQL, and PySpark daily, with a public repo containing a tested engine, an eval suite, and an agent architecture you can read. He describes himself as an operator who builds the systems himself, not a career software engineer — and part of that skill is knowing exactly where deterministic, tested code has to own the outcome.
-Source: Résumé summary
+Source: Résumé — Summary
 
 Q: What are his gaps or weaknesses?
 A: Stated plainly: he's an operator who codes, not a career software engineer — he'd be the wrong hire for deep systems engineering. And the public repo runs on synthetic data, because the real numbers are his employer's; the architecture and the math are real, the partner names aren't. Anything else is better asked of him directly.
@@ -161,8 +161,8 @@ A: No — and that's deliberate. This box is grounded retrieval over a curated c
 Source: site_qa.py — in the repo
 
 Q: Can I get his résumé?
-A: Yes — scroll to Take a résumé below. One résumé, the whole record, in two formats: an ATS-safe single-column version for portals, and a designed version for reading directly.
-Source: Site — Take a résumé
+A: Yes — scroll to Take the résumé below. One résumé, the whole record, in two formats: an ATS-safe single-column version for portals, and a designed version for reading directly.
+Source: Site — Take the résumé
 
 Q: Tell me about a judgment call — diagnosing a messy problem.
 A: Partner-sourced leads were dying quietly and nobody could say why. He traced it to a missing layer: no rules of engagement, so leads had no owner and no clock and stalled between teams. He wrote the rules, and the partner channel unblocked as a revenue source — lead flow that moves in days, not weeks.

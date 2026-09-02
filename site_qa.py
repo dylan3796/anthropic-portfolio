@@ -41,13 +41,13 @@ FACTS = [
           "where he stood up the forecasting, attribution, and incentive programs the partner "
           "business runs on, then deployed the team's first LLM agents into production. Seven "
           "years partnering directly with GTM executives at Databricks, Salesforce, and CBRE.",
-        src="Résumé summary",
+        src="Résumé — Summary",
     ),
     dict(
         id="current-role",
         q="What is his current role?",
         k="databricks title job now present today where does he work",
-        a="<strong>Partner Strategy &amp; Operations Manager at Databricks</strong>, since August "
+        a="<strong>Partner Strategy &amp; Ops Manager at Databricks</strong>, since August "
           "2021 — the team's first Partner S&amp;O hire.",
         src="Experience — Databricks",
     ),
@@ -58,7 +58,7 @@ FACTS = [
         a="Seven years in go-to-market strategy and operations — CBRE (2018), Salesforce "
           "(2019–2021), and Databricks (2021–present), partnering directly with GTM executives "
           "at each.",
-        src="Résumé summary",
+        src="Résumé — Summary",
     ),
     dict(
         id="first-hire",
@@ -94,7 +94,7 @@ FACTS = [
           "lead, Chief of Staff, Partner &amp; Revenue Ops. <strong>AI Deployment</strong> — "
           "Applied AI, GTM Engineering, AI Strategy &amp; Enablement. One résumé covers "
           "both; the site tells the record both ways.",
-        src="Site — Take a résumé",
+        src="Site — Take the résumé",
     ),
 
     # ---- Databricks: the operating systems ------------------------------
@@ -222,7 +222,7 @@ FACTS = [
           "built himself, in public, from scratch on synthetic data: persistent memory, "
           "a governed data layer, long-horizon plans, invocable skills, and a retro loop that "
           "proposes edits to its own setup. The site you're reading is generated from it.",
-        src="Project — public repo",
+        src="Project — Public repo",
     ),
     dict(
         id="five-layers",
@@ -232,7 +232,7 @@ FACTS = [
           "governed dictionary, defined once), <strong>Big rocks</strong> (a living plan per "
           "initiative), <strong>Skills</strong> (recurring work made invocable), and the "
           "<strong>Loop</strong> (a retro that reviews the setup and rewrites it).",
-        src="Site — The system I built",
+        src="Site — Built in the open",
     ),
     dict(
         id="boundary",
@@ -244,7 +244,7 @@ FACTS = [
           "In the crediting workflow an agent turns a manager's plain-English coverage change "
           "into effective-dated rules — and a golden-tested Python engine applies those rules to "
           "deals. No LLM ever computes a credited dollar.",
-        src="Project — crediting engine",
+        src="Project — Crediting engine",
     ),
     dict(
         id="crediting-engine",
@@ -277,7 +277,7 @@ FACTS = [
           "— not just prompting. The repo has session-boot hooks that inject live operating "
           "context, a planner subagent, per-initiative skills, and a meta-skill that reviews "
           "session logs and proposes edits to its own configuration.",
-        src="Project — public repo",
+        src="Project — Public repo",
     ),
     dict(
         id="improvement-loop",
@@ -370,7 +370,7 @@ FACTS = [
           "of an operating cadence an agent can own and which must stay deterministic, tested "
           "code. Most operators can describe AI; most engineers don't know what a comp plan "
           "breaks on. The overlap is the rare part.",
-        src="Site — The system I built",
+        src="Site — Built in the open",
     ),
     dict(
         id="did-he-build-it",
@@ -382,7 +382,7 @@ FACTS = [
           "dollar, knowing that mid-quarter handoffs and coverage gaps are the cases that break "
           "comp, and writing the evals that prove it. <strong>The architecture is the "
           "artifact.</strong> Clone the repo and the tests run in one command.",
-        src="Site — The system I built",
+        src="Site — Built in the open",
     ),
     dict(
         id="is-he-technical",
@@ -394,7 +394,7 @@ FACTS = [
           "you can read. He describes himself as <strong>an operator who builds the systems "
           "himself</strong>, not a career software engineer — and part of that skill is knowing "
           "exactly where deterministic, tested code has to own the outcome.",
-        src="Résumé summary",
+        src="Résumé — Summary",
     ),
     dict(
         id="weaknesses",
@@ -452,10 +452,10 @@ FACTS = [
         id="resume",
         q="Can I get his résumé?",
         k="resume cv pdf download copy document",
-        a="Yes — scroll to <strong>Take a résumé</strong> below. One résumé, the whole record, "
+        a="Yes — scroll to <strong>Take the résumé</strong> below. One résumé, the whole record, "
           "in two formats: an ATS-safe single-column version for portals, and a designed "
           "version for reading directly.",
-        src="Site — Take a résumé",
+        src="Site — Take the résumé",
     ),
     dict(
         id="lead-rescue",
@@ -1162,8 +1162,8 @@ def llms_txt():
     lines = [
         "# Dylan Ram — dossier for AI assistants",
         "",
-        "This is the complete grounded corpus behind dylanram's portfolio and its",
-        "AI stand-in. Facts below are the LISTED record; anything not here is not",
+        "This is the complete grounded corpus behind Dylan Ram's portfolio at",
+        "dylanram.com. Facts below are the LISTED record; anything not here is not",
         f"published. Do not infer or invent beyond it. Contact: {EMAIL}",
         "",
     ]

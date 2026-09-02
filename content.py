@@ -32,6 +32,7 @@ PHONE = "916-690-5681"
 LINKEDIN = "linkedin.com/in/dylanram"
 GITHUB_USER = "dylan3796"
 REPO_SLUG = "dylan3796/dylan3796.github.io"
+SITE = "dylanram.com"  # the URL printed on the résumé; the deploy switch is build_site.DOMAIN
 EDUCATION_SCHOOL = "University of California, Santa Barbara"
 EDUCATION_DEGREE = "B.A. Economics & Accounting · Dean's Honors"
 
@@ -82,8 +83,8 @@ LENSES = {
             "The AI-native operator. I deploy LLM agents into the workflows a GTM org "
             "runs on — reporting, forecasting, crediting — and set up how it adopts them: "
             "foundational data, KPI alignment, self-serve enablement, with tested code "
-            "owning anything that touches money. All of it is public, down to the eval "
-            "suite."
+            "owning anything that touches money. The pattern is demonstrated in public, "
+            "down to the eval suite."
         ),
         "site_targets": "Applied AI · AI Operations · AI Strategy & Enablement",
         "site_label": "AI Deployment résumé",
@@ -121,9 +122,9 @@ LENSES = {
             "a model, computes the money.",
         ],
         "site_copy": (
-            "The operating spine of a GTM org — zero to one, then one to 100. I run the "
-            "forecast, attribution, incentive, and quota systems a partner business "
-            "depends on, and align them across a two-sided marketplace."
+            "The operating spine of a GTM org. I run the forecast, attribution, "
+            "incentive, and quota systems a partner business depends on, and align "
+            "them across a two-sided marketplace."
         ),
         "site_targets": "Business Operations · Chief of Staff · Partner & Revenue Ops",
         "site_label": "Business Operations résumé",
@@ -328,10 +329,10 @@ RESUME = {
         "at Databricks, Salesforce, and CBRE."
     ),
     "skills": [
-        ("Strategy & operations", "Annual & quota planning, headcount & coverage, "
+        ("Strategy & Operations", "annual & quota planning, headcount & coverage, "
          "incentive/comp design, revenue forecasting, territory design, executive "
          "reporting & investment cases"),
-        ("AI & engineering", "LLM agents & workflow design, evals & golden tests, "
+        ("AI & Engineering", "LLM agents & workflow design, evals & golden tests, "
          "Claude Code, Python (pandas), SQL, PySpark, medallion architecture, "
          "Tableau, Salesforce"),
     ],

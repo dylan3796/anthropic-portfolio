@@ -19,6 +19,7 @@ and keep working after feature branches are deleted.
 import json
 import shutil
 from pathlib import Path
+from urllib.parse import quote
 
 import content as C
 import site_qa
@@ -108,8 +109,8 @@ def sync_resumes():
 # First words on the page, per lens — a founder arriving on ?lens=ai should
 # never read "GTM operations" before anything else.
 _LENS_EYEBROW = {
-    "ops": "Go-to-market strategy · operations",
-    "ai": "AI deployment · GTM engineering",
+    "ops": "Go-to-Market Strategy · Operations",
+    "ai": "AI Deployment · GTM Engineering",
 }
 
 LENS = {
@@ -132,9 +133,9 @@ LAYERS = [
 ]
 
 PROOF_LINKS = [
-    ("The repository", REPO),
+    ("Repository", REPO),
     ("Architecture write-up", f"{BLOB}/docs/claude-code-architecture.md"),
-    ("The crediting engine", f"{BLOB}/crediting/engine.py"),
+    ("Crediting engine", f"{BLOB}/crediting/engine.py"),
     ("Interactive walkthrough", f"{BLOB}/app.py"),
 ]
 
@@ -143,6 +144,24 @@ EXPERIENCE = [
      esc(j["site_note"]), esc(j["site_desc"]))
     for j in C.JOBS
 ]
+
+# Tab title, link-preview title, and the description every preview card shows.
+# build_og.py renders the matching image (docs/og.png) from the same words.
+PAGE_TITLE = "Dylan Ram — GTM Strategy &amp; Operations · AI Deployment"
+PAGE_DESC = esc(
+    "Built out the foundation of Databricks' Partner Strategy & Ops team: forecasting, "
+    "attribution, incentives, quotas, planning, and the AI deployed on top of it."
+)
+
+# Tab icon: the monogram tile, inlined so it needs no extra request. The
+# home-screen version (docs/apple-touch-icon.png) comes from build_og.py.
+_FAVICON_SVG = (
+    "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>"
+    "<rect width='64' height='64' rx='14' fill='#D97757'/>"
+    "<text x='32' y='43' text-anchor='middle' font-family='Georgia,serif' "
+    "font-weight='600' font-size='30' fill='#fff'>DR</text></svg>"
+)
+FAVICON = "data:image/svg+xml," + quote(_FAVICON_SVG, safe="=/:'(),")
 
 CONTACT = [
     ("Email", C.EMAIL, f"mailto:{C.EMAIL}"),
@@ -241,7 +260,7 @@ a:hover{text-decoration:underline}
 .sec-lead{font-size:17px;color:var(--body);max-width:64ch;margin-top:12px}
 
 /* program cards */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}
 .card{background:var(--surface);border:1px solid var(--hairline);border-radius:12px;
   box-shadow:var(--shadow);padding:22px 22px 24px}
 .card h3{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:19px;
@@ -326,6 +345,7 @@ footer{padding:40px 0;border-top:1px solid var(--hairline);color:var(--muted);
   .cards{grid-template-columns:1fr}
   .layers{grid-template-columns:1fr 1fr}
   .eyebrow{font-size:11px;letter-spacing:.09em}
+  .lens-btn{font-size:12px;padding:9px 14px;white-space:nowrap}
   .flow{flex-direction:column}
   .stage+.stage{margin-left:0;margin-top:30px}
   .stage+.stage::before{content:"↓";left:50%;top:-26px;transform:translateX(-50%)}
@@ -401,7 +421,7 @@ def build_body():
     d0 = LENS["ops"]
     return f"""
 <header class="hero"><div class="wrap">
-  <div class="eyebrow" data-lens-eyebrow>Go-to-market strategy · operations</div>
+  <div class="eyebrow" data-lens-eyebrow>Go-to-Market Strategy · Operations</div>
   <h1 class="hero-name">Dylan Ram</h1>
   <p class="hero-thesis">Systems at scale, across the whole revenue function.</p>
   <p class="hero-sub">Built out the foundation of Databricks' Partner Strategy &amp; Ops team:
@@ -420,16 +440,15 @@ def build_body():
           <span class="lbl">Résumé</span><span class="arr">↓ PDF</span></a>
       </div>
     </div>
-    <p class="lens-proof">This page runs its own eval suite: every answer it gives is
-    pinned by tests. <a href="{REPO}">Repo →</a></p>
+    <p class="lens-proof">This page ships with its own eval suite. <a href="{REPO}">Repo →</a></p>
   </div>
 </div></header>
 
 <section class="section" id="work"><div class="wrap reveal">
   <h2 class="sec-title">Signature work</h2>
-  <p class="sec-lead">Systems that didn't exist before — built zero to one, scaled one to 100,
-  and run across a two-sided marketplace: the partner team, the sellers who co-sell through
-  partners, and the partners themselves.</p>
+  <p class="sec-lead">Systems that didn't exist before, built to last and run across a
+  two-sided marketplace: the partner team, the sellers who co-sell through partners, and
+  the partners themselves.</p>
   <div data-lens-only="ops">
     <div class="cards">{cards}</div>
     <div class="range"><span>Territory design</span><span>Zero-to-one builds</span>
@@ -517,9 +536,8 @@ def build():
         f'<link rel="canonical" href="{base}/">'
         f'<meta property="og:url" content="{base}/">'
         '<meta property="og:type" content="profile">'
-        '<meta property="og:title" content="Dylan Ram — GTM Operations &amp; AI Deployment">'
-        '<meta property="og:description" content="First Partner Strategy &amp; Ops hire at '
-        'Databricks. Ask my AI stand-in anything — or paste a JD for a grounded fit check.">'
+        f'<meta property="og:title" content="{PAGE_TITLE}">'
+        f'<meta property="og:description" content="{PAGE_DESC}">'
         f'<meta property="og:image" content="{base}/og.png">'
         '<meta name="twitter:card" content="summary_large_image">'
     )
@@ -549,9 +567,10 @@ def build():
     full = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
-        '<title>Dylan Ram — GTM Operations &amp; AI Deployment</title>'
-        '<meta name="description" content="Dylan Ram — first Partner Strategy &amp; Ops hire at '
-        'Databricks. GTM operator and AI builder.">'
+        f'<title>{PAGE_TITLE}</title>'
+        f'<meta name="description" content="{PAGE_DESC}">'
+        f'<link rel="icon" href="{FAVICON}">'
+        '<link rel="apple-touch-icon" href="/apple-touch-icon.png">'
         f'{domain_meta}'
         '<script>document.documentElement.classList.add("js")</script>'
         f'{style}</head><body>{body}{script}{analytics}</body></html>'
