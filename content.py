@@ -138,10 +138,10 @@ JOBS = [
     {
         "company": "Databricks",
         "role": "Partner Strategy & Ops Manager",
-        "resume_note": "promoted Feb 2023 · first Partner S&O hire",
+        "resume_note": "first Partner S&O hire",
         "dates": "Aug 2021 – Present",
         "site_when": "2021 — now",
-        "site_note": "first Partner S&O hire · promoted 2023",
+        "site_note": "first Partner S&O hire",
         "site_desc": (
             "Built the data-and-AI foundation and the forecast, attribution, and incentive "
             "systems the partner business runs on; deployed the team's first LLM agents; "
@@ -154,10 +154,12 @@ JOBS = [
                 "years later.",
                 "Designed the canonical partner attribution model — the single source of "
                 "truth for how revenue is credited across both sides of the marketplace.",
-                "Launched the partner org's incentive program tied to new-logo "
-                "acquisition — crediting and payout logic end to end, still in force.",
-                "Unblocked the partner channel as a revenue source: diagnosed stalling "
-                "leads, wrote the rules of engagement, lead flow in days instead of weeks.",
+                "Launched the partner org's incentive programs tied to new consumption "
+                "and new-logo acquisition — crediting and payout logic end to end, still "
+                "in force.",
+                "Wrote the partner rules of engagement for the field and sales teams — "
+                "unblocking the channel, driving more partnerships, lead flow in days "
+                "instead of weeks.",
                 "Led annual planning across Sales, Finance, and Partner leadership: "
                 "quota-setting, headcount, and coverage, top-down and bottoms-up — and "
                 "wrote the investment cases presented to senior GTM leadership.",
@@ -192,8 +194,9 @@ JOBS = [
                 "Launched the partner org's incentive program tied to new-logo "
                 "acquisition — crediting and payout logic designed end to end, still "
                 "in force today.",
-                "Unblocked the partner channel as a revenue source: diagnosed stalling "
-                "leads, wrote the rules of engagement, lead flow in days instead of weeks.",
+                "Wrote the partner rules of engagement for the field and sales teams — "
+                "unblocking the channel, driving more partnerships, lead flow in days "
+                "instead of weeks.",
                 "Led annual planning across Sales, Finance, and Partner leadership: "
                 "quota-setting, headcount, and coverage design, top-down and bottoms-up.",
                 "Wrote the investment cases behind new programs and presented them to "
@@ -280,31 +283,32 @@ JOBS = [
 # ---------------------------------------------------------------------------
 
 PROGRAMS = [
-    ("The forecast",
-     "Gave the partner business a number it could plan against. Still the number the "
-     "org runs on today."),
-    ("The attribution model",
-     "Settled how partner revenue gets counted: one standard the whole marketplace "
-     "aligns to, still in force."),
-    ("The new-logo incentive",
-     "Turned partner incentives into a growth lever for new business. Still running."),
-    ("The rules of engagement",
-     "Unblocked the partner channel as a revenue source: lead flow that moves in days, "
-     "not weeks."),
+    ("The Forecast",
+     "Established the cadence the business plans on and built the numbers behind it. "
+     "Still the operating rhythm today."),
+    ("The Attribution Model",
+     "The single standard for how partner revenue is counted and credited — the "
+     "number behind compensation, investment, and executive reporting."),
+    ("The Incentive Programs",
+     "Turned partner incentives into growth levers: programs tied to new consumption "
+     "and new-logo acquisition, still in force."),
+    ("The Rules of Engagement",
+     "Wrote how the field and sales teams engage with partners — unblocking the "
+     "channel and driving more partnerships, with lead flow in days instead of weeks."),
 ]
 
 # Signature work through the AI lens — same record, the building side of it.
 PROGRAMS_AI = [
-    ("The production agents",
+    ("The Production Agents",
      "Put partner reporting on autopilot: agents that keep the org current without "
      "anyone pulling a report."),
-    ("The recommendation layer",
+    ("The Recommendation Layer",
      "Points sellers to the right partner for the deal in front of them, in plain "
      "language."),
-    ("The governed data layer",
+    ("The Governed Data Layer",
      "Made the data worth building on: one foundation, shaped with stakeholders, "
      "that every agent and insight runs from."),
-    ("The crediting engine",
+    ("The Crediting Engine",
      "The discipline, demonstrated from scratch: AI authors the rules, tested code "
      "owns every dollar."),
 ]
