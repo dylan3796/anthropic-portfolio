@@ -9,7 +9,7 @@ A: Dylan builds the operating systems a go-to-market org runs on — and the AI 
 Source: Résumé summary
 
 Q: What is his current role?
-A: Partner Strategy & Operations Manager at Databricks, since August 2021 — the team's first Partner S&O hire, promoted in February 2023.
+A: Partner Strategy & Operations Manager at Databricks, since August 2021 — the team's first Partner S&O hire.
 Source: Experience — Databricks
 
 Q: How many years of experience does he have?
@@ -17,7 +17,7 @@ A: Seven years in go-to-market strategy and operations — CBRE (2018), Salesfor
 Source: Résumé summary
 
 Q: What does being the first Partner Strategy & Ops hire mean?
-A: It means there was no function to inherit. The forecast, the attribution model, and the first new-logo incentive program all started at a blank page. That's the zero-to-one half; scaling them into the systems a global partner org now runs on is the one-to-100 half.
+A: It means there was no function to inherit. The forecast, the attribution model, and the incentive programs all started at a blank page. That's the zero-to-one half; scaling them into the systems a global partner org now runs on is the one-to-100 half.
 Source: Experience — Databricks
 
 Q: Where did he go to school?
@@ -41,7 +41,7 @@ A: The canonical model for how partner revenue is credited — sourced, influenc
 Source: Experience — Databricks
 
 Q: What incentive program did he launch?
-A: The partner org's first incentive program tied to new-logo acquisition — he designed the crediting and payout logic end to end. The crediting engine in his public repo demonstrates the same class of problem, built from scratch on synthetic data.
+A: The partner org's incentive programs tied to new consumption and new-logo acquisition — he designed the crediting and payout logic end to end. The crediting engine in his public repo demonstrates the same class of problem, built from scratch on synthetic data.
 Source: Experience — Databricks
 
 Q: Does he have experience with quota setting and planning?

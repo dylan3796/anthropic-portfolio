@@ -25,8 +25,8 @@
    "highlights": [
     "Built the partner team's revenue forecasting process from a blank page; its methodology and cadence remain the spine of the team's forecast years later.",
     "Designed the canonical partner attribution model \u2014 the single source of truth for how revenue is credited across both sides of the marketplace.",
-    "Launched the partner org's incentive program tied to new-logo acquisition \u2014 crediting and payout logic end to end, still in force.",
-    "Unblocked the partner channel as a revenue source: diagnosed stalling leads, wrote the rules of engagement, lead flow in days instead of weeks.",
+    "Launched the partner org's incentive programs tied to new consumption and new-logo acquisition \u2014 crediting and payout logic end to end, still in force.",
+    "Wrote the partner rules of engagement for the field and sales teams \u2014 unblocking the channel, driving more partnerships, lead flow in days instead of weeks.",
     "Led annual planning across Sales, Finance, and Partner leadership: quota-setting, headcount, and coverage, top-down and bottoms-up \u2014 and wrote the investment cases presented to senior GTM leadership.",
     "Deployed the team's first LLM agents to production: reporting agents (Newsletter, FAQ), partner-recommendation agents for reps' deals, and natural-language partner-fit Q&A.",
     "Built the data-and-AI foundation with stakeholders \u2014 a medallion architecture in Spark/SQL, formalized into insights powering 10+ executive and team dashboards adopted company-wide."
@@ -89,35 +89,35 @@
  ],
  "projects": [
   {
-   "name": "The forecast",
-   "description": "Gave the partner business a number it could plan against. Still the number the org runs on today."
+   "name": "The Forecast",
+   "description": "Established the cadence the business plans on and built the numbers behind it. Still the operating rhythm today."
   },
   {
-   "name": "The attribution model",
-   "description": "Settled how partner revenue gets counted: one standard the whole marketplace aligns to, still in force."
+   "name": "The Attribution Model",
+   "description": "The single standard for how partner revenue is counted and credited \u2014 the number behind compensation, investment, and executive reporting."
   },
   {
-   "name": "The new-logo incentive",
-   "description": "Turned partner incentives into a growth lever for new business. Still running."
+   "name": "The Incentive Programs",
+   "description": "Turned partner incentives into growth levers: programs tied to new consumption and new-logo acquisition, still in force."
   },
   {
-   "name": "The rules of engagement",
-   "description": "Unblocked the partner channel as a revenue source: lead flow that moves in days, not weeks."
+   "name": "The Rules of Engagement",
+   "description": "Wrote how the field and sales teams engage with partners \u2014 unblocking the channel and driving more partnerships, with lead flow in days instead of weeks."
   },
   {
-   "name": "The production agents",
+   "name": "The Production Agents",
    "description": "Put partner reporting on autopilot: agents that keep the org current without anyone pulling a report."
   },
   {
-   "name": "The recommendation layer",
+   "name": "The Recommendation Layer",
    "description": "Points sellers to the right partner for the deal in front of them, in plain language."
   },
   {
-   "name": "The governed data layer",
+   "name": "The Governed Data Layer",
    "description": "Made the data worth building on: one foundation, shaped with stakeholders, that every agent and insight runs from."
   },
   {
-   "name": "The crediting engine",
+   "name": "The Crediting Engine",
    "description": "The discipline, demonstrated from scratch: AI authors the rules, tested code owns every dollar."
   }
  ],

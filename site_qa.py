@@ -48,7 +48,7 @@ FACTS = [
         q="What is his current role?",
         k="databricks title job now present today where does he work",
         a="<strong>Partner Strategy &amp; Operations Manager at Databricks</strong>, since August "
-          "2021 — the team's first Partner S&amp;O hire, promoted in February 2023.",
+          "2021 — the team's first Partner S&amp;O hire.",
         src="Experience — Databricks",
     ),
     dict(
@@ -65,7 +65,7 @@ FACTS = [
         q="What does being the first Partner Strategy & Ops hire mean?",
         k="founding zero to one blank page from scratch build function first",
         a="It means there was no function to inherit. The forecast, the attribution model, and "
-          "the first new-logo incentive program all started at a blank page. That's the "
+          "the incentive programs all started at a blank page. That's the "
           "<strong>zero-to-one</strong> half; scaling them into the systems a global partner org "
           "now runs on is the <strong>one-to-100</strong> half.",
         src="Experience — Databricks",
@@ -121,10 +121,10 @@ FACTS = [
         id="incentive",
         q="What incentive program did he launch?",
         k="incentive new logo acquisition payout commission comp program bonus spiff",
-        a="The partner org's <strong>first incentive program tied to new-logo acquisition</strong> "
-          "— he designed the crediting and payout logic end to end. The crediting engine in his "
-          "public repo demonstrates the same class of problem, built from scratch on synthetic "
-          "data.",
+        a="The partner org's incentive programs tied to <strong>new consumption and new-logo "
+          "acquisition</strong> — he designed the crediting and payout logic end to end. The "
+          "crediting engine in his public repo demonstrates the same class of problem, built "
+          "from scratch on synthetic data.",
         src="Experience — Databricks",
     ),
     dict(
